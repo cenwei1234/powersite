@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.OperationRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlOperationRecord">
+        <result column="id" property="id" />
+        <result column="auditor" property="auditor" />
+        <result column="site_id" property="siteId" />
+        <result column="operation_detail" property="operationDetail" />
+        <result column="operation_time" property="operationTime" />
+    </resultMap>
+
+
+    <select id="queryOperationRecordList"  resultMap="map">
+        select id, auditor, site_id, operation_detail, operation_time from jl_operation_record;
+    </select>
+
+</mapper>

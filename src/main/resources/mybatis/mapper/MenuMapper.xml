@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.MenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jialong.powersite.modular.system.model.Menu">
+        <id column="id" property="id" />
+        <result column="code" property="code" />
+        <result column="pcode" property="pcode" />
+        <result column="pcodes" property="pcodes" />
+        <result column="name" property="name" />
+        <result column="icon" property="icon" />
+        <result column="url" property="url" />
+        <result column="num" property="num" />
+        <result column="levels" property="levels" />
+        <result column="ismenu" property="ismenu" />
+        <result column="tips" property="tips" />
+        <result column="status" property="status" />
+        <result column="isopen" property="isopen" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, code, pcode, name, icon, url, num, levels,pcodes,
+        tips, status,isopen,ismenu
+    </sql>
+
+    <select id="selectMenus" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_menu
+    </select>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from sys_menu where id = #{id}
+    </select>
+
+
+    <insert id="insertMenus" parameterType="com.jialong.powersite.modular.system.model.Menu">
+        INSERT INTO sys_menu (code, pcode, pcodes, name, icon, url, num, levels, ismenu, tips, status, isopen) VALUES (#{code}, #{pcode}, #{pcodes}, #{name}, #{icon}, #{url}, #{num}, #{levels}, #{ismenu}, #{tips}, #{status}, #{isopen});
+    </insert>
+
+    <update id="updateMenus" parameterType="com.jialong.powersite.modular.system.model.Menu">
+        update sys_menu set code = #{code}, pcode = #{pcode}, pcodes = #{pcodes}, name = #{name}, icon = #{icon}, url = #{url}, num = #{num}, levels = #{levels}, ismenu = #{ismenu}, tips = #{tips}, status = #{status}, isopen = #{isopen} where id = #{id};
+    </update>
+
+    <update id="delMenuById" parameterType="java.lang.Long">
+        delete from sys_menu where id = #{id}
+    </update>
+
+    <select id="getMenuIdsByRoleId" resultType="long">
+        select menuid from
+        sys_relation where roleid = #{roleId}
+    </select>
+
+    <delete id="deleteRelationByMenu">
+        delete from sys_relation where menuid = #{menuId}
+    </delete>
+
+    <select id="menuTreeList" resultType="com.jialong.powersite.core.common.node.ZTreeNode">
+        SELECT
+        m1.id AS id,
+        (
+        CASE
+        WHEN (m2.id = 0 OR m2.id IS NULL) THEN
+        0
+        ELSE
+        m2.id
+        END
+        ) AS pId,
+        m1. NAME
+        AS NAME,
+        (
+        CASE
+        WHEN (m2.id = 0 OR m2.id IS NULL) THEN
+        'true'
+        ELSE
+        'false'
+        END
+        ) as isOpen
+        FROM
+        sys_menu m1
+        LEFT join sys_menu m2 ON m1.pcode = m2. CODE
+        ORDER BY
+        m1.id ASC
+    </select>
+
+    <select id="menuTreeListByMenuIds" resultType="com.jialong.powersite.core.common.node.ZTreeNode">
+        SELECT
+        m1.id AS id,
+        (
+        CASE
+        WHEN (m2.id = 0 OR m2.id IS NULL) THEN
+        0
+        ELSE
+        m2.id
+        END
+        ) AS pId,
+        m1. NAME AS NAME,
+        (
+        CASE
+        WHEN (m2.id = 0 OR m2.id IS
+        NULL) THEN
+        'true'
+        ELSE
+        'false'
+        END
+        ) as isOpen,
+        (
+        CASE
+        WHEN (m3.ID = 0 OR m3.ID
+        IS NULL) THEN
+        'false'
+        ELSE
+        'true'
+        END
+        ) "checked"
+        FROM
+        sys_menu m1
+        LEFT JOIN
+        sys_menu m2
+        ON m1.pcode = m2. CODE
+        left join (
+        SELECT
+        ID
+        FROM
+        sys_menu
+        WHERE
+        ID IN
+        <foreach collection="list" index="index" item="i" open="("
+                 separator="," close=")">
+            #{i}
+        </foreach>
+        ) m3 on m1.id = m3.id
+        ORDER BY
+        m1.id ASC
+    </select>
+
+</mapper>

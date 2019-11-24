@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.WorkSheetRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlWorkSheetRecord">
+        <result column="id" property="id" />
+        <result column="site_id" property="siteId" />
+        <result column="status" property="status" />
+        <result column="operator_id" property="operatorId" />
+        <result column="worksheet_detail" property="worksheetDetail" />
+        <result column="add_time" property="addTime" />
+    </resultMap>
+
+
+    <select id="insertWorkSheet" parameterType="com.jialong.powersite.modular.system.model.JlWorkSheetRecord">
+        INSERT INTO jl_worksheet_record (site_id, status, operator_id, worksheet_detail, add_time) VALUES (#{siteId}, #{status}, #{operatorId}, #{worksheetDetail}, #{addTime});
+    </select>
+
+    <select id="queryWorkSheet"  resultMap="map">
+        select id, site_id, status, operator_id, worksheet_detail, add_time from jl_worksheet_record;
+    </select>
+
+</mapper>
