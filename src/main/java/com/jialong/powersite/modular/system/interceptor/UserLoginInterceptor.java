@@ -30,16 +30,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token= null;
-        try {
-            CustomHttpServletRequestWrapper requestWrapper = new CustomHttpServletRequestWrapper(request);
-            String body = requestWrapper.getBody();
-
-            JSONObject jsonObject = JSONObject.parseObject(body);
-            token = jsonObject.getString("token");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String token = request.getParameter("token");
 
         if (StringUtils.isEmpty(token))
         {
