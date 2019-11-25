@@ -1,7 +1,10 @@
-package com.jialong.powersite.modular.system;
+package com.jialong.powersite.modular.system.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jialong.powersite.core.thread.UserThreadLocal;
 import com.jialong.powersite.core.utils.CookieUtils;
+import com.jialong.powersite.core.wrapper.CustomHttpServletRequestWrapper;
 import com.jialong.powersite.modular.system.mapper.UserMapper;
 import com.jialong.powersite.modular.system.model.User;
 import com.jialong.powersite.modular.system.service.impl.UserServiceImpl;
@@ -15,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 @Component
 @SpringBootConfiguration
@@ -25,14 +30,26 @@ public class UserLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //String tt_token = CookieUtils.getCookieValue(request, "TT_TOKEN");
-        String tt_token = request.getParameter("TT_TOKEN");
-        if (StringUtils.isEmpty(tt_token))
+        String token= null;
+        try {
+            BufferedReader streamReader = new BufferedReader( new InputStreamReader(request.getInputStream(), "UTF-8"));
+            StringBuilder responseStrBuilder = new StringBuilder();
+            String inputStr;
+            while ((inputStr = streamReader.readLine()) != null)
+                responseStrBuilder.append(inputStr);
+
+            JSONObject jsonObject = JSONObject.parseObject(responseStrBuilder.toString());
+            token = jsonObject.getString("token");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (StringUtils.isEmpty(token))
         {
             return false;
         }
 
-        User user = this.userMapper.queryUserByToken(tt_token);
+        User user = this.userMapper.queryUserByToken(token);
         if(user == null)
         {
             return false;
@@ -40,7 +57,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
         //此处user已经得到，需要将user传递给后续的处理方法即可
         //修改session中保存的时间
         HttpSession session = request.getSession(true);
-        session.setAttribute("user_session", user);
+        session.setAttribute(user.getUsername(), token);
         session.setMaxInactiveInterval(3600);
 
         //通过拦截器==到达Controller==到达service 一个线程
