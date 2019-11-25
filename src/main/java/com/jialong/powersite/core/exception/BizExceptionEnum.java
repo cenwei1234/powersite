@@ -1,13 +1,6 @@
 package com.jialong.powersite.core.exception;
 
 
-import com.jialong.powersite.core.exception.AbstractBaseExceptionEnum;
-
-/**
- * @author fengshuonan
- * @Description 所有业务异常的枚举
- * @date 2016年11月12日 下午5:04:51
- */
 public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
 
     /**
@@ -44,7 +37,11 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
     USER_NOT_EXISTED(400, "没有此用户"),
     ACCOUNT_FREEZED(401, "账号被冻结"),
     OLD_PWD_NOT_RIGHT(402, "原密码不正确"),
+    PWD_NOT_RIGHT(403, "密码不正确"),
     TWO_PWD_NOT_MATCH(405, "两次输入密码不一致"),
+    USER_ADD_FAILED(406, "注册失败"),
+    USER_LOGIN_FAILED(407, "登陆失败"),
+    USER_RESET_FAILED(408, "密码重置失败"),
 
     /**
      * 错误的请求

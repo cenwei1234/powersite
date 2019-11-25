@@ -1,5 +1,6 @@
 package com.jialong.powersite.modular.system.mapper;
 
+import com.jialong.powersite.core.utils.Pagination;
 import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
 import com.jialong.powersite.modular.system.model.request.WorkSheetAddReq;
 import com.jialong.powersite.modular.system.model.request.WorkSheetListReq;
@@ -12,5 +13,7 @@ public interface WorkSheetRecordMapper {
 
     void insertWorkSheet(JlWorkSheetRecord jlWorkSheetRecord);
 
-    List<JlWorkSheetRecord> queryWorkSheet();
+    List<JlWorkSheetRecord> queryWorkSheet(Pagination pagination);
+
+    Integer queryWorkSheetCount();
 }

@@ -24,19 +24,11 @@ public class RoleController {
         return this.roleService.queryRoleList(roleListReq, roleListResp);
     }
 
-
-    @RequestMapping("/del")
-    public RoleDelResp delRoleList(@RequestBody RoleDelReq roleDelReq)
-    {
-        RoleDelResp roleDelResp = new RoleDelResp();
-        return this.roleService.delRoleById(roleDelReq, roleDelResp);
-    }
-
     @RequestMapping("/add")
     public RoleAddResp addRoleList(@RequestBody RoleAddReq roleAddReq)
     {
         RoleAddResp roleAddResp = new RoleAddResp();
-        return this.roleService.AddRole(roleAddReq, roleAddResp);
+        return this.roleService.addRole(roleAddReq, roleAddResp);
     }
 
     @RequestMapping("/update")
@@ -46,11 +38,19 @@ public class RoleController {
         return this.roleService.updateRole(roleUpdateReq, roleUpdateResp);
     }
 
-    @RequestMapping("/selectuserrole")
-    public UserRoleListResp selectUserRole(@RequestBody UserRoleListReq userRoleReq)
+    @RequestMapping("/del")
+    public RoleDelResp delRoleList(@RequestBody RoleDelReq roleDelReq)
     {
-        UserRoleListResp userRoleResp = new UserRoleListResp();
-        return this.roleService.roleTreeListByUserId(userRoleReq, userRoleResp);
+        RoleDelResp roleDelResp = new RoleDelResp();
+        return this.roleService.delRoleById(roleDelReq, roleDelResp);
+    }
+
+
+    @RequestMapping("/queryrolemenu")
+    public RoleMenuListResp queryRoleMenu(@RequestBody RoleMenuListReq roleMenuListReq)
+    {
+        RoleMenuListResp roleMenuListResp = new RoleMenuListResp();
+        return this.menuService.getRoleMenuList(roleMenuListReq,roleMenuListResp);
     }
 
     @RequestMapping("/setrolemenu")
@@ -60,10 +60,4 @@ public class RoleController {
         return this.roleService.setAuthority(roleMenuSetReq, roleMenuSetResp);
     }
 
-    @RequestMapping("/queryrolemenu")
-    public RoleMenuListResp queryRoleMenu(@RequestBody RoleMenuListReq roleMenuListReq)
-    {
-        RoleMenuListResp roleMenuListResp = new RoleMenuListResp();
-        return this.menuService.getRoleMenuList(roleMenuListReq,roleMenuListResp);
-    }
 }

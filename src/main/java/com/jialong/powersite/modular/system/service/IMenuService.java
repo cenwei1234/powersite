@@ -5,6 +5,7 @@ import com.jialong.powersite.modular.system.model.response.*;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface IMenuService {
+
     MenuListResp selectMenus(MenuListReq menuListReq, MenuListResp menuListResp);
 
     MenuAddResp insetMenus(MenuAddReq menuAddReq, MenuAddResp menuAddResp);

@@ -1,7 +1,5 @@
 package com.jialong.powersite.modular.system.model.request;
 
-import com.jialong.powersite.modular.system.model.Menu;
-
 public class MenuAddReq {
 
     private Long id;

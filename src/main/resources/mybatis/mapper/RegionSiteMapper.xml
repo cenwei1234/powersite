@@ -4,12 +4,13 @@
 
 <!-- 通用查询映射结果 -->
     <resultMap id="map" type="com.jialong.powersite.modular.system.model.RegionSite">
+        <result column="regionId" property="id" />
         <result column="longitude" property="longitude" />
         <result column="latitude" property="latitude" />
         <result column="site_addr" property="siteAddr" />
 
         <collection property="siteList" column="rid" ofType="com.jialong.powersite.modular.system.model.PowerSite">
-            <result column="id" property="id" />
+            <result column="sid" property="id" />
             <result column="rid" property="rid" />
             <result column="site_name" property="siteName" />
             <result column="site_shortname" property="siteShortname" />
@@ -22,7 +23,25 @@
 
 
     <select id="queryRegionSiteList"  resultMap="map">
-        select * from jl_power_site s left join jl_region r on s.rid = r.id;
+        SELECT
+            s.id as sid,
+            s.rid,
+            s.site_name,
+            s.site_shortname,
+            s.site_addr,
+            s.site_status,
+            s.site_host,
+            s.site_ports,
+            r.id AS regionId,
+            r.latitude,
+            r.longitude,
+            r.region_addr,
+            r.cid,
+            r.region_name,
+            r.region_code
+        FROM
+            jl_power_site s
+        LEFT JOIN jl_region r ON s.rid = r.id;
     </select>
 
 </mapper>

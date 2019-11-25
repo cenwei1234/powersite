@@ -14,7 +14,7 @@ public class JlCheckTask {
 
     private  long status;
 
-    private Date addtime;
+    private Date addTime;
 
     public long getId() {
         return id;
@@ -56,12 +56,12 @@ public class JlCheckTask {
         this.status = status;
     }
 
-    public Date getAddtime() {
-        return addtime;
+    public Date getAddTime() {
+        return addTime;
     }
 
-    public void setAddtime(Date addtime) {
-        this.addtime = addtime;
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class JlCheckTask {
                 ", checkDetail='" + checkDetail + '\'' +
                 ", siteId=" + siteId +
                 ", status=" + status +
-                ", addtime=" + addtime +
+                ", addTime=" + addTime +
                 '}';
     }
 }

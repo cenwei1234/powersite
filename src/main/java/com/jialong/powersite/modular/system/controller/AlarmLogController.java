@@ -1,10 +1,8 @@
 package com.jialong.powersite.modular.system.controller;
 
-import com.jialong.powersite.modular.system.mapper.AlarmLogMapper;
 import com.jialong.powersite.modular.system.model.request.AlarmLogListReq;
 import com.jialong.powersite.modular.system.model.response.AlarmLogListResp;
 import com.jialong.powersite.modular.system.service.IAlarmLogService;
-import com.jialong.powersite.modular.system.service.impl.AlarmLogServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

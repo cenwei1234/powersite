@@ -29,7 +29,7 @@
 		createtime, version, token
 	</sql>
 
-	<select id="userNameValid" resultType="integer">
+	<select id="userNameValid" resultType="Integer">
 		select count(id) from sys_user where username = #{username}
 	</select>
 
@@ -40,10 +40,15 @@
 		 from sys_user where username = #{username};
 	</select>
 
+	<update id="updateTokenByUserId">
+		update sys_user set token = #{token}, salt = #{salt} where id =
+		#{userId}
+	</update>
+
 	<select id="queryUserByToken" resultType="com.jialong.powersite.modular.system.model.User">
 		select
 		<include refid="Base_Column_List" />
-		from sys_user where username = #{token};
+		from sys_user where token = #{token};
 	</select>
 
 	<select id="queryUserById" resultType="com.jialong.powersite.modular.system.model.User">
@@ -52,12 +57,30 @@
 		 from sys_user where id = #{userId};
 	</select>
 
-	<select id="insertUser" resultType="boolean">
-		insert into sys_user (username,password) values (#{username},#{password});
-	</select>
+	<insert id="insertUser" parameterType="com.jialong.powersite.modular.system.model.User">
+		INSERT INTO sys_user (
+			avatar,
+			username,
+			PASSWORD,
+			salt,
+			NAME,
+			birthday,
+			sex,
+			email,
+			phone,
+			roleid,
+			deptid,
+			STATUS,
+			createtime,
+			version,
+			token
+		)
+		VALUES
+			(#{avatar}, #{username}, #{password}, #{salt}, #{name}, #{birthday}, #{sex}, #{email}, #{phone}, #{roleid}, #{deptid}, #{status}, #{createtime}, #{version}, #{token});
+	</insert>
 
 	<update id="resetUserPwd">
-		update sys_user set `password` = "1111" where username = #{password};
+		update sys_user set password = #{password} where username = #{username};
 	</update>
 
 	<update id="setRoles">

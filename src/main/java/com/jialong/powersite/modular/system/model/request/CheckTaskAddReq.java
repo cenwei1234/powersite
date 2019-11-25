@@ -1,16 +1,34 @@
 package com.jialong.powersite.modular.system.model.request;
 
-import com.jialong.powersite.modular.system.model.JlCheckTask;
-
 public class CheckTaskAddReq {
 
-    public JlCheckTask jlCheckTask;
+    private  long checker;
 
-    public JlCheckTask getJlCheckTask() {
-        return jlCheckTask;
+    private  String checkDetail;
+
+    private  long siteId;
+
+    public long getChecker() {
+        return checker;
     }
 
-    public void setJlCheckTask(JlCheckTask jlCheckTask) {
-        this.jlCheckTask = jlCheckTask;
+    public void setChecker(long checker) {
+        this.checker = checker;
+    }
+
+    public String getCheckDetail() {
+        return checkDetail;
+    }
+
+    public void setCheckDetail(String checkDetail) {
+        this.checkDetail = checkDetail;
+    }
+
+    public long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(long siteId) {
+        this.siteId = siteId;
     }
 }

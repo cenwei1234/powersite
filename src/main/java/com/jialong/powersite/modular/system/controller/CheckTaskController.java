@@ -23,19 +23,19 @@ public class CheckTaskController {
     @Autowired
     private ICheckTaskService checkTaskService;
 
-    @RequestMapping("/add")
-    public CheckTaskAddRsp addWorksheet(@RequestBody CheckTaskAddReq checkTaskAddReq)
-    {
-        CheckTaskAddRsp checkTaskAddRsp = new CheckTaskAddRsp();
-        checkTaskService.addCheckTask(checkTaskAddReq,checkTaskAddRsp);
-        return checkTaskAddRsp;
-    }
-
     @RequestMapping("/list")
     public CheckTaskListResp queryWorksheet(@RequestBody CheckTaskListReq checkTaskListReq)
     {
         CheckTaskListResp checkTaskListResp = new CheckTaskListResp();
         checkTaskService.queryCheckTask(checkTaskListReq, checkTaskListResp);
         return checkTaskListResp;
+    }
+
+    @RequestMapping("/add")
+    public CheckTaskAddRsp addCheckTask(@RequestBody CheckTaskAddReq checkTaskAddReq)
+    {
+        CheckTaskAddRsp checkTaskAddRsp = new CheckTaskAddRsp();
+        checkTaskService.addCheckTask(checkTaskAddReq,checkTaskAddRsp);
+        return checkTaskAddRsp;
     }
 }

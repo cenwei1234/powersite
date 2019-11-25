@@ -15,28 +15,17 @@
  */
 package com.jialong.powersite.modular.system.mapper;
 
+import com.jialong.powersite.core.utils.Pagination;
 import com.jialong.powersite.modular.system.model.JlAlarmLog;
 import com.jialong.powersite.modular.system.model.JlOperationRecord;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * <p>
- * 角色表 Mapper 接口
- * </p>
- *
- * @author stylefeng
- * @since 2017-07-11
- */
 @Repository
 public interface OperationRecordMapper {
 
-    /**
-     * 查询报警日志记录集合
-     *
-     * @return
-     * @date 2017年2月13日 下午7:57:51
-     */
-    List<JlOperationRecord> queryOperationRecordList();
+    int queryOperationRecordCount();
+
+    List<JlOperationRecord> queryOperationRecordList(Pagination pagination);
 }

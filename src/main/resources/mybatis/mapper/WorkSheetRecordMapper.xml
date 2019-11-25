@@ -17,8 +17,12 @@
         INSERT INTO jl_worksheet_record (site_id, status, operator_id, worksheet_detail, add_time) VALUES (#{siteId}, #{status}, #{operatorId}, #{worksheetDetail}, #{addTime});
     </select>
 
+    <select id="queryWorkSheetCount" resultType="Integer">
+        select count(id) from jl_worksheet_record;
+    </select>
+
     <select id="queryWorkSheet"  resultMap="map">
-        select id, site_id, status, operator_id, worksheet_detail, add_time from jl_worksheet_record;
+        select id, site_id, status, operator_id, worksheet_detail, add_time from jl_worksheet_record limit #{start}, #{pageSize};
     </select>
 
 </mapper>

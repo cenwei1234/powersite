@@ -2,23 +2,23 @@ package com.jialong.powersite.modular.system.model.request;
 
 public class UserRoleSetReq {
 
-    private Integer userid;
+    private Integer userId;
 
-    private String roleids;
+    private String roleIds;
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getRoleids() {
-        return roleids;
+    public String getRoleIds() {
+        return roleIds;
     }
 
-    public void setRoleids(String roleids) {
-        this.roleids = roleids;
+    public void setRoleIds(String roleIds) {
+        this.roleIds = roleIds;
     }
 }

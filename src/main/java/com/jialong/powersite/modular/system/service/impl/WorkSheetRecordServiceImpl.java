@@ -1,18 +1,21 @@
 package com.jialong.powersite.modular.system.service.impl;
 
+import com.jialong.powersite.core.utils.Pagination;
 import com.jialong.powersite.modular.system.mapper.WorkSheetRecordMapper;
 import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
 import com.jialong.powersite.modular.system.model.request.WorkSheetAddReq;
 import com.jialong.powersite.modular.system.model.request.WorkSheetListReq;
 import com.jialong.powersite.modular.system.model.response.WorkSheetAddRsp;
 import com.jialong.powersite.modular.system.model.response.WorkSheetListResp;
+import com.jialong.powersite.modular.system.service.IWorkSheetRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
-public class WorkSheetRecordServiceImpl implements com.jialong.powersite.modular.system.service.IWorkSheetRecordService {
+public class WorkSheetRecordServiceImpl implements IWorkSheetRecordService {
 
     @Autowired
     private WorkSheetRecordMapper workSheetRecordMapper;
@@ -20,14 +23,25 @@ public class WorkSheetRecordServiceImpl implements com.jialong.powersite.modular
     @Override
     public WorkSheetAddRsp addWorkSheet(WorkSheetAddReq workSheetAddReq, WorkSheetAddRsp workSheetAddRsp)
     {
-        workSheetRecordMapper.insertWorkSheet(workSheetAddReq.getJlWorkSheetRecord());
+        JlWorkSheetRecord jlWorkSheetRecord = new JlWorkSheetRecord();
+        jlWorkSheetRecord.setOperatorId(workSheetAddReq.getOperatorId());
+        jlWorkSheetRecord.setStatus(1);
+        jlWorkSheetRecord.setSiteId(workSheetAddReq.getSiteId());
+        jlWorkSheetRecord.setWorksheetDetail(workSheetAddReq.getWorksheetDetail());
+        jlWorkSheetRecord.setAddTime(new Date());
+        workSheetRecordMapper.insertWorkSheet(jlWorkSheetRecord);
         return workSheetAddRsp;
     }
 
     @Override
     public WorkSheetListResp queryWorkSheet(WorkSheetListReq workSheetListReq, WorkSheetListResp workSheetListResp)
     {
-        List<JlWorkSheetRecord> jlWorkSheetRecords = workSheetRecordMapper.queryWorkSheet();
+        Pagination pagination = new Pagination();
+        pagination.setStart(workSheetListReq.getStart(workSheetListReq.getPageNo()));
+        pagination.setPageSize(workSheetListReq.getPageSize());
+        List<JlWorkSheetRecord> jlWorkSheetRecords = workSheetRecordMapper.queryWorkSheet(pagination);
+        Integer totalCount = workSheetRecordMapper.queryWorkSheetCount();
+        workSheetListResp.setTotalCount(totalCount);
         workSheetListResp.setData(jlWorkSheetRecords);
         return workSheetListResp;
     }

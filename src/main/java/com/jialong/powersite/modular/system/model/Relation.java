@@ -1,25 +1,13 @@
 package com.jialong.powersite.modular.system.model;
 
-/**
- * <p>
- * 角色和菜单关联表
- * </p>
- *
- * @author stylefeng
- * @since 2017-07-11
- */
+
 public class Relation{
 
     private Integer id;
-    /**
-     * 菜单id
-     */
-    private Long menuid;
-    /**
-     * 角色id
-     */
-    private Integer roleid;
 
+    private Long menuid;
+
+    private Integer roleid;
 
     public Integer getId() {
         return id;

@@ -1,13 +1,5 @@
 package com.jialong.powersite.modular.system.model;
 
-/**
- * <p>
- * 菜单表
- * </p>
- *
- * @author stylefeng
- * @since 2017-07-11
- */
 public class Menu{
 
     private Long id;

@@ -31,9 +31,16 @@
     </select>
 
     <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select * from sys_menu where id = #{id}
+        select
+        <include refid="Base_Column_List" />
+         from sys_menu where id = #{id}
     </select>
 
+    <select id="selectSubMenusLike"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+         from sys_menu where pcodes like "%"#{pcodes}"%"
+    </select>
 
     <insert id="insertMenus" parameterType="com.jialong.powersite.modular.system.model.Menu">
         INSERT INTO sys_menu (code, pcode, pcodes, name, icon, url, num, levels, ismenu, tips, status, isopen) VALUES (#{code}, #{pcode}, #{pcodes}, #{name}, #{icon}, #{url}, #{num}, #{levels}, #{ismenu}, #{tips}, #{status}, #{isopen});

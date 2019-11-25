@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegionSiteController {
 
     @Autowired
-    private RegionSiteServiceImpl regionSiteServiceImpl;
+    private IRegionSiteService regionSiteService;
 
 
     @RequestMapping("/list")
     public RegionSiteListResp queryRegionSite(@RequestBody RegionSiteListReq regionSiteListReq)
     {
         RegionSiteListResp regionSiteListResp = new RegionSiteListResp();
-        return regionSiteServiceImpl.queryRegionSiteList(regionSiteListReq, regionSiteListResp);
+        return regionSiteService.queryRegionSiteList(regionSiteListReq, regionSiteListResp);
     }
 }

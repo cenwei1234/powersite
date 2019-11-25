@@ -6,6 +6,7 @@ import com.jialong.powersite.modular.system.model.response.CheckTaskAddRsp;
 import com.jialong.powersite.modular.system.model.response.CheckTaskListResp;
 
 public interface ICheckTaskService {
+
     CheckTaskAddRsp addCheckTask(CheckTaskAddReq checkTaskAddReq, CheckTaskAddRsp checkTaskAddRsp);
 
     CheckTaskListResp queryCheckTask(CheckTaskListReq checkTaskListReq, CheckTaskListResp checkTaskListResp);

@@ -8,7 +8,7 @@
         <result column="checker" property="checker" />
         <result column="check_detail" property="checkDetail" />
         <result column="status" property="status" />
-        <result column="addtime" property="addtime" />
+        <result column="addtime" property="addTime" />
     </resultMap>
 
 
@@ -16,8 +16,12 @@
         INSERT INTO jl_check_task (checker, check_detail, site_id, status, addtime) VALUES (#{checker}, #{checkDetail}, #{siteId}, #{status}, #{addTime});
     </select>
 
+    <select id="queryCheckTaskCount" resultType="Integer">
+        select count(id) from jl_check_task;
+    </select>
+
     <select id="queryCheckTask"  resultMap="map">
-        select id, checker, check_detail, site_id, status, addtime from jl_check_task;
+        select id, checker, check_detail, site_id, status, addtime from jl_check_task limit #{start},#{pageSize};
     </select>
 
 </mapper>

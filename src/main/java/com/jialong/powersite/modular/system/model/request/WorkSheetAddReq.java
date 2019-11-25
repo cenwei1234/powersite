@@ -1,16 +1,34 @@
 package com.jialong.powersite.modular.system.model.request;
 
-import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
-
 public class WorkSheetAddReq {
 
-    public JlWorkSheetRecord jlWorkSheetRecord;
+    private  long siteId;
 
-    public JlWorkSheetRecord getJlWorkSheetRecord() {
-        return jlWorkSheetRecord;
+    private  long operatorId;
+
+    private  String worksheetDetail;
+
+    public long getSiteId() {
+        return siteId;
     }
 
-    public void setJlWorkSheetRecord(JlWorkSheetRecord jlWorkSheetRecord) {
-        this.jlWorkSheetRecord = jlWorkSheetRecord;
+    public void setSiteId(long siteId) {
+        this.siteId = siteId;
+    }
+
+    public long getOperatorId() {
+        return operatorId;
+    }
+
+    public void setOperatorId(long operatorId) {
+        this.operatorId = operatorId;
+    }
+
+    public String getWorksheetDetail() {
+        return worksheetDetail;
+    }
+
+    public void setWorksheetDetail(String worksheetDetail) {
+        this.worksheetDetail = worksheetDetail;
     }
 }

@@ -11,9 +11,12 @@
         <result column="operation_time" property="operationTime" />
     </resultMap>
 
+    <select id="queryOperationRecordCount" resultType="Integer">
+        select count(id) from jl_operation_record;
+    </select>
 
     <select id="queryOperationRecordList"  resultMap="map">
-        select id, auditor, site_id, operation_detail, operation_time from jl_operation_record;
+        select id, auditor, site_id, operation_detail, operation_time from jl_operation_record limit #{start}, #{pageSize};
     </select>
 
 </mapper>

@@ -15,40 +15,17 @@
  */
 package com.jialong.powersite.modular.system.mapper;
 
-import com.jialong.powersite.core.utils.Page;
 import com.jialong.powersite.core.utils.Pagination;
 import com.jialong.powersite.modular.system.model.JlAlarmLog;
-import com.jialong.powersite.modular.system.model.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * <p>
- * 角色表 Mapper 接口
- * </p>
- *
- * @author stylefeng
- * @since 2017-07-11
- */
+
 @Repository
 public interface AlarmLogMapper {
 
-    /**
-     * 查询报警日志记录集合
-     *
-     * @return
-     * @date 2017年2月13日 下午7:57:51
-     */
     int queryAlarmLogCount();
 
-    /**
-     * 查询报警日志记录集合
-     *
-     * @return
-     * @date 2017年2月13日 下午7:57:51
-     */
     List<JlAlarmLog> queryAlarmLogList(Pagination pagination);
 }

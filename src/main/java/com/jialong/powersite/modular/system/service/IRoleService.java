@@ -15,23 +15,28 @@
  */
 package com.jialong.powersite.modular.system.service;
 
-/**
- * 角色相关业务
- *
- * @author fengshuonan
- * @Date 2017年1月10日 下午9:11:57
- */
+import com.jialong.powersite.core.common.node.ZTreeNode;
+import com.jialong.powersite.modular.system.model.request.*;
+import com.jialong.powersite.modular.system.model.response.*;
+
+import java.util.List;
+
+
 public interface IRoleService{
 
+    RoleListResp queryRoleList(RoleListReq roleListReq, RoleListResp roleListResp);
 
+    RoleDelResp delRoleById(RoleDelReq roleDelReq, RoleDelResp roleDelResp);
 
-    /**
-     * 删除角色
-     *
-     * @author stylefeng
-     * @Date 2017/5/5 22:24
-     */
-    void delRoleById(Integer roleId);
+    RoleAddResp addRole(RoleAddReq roleAddReq, RoleAddResp roleAddResp);
 
+    RoleUpdateResp updateRole(RoleUpdateReq roleUpdateReq, RoleUpdateResp roleUpdateResp);
 
+    UserRoleListResp roleTreeListByUserId(UserRoleListReq userRoleReq, UserRoleListResp userRoleResp);
+
+    List<ZTreeNode> roleTreeList();
+
+    List<ZTreeNode> roleTreeListByRoleId(String[] roleId);
+
+    RoleMenuSetResp setAuthority(RoleMenuSetReq roleMenuSetReq, RoleMenuSetResp roleMenuSetResp);
 }

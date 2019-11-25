@@ -111,8 +111,14 @@ public class MenuServiceImpl implements IMenuService {
     @Transactional
     public MenuDelResp delMenus(MenuDelReq menuDelReq, MenuDelResp menuDelResp) {
         Menu menu = menuMapper.selectById(menuDelReq.getMenuId());
-        delMenu(menuDelReq.getMenuId());
+        //删除当前菜单
+        delMenu(menu.getId());
         //删除所有子菜单
+        String pcodes = "%[" + menu.getCode() + "]%";
+        List<Menu> menus = menuMapper.selectSubMenusLike(pcodes);
+        for (Menu temp : menus) {
+            delMenu(temp.getId());
+        }
         return menuDelResp;
     }
 

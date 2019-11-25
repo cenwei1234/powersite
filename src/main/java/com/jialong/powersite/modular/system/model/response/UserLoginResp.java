@@ -1,13 +1,16 @@
 package com.jialong.powersite.modular.system.model.response;
 
-public class UserLoginResp extends BaseResp{
-    private String token;
+import com.jialong.powersite.modular.system.model.response.data.LoginTokenData;
 
-    public String getToken() {
-        return token;
+public class UserLoginResp extends BaseResp{
+
+    private LoginTokenData data;
+
+    public LoginTokenData getData() {
+        return data;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setData(LoginTokenData data) {
+        this.data = data;
     }
 }

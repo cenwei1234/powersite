@@ -35,9 +35,9 @@
 		INSERT INTO sys_role (num, pid, name, deptid, tips, version) VALUES (#{num}, #{pid}, #{name}, #{deptid}, #{tips}, #{version});
 	</insert>
 
-	<insert id="updateRole" parameterType="com.jialong.powersite.modular.system.model.Role">
-		update sys_role set num = #{num}, pid = #{pid}, name = #{name}, deptid = #{deptid}, tips = #{tips}, version = #{version} where id = #{roleId};
-	</insert>
+	<update id="updateRole" parameterType="com.jialong.powersite.modular.system.model.Role">
+		update sys_role set num = #{num}, pid = #{pid}, name = #{name}, deptid = #{deptid}, tips = #{tips}, version = #{version} where id = #{id};
+	</update>
 
 	<select id="roleTreeList" resultType="com.jialong.powersite.core.common.node.ZTreeNode">
 		SELECT

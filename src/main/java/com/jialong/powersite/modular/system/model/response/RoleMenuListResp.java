@@ -5,6 +5,7 @@ import com.jialong.powersite.core.common.node.ZTreeNode;
 import java.util.List;
 
 public class RoleMenuListResp {
+
     private List<ZTreeNode> data;
 
     public List<ZTreeNode> getData() {

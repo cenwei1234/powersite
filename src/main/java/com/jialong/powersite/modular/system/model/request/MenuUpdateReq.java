@@ -1,8 +1,5 @@
 package com.jialong.powersite.modular.system.model.request;
 
-import org.apache.ibatis.annotations.Param;
-import org.springframework.data.repository.query.parser.Part;
-
 public class MenuUpdateReq {
 
     private Long id;

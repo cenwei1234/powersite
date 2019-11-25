@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RegionSiteServiceImpl{
+public class RegionSiteServiceImpl implements IRegionSiteService{
 
     @Autowired
     private RegionSiteMapper regionSiteMapper;
