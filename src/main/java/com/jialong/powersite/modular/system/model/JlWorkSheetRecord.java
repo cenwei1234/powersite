@@ -4,47 +4,47 @@ import java.util.Date;
 
 public class JlWorkSheetRecord {
 
-    private  long id;
+    private  Integer id;
 
-    private  long siteId;
+    private  Integer siteId;
 
-    private  int status;
+    private  Integer status;
 
-    private  long operatorId;
+    private  Integer operatorId;
 
     private  String worksheetDetail;
 
     private Date addTime;
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public long getSiteId() {
+    public Integer getSiteId() {
         return siteId;
     }
 
-    public void setSiteId(long siteId) {
+    public void setSiteId(Integer siteId) {
         this.siteId = siteId;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public long getOperatorId() {
+    public Integer getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(long operatorId) {
+    public void setOperatorId(Integer operatorId) {
         this.operatorId = operatorId;
     }
 

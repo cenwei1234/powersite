@@ -1,10 +1,10 @@
 package com.jialong.powersite.modular.system.model;
 
+import com.jialong.powersite.core.utils.Pagination;
+
 import java.util.Date;
 
-public class JlOperationRecord {
-
-    private  Integer id;
+public class JlOperationRecordQueryData extends Pagination {
 
     private  Integer auditor;
 
@@ -13,14 +13,6 @@ public class JlOperationRecord {
     private  String operationDetail;
 
     private Date operationTime;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getAuditor() {
         return auditor;
@@ -57,7 +49,6 @@ public class JlOperationRecord {
     @Override
     public String toString() {
         return "JlOperationRecord{" +
-                "id=" + id +
                 ", auditor=" + auditor +
                 ", siteId=" + siteId +
                 ", operationDetail='" + operationDetail + '\'' +

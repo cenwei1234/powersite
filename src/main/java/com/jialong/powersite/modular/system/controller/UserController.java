@@ -48,7 +48,7 @@ public class UserController {
         return userRoleSetResp;
     }
 
-    @RequestMapping("/selectuserrole")
+    @RequestMapping("/queryuserrole")
     public UserRoleListResp selectUserRole(@RequestBody UserRoleListReq userRoleReq)
     {
         UserRoleListResp userRoleResp = new UserRoleListResp();

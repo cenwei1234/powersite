@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.PowerSiteMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlSiteOperationData">
+        <result column="soid" property="id" />
+        <result column="site_id" property="siteId" />
+        <result column="param_value" property="paramValue" />
+        <result column="param_value_unit" property="paramValueUnit" />
+        <result column="param_name" property="paramName" />
+        <result column="pid" property="pid" />
+        <result column="p_param_name" property="pParamName" />
+        <result column="p_node_num" property="pNodeNum" />
+        <result column="p_node_level" property="pNodeLevel" />
+    </resultMap>
+
+    <select id="queryPowerSiteBySiteId"  resultMap="map">
+        SELECT
+            so.id AS soid,
+            so.site_id,
+            so.param_value,
+            so.param_value_unit,
+            pc.param_name,
+            pc.pid,
+            pc2.param_name AS p_param_name,
+            IFNULL(pc2.num, pc.num) AS p_node_num,
+            IFNULL(pc2. LEVEL, pc. LEVEL) AS p_node_level
+        FROM
+            jl_site_operation so
+        LEFT JOIN jl_parameter_config pc ON so.param_id = pc.id
+        LEFT JOIN jl_parameter_config pc2 ON pc.pid = pc2.id
+        where so.site_id = #{siteId}
+    </select>
+
+    <insert id="addPowerSiteData" parameterType="com.jialong.powersite.modular.system.model.JlSiteOperation">
+        INSERT INTO jl_site_operation (
+            site_id,
+            param_id,
+            param_value,
+            param_value_type,
+            param_value_unit
+        )
+        VALUES
+        <foreach collection="list" index="index" item="i" separator=",">
+            (#{i.siteId}, #{i.paramId}, #{i.paramValue}, #{i.paramValueType}, #{i.paramValueUnit})
+        </foreach>
+        ;
+    </insert>
+</mapper>

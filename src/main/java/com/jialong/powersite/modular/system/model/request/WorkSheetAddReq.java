@@ -2,25 +2,25 @@ package com.jialong.powersite.modular.system.model.request;
 
 public class WorkSheetAddReq {
 
-    private  long siteId;
+    private  Integer siteId;
 
-    private  long operatorId;
+    private  Integer operatorId;
 
     private  String worksheetDetail;
 
-    public long getSiteId() {
+    public Integer getSiteId() {
         return siteId;
     }
 
-    public void setSiteId(long siteId) {
+    public void setSiteId(Integer siteId) {
         this.siteId = siteId;
     }
 
-    public long getOperatorId() {
+    public Integer getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(long operatorId) {
+    public void setOperatorId(Integer operatorId) {
         this.operatorId = operatorId;
     }
 

@@ -1,12 +1,20 @@
-package com.jialong.powersite.modular.system.model.request;
+package com.jialong.powersite.modular.system.model;
 
-public class CheckTaskAddReq {
+import com.jialong.powersite.core.utils.Pagination;
+
+import java.util.Date;
+
+public class CheckTaskListQueryData extends Pagination {
 
     private  Integer checker;
 
     private  String checkDetail;
 
     private  Integer siteId;
+
+    private  Integer status;
+
+    private Date addTime;
 
     public Integer getChecker() {
         return checker;
@@ -30,5 +38,21 @@ public class CheckTaskAddReq {
 
     public void setSiteId(Integer siteId) {
         this.siteId = siteId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
 }

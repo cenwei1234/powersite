@@ -3,25 +3,81 @@
 <mapper namespace="com.jialong.powersite.modular.system.mapper.CheckTaskMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlCheckTask">
-        <result column="id" property="id" />
-        <result column="checker" property="checker" />
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.response.data.CheckTaskRespData">
+        <result column="ctid" property="id" />
+        <result column="username" property="username" />
         <result column="check_detail" property="checkDetail" />
         <result column="status" property="status" />
+        <result column="site_name" property="siteName" />
         <result column="addtime" property="addTime" />
     </resultMap>
 
 
     <select id="insertCheckTask" parameterType="com.jialong.powersite.modular.system.model.JlCheckTask">
-        INSERT INTO jl_check_task (checker, check_detail, site_id, status, addtime) VALUES (#{checker}, #{checkDetail}, #{siteId}, #{status}, #{addTime});
+        INSERT INTO jl_check_task (
+            checker,
+            check_detail,
+            site_id,
+            STATUS,
+            addtime
+        )
+        VALUES
+            (
+                #{checker}, #{checkDetail}, #{siteId}, #{status}, #{addTime});
     </select>
 
-    <select id="queryCheckTaskCount" resultType="Integer">
-        select count(id) from jl_check_task;
+    <select id="queryCheckTaskCount" resultType="Integer" parameterType="com.jialong.powersite.modular.system.model.CheckTaskListQueryData">
+        SELECT
+            count(ct.id)
+        FROM
+            jl_check_task ct
+        LEFT JOIN jl_power_site ps ON ct.site_id = ps.id
+        LEFT JOIN sys_user u ON ct.checker = u.id
+        <where>
+            <if test="checker != null">
+                checker = #{checker}
+            </if>
+            <if test="checkDetail != null">
+                AND check_detail like #{checkDetail}
+            </if>
+            <if test="siteId != null">
+                AND site_id like #{siteId}
+            </if>
+            <if test="status != null">
+                AND status like #{status}
+            </if>
+        </where>
+        ;
     </select>
 
-    <select id="queryCheckTask"  resultMap="map">
-        select id, checker, check_detail, site_id, status, addtime from jl_check_task limit #{start},#{pageSize};
+    <select id="queryCheckTask"  resultMap="map" parameterType="com.jialong.powersite.modular.system.model.CheckTaskListQueryData">
+        SELECT
+            ct.id AS ctid,
+            u.username,
+            check_detail,
+            ps.site_name,
+            ct.STATUS,
+            addtime
+        FROM
+            jl_check_task ct
+        LEFT JOIN jl_power_site ps ON ct.site_id = ps.id
+        LEFT JOIN sys_user u ON ct.checker = u.id
+        <where>
+            <if test="checker != null">
+                checker = #{checker}
+            </if>
+            <if test="checkDetail != null">
+                AND check_detail like #{checkDetail}
+            </if>
+            <if test="siteId != null">
+                AND site_id like #{siteId}
+            </if>
+            <if test="status != null">
+                AND status like #{status}
+            </if>
+        </where>
+        LIMIT #{start},#{pageSize}
+        ;
     </select>
 
 </mapper>

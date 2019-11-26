@@ -1,14 +1,14 @@
-package com.jialong.powersite.modular.system.model;
+package com.jialong.powersite.modular.system.model.response.data;
 
 import java.util.Date;
 
-public class JlOperationRecord {
+public class OperationRecordRespData {
 
-    private  Integer id;
+    private Integer id;
 
-    private  Integer auditor;
+    private  String username;
 
-    private  Integer siteId;
+    private  String siteName;
 
     private  String operationDetail;
 
@@ -22,20 +22,20 @@ public class JlOperationRecord {
         this.id = id;
     }
 
-    public Integer getAuditor() {
-        return auditor;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAuditor(Integer auditor) {
-        this.auditor = auditor;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Integer getSiteId() {
-        return siteId;
+    public String getSiteName() {
+        return siteName;
     }
 
-    public void setSiteId(Integer siteId) {
-        this.siteId = siteId;
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
     }
 
     public String getOperationDetail() {
@@ -56,10 +56,10 @@ public class JlOperationRecord {
 
     @Override
     public String toString() {
-        return "JlOperationRecord{" +
+        return "OperationRecordRespData{" +
                 "id=" + id +
-                ", auditor=" + auditor +
-                ", siteId=" + siteId +
+                ", username='" + username + '\'' +
+                ", siteName='" + siteName + '\'' +
                 ", operationDetail='" + operationDetail + '\'' +
                 ", operationTime=" + operationTime +
                 '}';

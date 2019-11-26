@@ -1,17 +1,17 @@
 package com.jialong.powersite.modular.system.model.response;
 
-import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
+import com.jialong.powersite.modular.system.model.response.data.WorkSheetRecordRespData;
 
 import java.util.List;
 
 public class WorkSheetListResp extends BaseResp {
-    private List<JlWorkSheetRecord> data;
+    private List<WorkSheetRecordRespData> data;
 
-    public List<JlWorkSheetRecord> getData() {
+    public List<WorkSheetRecordRespData> getData() {
         return data;
     }
 
-    public void setData(List<JlWorkSheetRecord> data) {
+    public void setData(List<WorkSheetRecordRespData> data) {
         this.data = data;
     }
 }

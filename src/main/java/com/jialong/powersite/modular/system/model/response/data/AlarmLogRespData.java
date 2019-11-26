@@ -1,12 +1,10 @@
-package com.jialong.powersite.modular.system.model.request;
-
-import com.jialong.powersite.core.utils.Page;
-import com.jialong.powersite.modular.system.model.JlAlarmLog;
+package com.jialong.powersite.modular.system.model.response.data;
 
 import java.util.Date;
 
+public class AlarmLogRespData {
 
-public class AlarmLogListReq extends Page<JlAlarmLog>{
+    private  Integer id;
 
     private  Integer noticeType;
 
@@ -14,9 +12,17 @@ public class AlarmLogListReq extends Page<JlAlarmLog>{
 
     private Date alarmTime;
 
-    private  Integer siteId;
+    private  String siteName;
 
-    private  Integer auditor;
+    private  String username;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getNoticeType() {
         return noticeType;
@@ -42,19 +48,19 @@ public class AlarmLogListReq extends Page<JlAlarmLog>{
         this.alarmTime = alarmTime;
     }
 
-    public Integer getSiteId() {
-        return siteId;
+    public String getSiteName() {
+        return siteName;
     }
 
-    public void setSiteId(Integer siteId) {
-        this.siteId = siteId;
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
     }
 
-    public Integer getAuditor() {
-        return auditor;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAuditor(Integer auditor) {
-        this.auditor = auditor;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

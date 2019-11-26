@@ -3,21 +3,66 @@
 <mapper namespace="com.jialong.powersite.modular.system.mapper.AlarmLogMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlAlarmLog">
-        <result column="id" property="id" />
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.response.data.AlarmLogRespData">
+        <result column="alid" property="id" />
         <result column="notice_type" property="noticeType" />
         <result column="alarm_detail" property="alarmDetail" />
         <result column="alarm_time" property="alarmTime" />
-        <result column="site_id" property="siteId" />
-        <result column="auditor" property="auditor" />
+        <result column="site_name" property="siteName" />
+        <result column="username" property="username" />
     </resultMap>
 
-    <select id="queryAlarmLogCount" resultType="integer">
-        select count(id) from jl_alarm_log;
+    <select id="queryAlarmLogCount" parameterType="com.jialong.powersite.modular.system.model.JlAlarmLogQueryData"  resultType="integer">
+        SELECT
+            count(al.id)
+        FROM
+            jl_alarm_log al
+        LEFT JOIN jl_power_site ps ON al.site_id = ps.id
+        LEFT JOIN sys_user u ON al.auditor = u.id
+        <where>
+            <if test="noticeType != null">
+                notice_type = #{noticeType}
+            </if>
+            <if test="alarmDetail != null">
+                AND alarm_detail like #{alarmDetail}
+            </if>
+            <if test="siteId != null">
+                AND site_id like #{siteId}
+            </if>
+            <if test="auditor != null">
+                AND auditor like #{auditor}
+            </if>
+        </where>
+        ;
     </select>
 
-    <select id="queryAlarmLogList"  resultMap="map">
-        select id, notice_type, alarm_detail, alarm_time, site_id, auditor from jl_alarm_log limit #{start}, #{pageSize};
+    <select id="queryAlarmLogList"  parameterType="com.jialong.powersite.modular.system.model.JlAlarmLogQueryData" resultMap="map">
+        SELECT
+            al.id as alid,
+            notice_type,
+            alarm_detail,
+            alarm_time,
+            ps.site_name,
+            u.username
+        FROM
+            jl_alarm_log al
+        LEFT JOIN jl_power_site ps ON al.site_id = ps.id
+        LEFT JOIN sys_user u ON al.auditor = u.id
+        <where>
+            <if test="noticeType != null">
+                notice_type = #{noticeType}
+            </if>
+            <if test="alarmDetail != null">
+                AND alarm_detail like #{alarmDetail}
+            </if>
+            <if test="siteId != null">
+                AND site_id like #{siteId}
+            </if>
+            <if test="auditor != null">
+                AND auditor like #{auditor}
+            </if>
+        </where>
+        LIMIT #{start}, #{pageSize};
     </select>
 
 </mapper>

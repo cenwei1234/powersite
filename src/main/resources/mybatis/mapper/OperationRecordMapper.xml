@@ -3,20 +3,58 @@
 <mapper namespace="com.jialong.powersite.modular.system.mapper.OperationRecordMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlOperationRecord">
-        <result column="id" property="id" />
-        <result column="auditor" property="auditor" />
-        <result column="site_id" property="siteId" />
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.response.data.OperationRecordRespData">
+        <result column="jorid" property="id" />
+        <result column="username" property="username" />
+        <result column="site_name" property="siteName" />
         <result column="operation_detail" property="operationDetail" />
         <result column="operation_time" property="operationTime" />
     </resultMap>
 
-    <select id="queryOperationRecordCount" resultType="Integer">
-        select count(id) from jl_operation_record;
+    <select id="queryOperationRecordCount" parameterType="com.jialong.powersite.modular.system.model.JlOperationRecordQueryData" resultType="Integer">
+        SELECT
+            count(jor.id)
+        FROM
+        jl_operation_record jor
+        LEFT JOIN jl_power_site ps ON jor.site_id = ps.id
+        LEFT JOIN sys_user u ON u.id = jor.auditor
+        <where>
+            <if test="auditor != null">
+                auditor = #{auditor}
+            </if>
+            <if test="siteId != null">
+                AND site_id = #{siteId}
+            </if>
+            <if test="operationDetail != null">
+                AND operation_detail like #{operationDetail}
+            </if>
+        </where>
+        ;
     </select>
 
-    <select id="queryOperationRecordList"  resultMap="map">
-        select id, auditor, site_id, operation_detail, operation_time from jl_operation_record limit #{start}, #{pageSize};
+    <select id="queryOperationRecordList" parameterType="com.jialong.powersite.modular.system.model.JlOperationRecordQueryData" resultMap="map">
+        SELECT
+            jor.id as jorid,
+            u.username,
+            ps.site_name,
+            operation_detail,
+            operation_time
+        FROM
+            jl_operation_record jor
+        LEFT JOIN jl_power_site ps ON jor.site_id = ps.id
+        LEFT JOIN sys_user u ON u.id = jor.auditor
+        <where>
+            <if test="auditor != null">
+                auditor = #{auditor}
+            </if>
+            <if test="siteId != null">
+                AND site_id = #{siteId}
+            </if>
+            <if test="operationDetail != null">
+                AND operation_detail like #{operationDetail}
+            </if>
+        </where>
+        LIMIT #{start}, #{pageSize};
     </select>
 
 </mapper>

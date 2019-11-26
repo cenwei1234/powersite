@@ -15,9 +15,8 @@
  */
 package com.jialong.powersite.modular.system.mapper;
 
-import com.jialong.powersite.core.utils.Pagination;
-import com.jialong.powersite.modular.system.model.JlAlarmLog;
-import com.jialong.powersite.modular.system.model.JlOperationRecord;
+import com.jialong.powersite.modular.system.model.JlOperationRecordQueryData;
+import com.jialong.powersite.modular.system.model.response.data.OperationRecordRespData;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,7 +24,7 @@ import java.util.List;
 @Repository
 public interface OperationRecordMapper {
 
-    int queryOperationRecordCount();
+    int queryOperationRecordCount(JlOperationRecordQueryData jlOperationRecordQueryData);
 
-    List<JlOperationRecord> queryOperationRecordList(Pagination pagination);
+    List<OperationRecordRespData> queryOperationRecordList(JlOperationRecordQueryData jlOperationRecordQueryData);
 }

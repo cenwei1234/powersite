@@ -1,11 +1,10 @@
-package com.jialong.powersite.modular.system.model.request;
+package com.jialong.powersite.modular.system.model;
 
-import com.jialong.powersite.core.utils.Page;
-import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
+import com.jialong.powersite.core.utils.Pagination;
 
 import java.util.Date;
 
-public class WorkSheetListReq  extends Page<JlWorkSheetRecord> {
+public class WorkSheetListQueryData extends Pagination {
 
     private  Integer siteId;
 

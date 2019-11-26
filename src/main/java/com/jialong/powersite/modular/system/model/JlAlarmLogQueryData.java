@@ -1,18 +1,12 @@
-package com.jialong.powersite.modular.system.model.request;
+package com.jialong.powersite.modular.system.model;
 
-import com.jialong.powersite.core.utils.Page;
-import com.jialong.powersite.modular.system.model.JlAlarmLog;
+import com.jialong.powersite.core.utils.Pagination;
 
-import java.util.Date;
-
-
-public class AlarmLogListReq extends Page<JlAlarmLog>{
+public class JlAlarmLogQueryData extends Pagination {
 
     private  Integer noticeType;
 
     private  String alarmDetail;
-
-    private Date alarmTime;
 
     private  Integer siteId;
 
@@ -32,14 +26,6 @@ public class AlarmLogListReq extends Page<JlAlarmLog>{
 
     public void setAlarmDetail(String alarmDetail) {
         this.alarmDetail = alarmDetail;
-    }
-
-    public Date getAlarmTime() {
-        return alarmTime;
-    }
-
-    public void setAlarmTime(Date alarmTime) {
-        this.alarmTime = alarmTime;
     }
 
     public Integer getSiteId() {

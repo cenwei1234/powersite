@@ -1,28 +1,35 @@
-package com.jialong.powersite.modular.system.model.request;
-
-import com.jialong.powersite.core.utils.Page;
-import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
+package com.jialong.powersite.modular.system.model.response.data;
 
 import java.util.Date;
 
-public class WorkSheetListReq  extends Page<JlWorkSheetRecord> {
+public class WorkSheetRecordRespData {
 
-    private  Integer siteId;
+    private  Integer id;
+
+    private  String siteName;
 
     private  Integer status;
 
-    private  Integer operatorId;
+    private  String username;
 
     private  String worksheetDetail;
 
     private Date addTime;
 
-    public Integer getSiteId() {
-        return siteId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSiteId(Integer siteId) {
-        this.siteId = siteId;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getSiteName() {
+        return siteName;
+    }
+
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
     }
 
     public Integer getStatus() {
@@ -33,12 +40,12 @@ public class WorkSheetListReq  extends Page<JlWorkSheetRecord> {
         this.status = status;
     }
 
-    public Integer getOperatorId() {
-        return operatorId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setOperatorId(Integer operatorId) {
-        this.operatorId = operatorId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getWorksheetDetail() {

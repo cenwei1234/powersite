@@ -1,18 +1,18 @@
 package com.jialong.powersite.modular.system.model.response;
 
-import com.jialong.powersite.modular.system.model.JlCheckTask;
-import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
+import com.jialong.powersite.modular.system.model.response.data.CheckTaskRespData;
 
 import java.util.List;
 
 public class CheckTaskListResp extends BaseResp {
-    private List<JlCheckTask> data;
 
-    public List<JlCheckTask> getData() {
+    private List<CheckTaskRespData> data;
+
+    public List<CheckTaskRespData> getData() {
         return data;
     }
 
-    public void setData(List<JlCheckTask> data) {
+    public void setData(List<CheckTaskRespData> data) {
         this.data = data;
     }
 }

@@ -1,28 +1,35 @@
-package com.jialong.powersite.modular.system.model.request;
-
-import com.jialong.powersite.core.utils.Page;
-import com.jialong.powersite.modular.system.model.JlCheckTask;
+package com.jialong.powersite.modular.system.model.response.data;
 
 import java.util.Date;
 
-public class CheckTaskListReq extends Page<JlCheckTask> {
+public class CheckTaskRespData {
 
-    private  Integer checker;
+    private Integer id;
+
+    private  String username;
 
     private  String checkDetail;
 
-    private  Integer siteId;
+    private  String siteName;
 
     private  Integer status;
 
     private Date addTime;
 
-    public Integer getChecker() {
-        return checker;
+    public Integer getId() {
+        return id;
     }
 
-    public void setChecker(Integer checker) {
-        this.checker = checker;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCheckDetail() {
@@ -33,12 +40,12 @@ public class CheckTaskListReq extends Page<JlCheckTask> {
         this.checkDetail = checkDetail;
     }
 
-    public Integer getSiteId() {
-        return siteId;
+    public String getSiteName() {
+        return siteName;
     }
 
-    public void setSiteId(Integer siteId) {
-        this.siteId = siteId;
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
     }
 
     public Integer getStatus() {

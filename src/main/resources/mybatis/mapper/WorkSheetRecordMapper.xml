@@ -3,26 +3,80 @@
 <mapper namespace="com.jialong.powersite.modular.system.mapper.WorkSheetRecordMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlWorkSheetRecord">
-        <result column="id" property="id" />
-        <result column="site_id" property="siteId" />
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.response.data.WorkSheetRecordRespData">
+        <result column="wrid" property="id" />
+        <result column="site_name" property="siteName" />
         <result column="status" property="status" />
-        <result column="operator_id" property="operatorId" />
+        <result column="username" property="username" />
         <result column="worksheet_detail" property="worksheetDetail" />
         <result column="add_time" property="addTime" />
     </resultMap>
 
 
     <select id="insertWorkSheet" parameterType="com.jialong.powersite.modular.system.model.JlWorkSheetRecord">
-        INSERT INTO jl_worksheet_record (site_id, status, operator_id, worksheet_detail, add_time) VALUES (#{siteId}, #{status}, #{operatorId}, #{worksheetDetail}, #{addTime});
+        INSERT INTO jl_worksheet_record (
+            site_id,
+            STATUS,
+            operator_id,
+            worksheet_detail,
+            add_time
+        )
+        VALUES
+            (
+                #{siteId}, #{status}, #{operatorId}, #{worksheetDetail}, #{addTime});
     </select>
 
-    <select id="queryWorkSheetCount" resultType="Integer">
-        select count(id) from jl_worksheet_record;
+    <select id="queryWorkSheetCount" resultType="Integer" parameterType="com.jialong.powersite.modular.system.model.WorkSheetListQueryData">
+        SELECT
+            count(wr.id)
+        FROM
+            jl_worksheet_record wr
+        LEFT JOIN jl_power_site ps ON wr.site_id = ps.id
+        LEFT JOIN sys_user u ON wr.operator_id = u.id
+        <where>
+            <if test="siteId != null">
+                site_id = #{siteId}
+            </if>
+            <if test="siteId != null">
+                AND status = #{status}
+            </if>
+            <if test="operatorId != null">
+                AND operator_id = #{operatorId}
+            </if>
+            <if test="worksheetDetail != null">
+                AND worksheet_detail = #{worksheetDetail}
+            </if>
+        </where>
+            ;
     </select>
 
-    <select id="queryWorkSheet"  resultMap="map">
-        select id, site_id, status, operator_id, worksheet_detail, add_time from jl_worksheet_record limit #{start}, #{pageSize};
+    <select id="queryWorkSheet"  resultMap="map" parameterType="com.jialong.powersite.modular.system.model.WorkSheetListQueryData">
+        SELECT
+            wr.id AS wrid,
+            ps.site_name,
+            wr. STATUS,
+            u.username,
+            worksheet_detail,
+            add_time
+        FROM
+            jl_worksheet_record wr
+        LEFT JOIN jl_power_site ps ON wr.site_id = ps.id
+        LEFT JOIN sys_user u ON wr.operator_id = u.id
+        <where>
+            <if test="siteId != null">
+                site_id = #{siteId}
+            </if>
+            <if test="siteId != null">
+                AND status = #{status}
+            </if>
+            <if test="operatorId != null">
+                AND operator_id = #{operatorId}
+            </if>
+            <if test="worksheetDetail != null">
+                AND worksheet_detail = #{worksheetDetail}
+            </if>
+        </where>
+        LIMIT #{start}, #{pageSize};
     </select>
 
 </mapper>

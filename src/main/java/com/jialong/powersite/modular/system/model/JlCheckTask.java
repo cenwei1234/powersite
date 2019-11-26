@@ -4,31 +4,31 @@ import java.util.Date;
 
 public class JlCheckTask {
 
-    private  long id;
+    private Integer id;
 
-    private  long checker;
+    private  Integer checker;
 
     private  String checkDetail;
 
-    private  long siteId;
+    private  Integer siteId;
 
-    private  long status;
+    private  Integer status;
 
     private Date addTime;
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public long getChecker() {
+    public Integer getChecker() {
         return checker;
     }
 
-    public void setChecker(long checker) {
+    public void setChecker(Integer checker) {
         this.checker = checker;
     }
 
@@ -40,19 +40,19 @@ public class JlCheckTask {
         this.checkDetail = checkDetail;
     }
 
-    public long getSiteId() {
+    public Integer getSiteId() {
         return siteId;
     }
 
-    public void setSiteId(long siteId) {
+    public void setSiteId(Integer siteId) {
         this.siteId = siteId;
     }
 
-    public long getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(long status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

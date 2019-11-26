@@ -1,13 +1,8 @@
 package com.jialong.powersite.modular.system.interceptor;
 
-import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jialong.powersite.core.thread.UserThreadLocal;
-import com.jialong.powersite.core.utils.CookieUtils;
-import com.jialong.powersite.core.wrapper.CustomHttpServletRequestWrapper;
 import com.jialong.powersite.modular.system.mapper.UserMapper;
 import com.jialong.powersite.modular.system.model.User;
-import com.jialong.powersite.modular.system.service.impl.UserServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
@@ -18,8 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 @Component
 @SpringBootConfiguration
