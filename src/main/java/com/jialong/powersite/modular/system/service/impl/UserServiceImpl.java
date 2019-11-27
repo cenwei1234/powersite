@@ -1,5 +1,6 @@
 package com.jialong.powersite.modular.system.service.impl;
 
+import com.jialong.powersite.core.common.constant.Constant;
 import com.jialong.powersite.core.common.constant.state.UserStatus;
 import com.jialong.powersite.core.exception.BizExceptionEnum;
 import com.jialong.powersite.core.utils.ToolUtil;
@@ -14,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
@@ -23,9 +26,10 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
 
-    public UserLoginResp loginValid(UserLoginReq userLoginRequest, HttpSession httpSession, UserLoginResp userLoginResp) {
+    public UserLoginResp loginValid(UserLoginReq userLoginRequest, HttpSession httpSession, HttpServletResponse response, UserLoginResp userLoginResp) {
         String username = userLoginRequest.getUsername();
         String password = userLoginRequest.getPassword();
+        String remember = userLoginRequest.getRemember();
 
         if (userMapper.userNameValid(username) == 0)
         {
@@ -51,7 +55,17 @@ public class UserServiceImpl implements IUserService {
         userMapper.updateTokenByUserId(token, randomSalt, user.getId());
         //保存token到session并且设置有效期
         httpSession.setAttribute(userLoginRequest.getUsername(), token);
-        httpSession.setMaxInactiveInterval(3600);
+        httpSession.setMaxInactiveInterval(Constant.SESSION_VALIDTIME);
+        //记住我
+        if ("1".equals(remember))
+        {
+            Cookie cookieUserName = new Cookie("username", username);
+            Cookie cookiePassWord = new Cookie("password", password);
+            cookieUserName.setMaxAge(60*60*24*7);
+            cookiePassWord.setMaxAge(60*60*24*7);
+            response.addCookie(cookieUserName);
+            response.addCookie(cookiePassWord);
+        }
         LoginTokenData loginTokenData = new LoginTokenData();
         loginTokenData.setToken(token);
         userLoginResp.setData(loginTokenData);

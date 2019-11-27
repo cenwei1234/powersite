@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -24,9 +25,9 @@ public class UserController {
     private IRoleService roleService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public UserLoginResp doLogin(@RequestBody UserLoginReq userLoginRequest, HttpSession httpSession) {
+    public UserLoginResp doLogin(@RequestBody UserLoginReq userLoginRequest, HttpSession httpSession, HttpServletResponse response) {
         UserLoginResp userLoginResp = new UserLoginResp();
-        return userService.loginValid(userLoginRequest, httpSession, userLoginResp);
+        return userService.loginValid(userLoginRequest, httpSession, response, userLoginResp);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
