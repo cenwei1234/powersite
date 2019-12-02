@@ -22,11 +22,35 @@
 		<result column="token" property="token" />
 	</resultMap>
 
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="UserListResultMap" type="com.jialong.powersite.modular.system.model.response.data.UserListRespData">
+		<id column="id" property="id" />
+		<result column="avatar" property="avatar" />
+		<result column="username" property="username" />
+		<result column="name" property="name" />
+		<result column="birthday" property="birthday" />
+		<result column="sex" property="sex" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="rolename" property="roleName" />
+		<result column="deptid" property="deptid" />
+		<result column="status" property="status" />
+		<result column="createtime" property="createtime" />
+	</resultMap>
+
 	<sql id="Base_Column_List">
 		id, username, name, password, birthday, sex, email, avatar,
 		phone, roleid,
 		deptid, status,
 		createtime, version, token
+	</sql>
+
+	<sql id="Base_Column_List_Exclude_Password">
+		id, username, name, birthday, sex, email, avatar,
+		phone, roleid,
+		deptid, status,
+		createtime
 	</sql>
 
 	<select id="userNameValid" resultType="Integer">
@@ -56,6 +80,24 @@
 			<include refid="Base_Column_List" />
 		 from sys_user where id = #{userId};
 	</select>
+
+	<select id="queryUserList" resultType="com.jialong.powersite.modular.system.model.response.data.UserListRespData">
+		select
+		u.id, u.username, u.name, u.birthday, u.sex, u.email, u.avatar,
+		u.phone, r.name as rolename,
+		u.deptid, u.status,
+		u.createtime
+		from sys_user u
+		LEFT JOIN sys_role r ON u.roleid = r.id
+		<where>
+			<if test="username != null">
+				username = #{username}
+			</if>
+		</where>
+		limit #{start}, #{pageSize}
+		;
+	</select>
+
 
 	<insert id="insertUser" parameterType="com.jialong.powersite.modular.system.model.User">
 		INSERT INTO sys_user (

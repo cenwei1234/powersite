@@ -9,3 +9,8 @@ server:
 spring:
   profiles:
     active: dev
+logging:
+  level:
+    com:
+      jialong:
+        powersite: debug

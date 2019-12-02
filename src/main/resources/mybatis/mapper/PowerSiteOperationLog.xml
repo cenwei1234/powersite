@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.PowerSiteOperationLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlPowerSiteOperationLog">
+        <result column="id" property="id" />
+        <result column="param_name" property="paramName" />
+        <result column="param_value" property="paramValue" />
+        <result column="param_unit" property="paramUnit" />
+        <result column="param_value_type" property="paramValueType" />
+        <result column="param_icon" property="paramIcon" />
+    </resultMap>
+
+
+
+
+</mapper>

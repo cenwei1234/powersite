@@ -24,7 +24,8 @@ public class OperationRecordServiceImpl implements IOperationRecordService {
         jlOperationRecordQueryData.setAuditor(operationRecordListReq.getAuditor());
         jlOperationRecordQueryData.setSiteId(operationRecordListReq.getSiteId());
         jlOperationRecordQueryData.setOperationDetail(operationRecordListReq.getOperationDetail());
-        jlOperationRecordQueryData.setOperationTime(operationRecordListReq.getOperationTime());
+        jlOperationRecordQueryData.setOperationTimeBegin(operationRecordListReq.getOperationTimeBegin());
+        jlOperationRecordQueryData.setOperationTimeEnd(operationRecordListReq.getOperationTimeEnd());
         jlOperationRecordQueryData.setStart(operationRecordListReq.getStart(operationRecordListReq.getPageNo()));
         jlOperationRecordQueryData.setPageSize(operationRecordListReq.getPageSize());
 

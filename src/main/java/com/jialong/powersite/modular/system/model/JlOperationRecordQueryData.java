@@ -12,7 +12,11 @@ public class JlOperationRecordQueryData extends Pagination {
 
     private  String operationDetail;
 
-    private Date operationTime;
+    private String operationTime;
+
+    private String operationTimeBegin;
+
+    private String operationTimeEnd;
 
     public Integer getAuditor() {
         return auditor;
@@ -38,12 +42,28 @@ public class JlOperationRecordQueryData extends Pagination {
         this.operationDetail = operationDetail;
     }
 
-    public Date getOperationTime() {
+    public String getOperationTime() {
         return operationTime;
     }
 
-    public void setOperationTime(Date operationTime) {
+    public void setOperationTime(String operationTime) {
         this.operationTime = operationTime;
+    }
+
+    public String getOperationTimeBegin() {
+        return operationTimeBegin;
+    }
+
+    public void setOperationTimeBegin(String operationTimeBegin) {
+        this.operationTimeBegin = operationTimeBegin;
+    }
+
+    public String getOperationTimeEnd() {
+        return operationTimeEnd;
+    }
+
+    public void setOperationTimeEnd(String operationTimeEnd) {
+        this.operationTimeEnd = operationTimeEnd;
     }
 
     @Override

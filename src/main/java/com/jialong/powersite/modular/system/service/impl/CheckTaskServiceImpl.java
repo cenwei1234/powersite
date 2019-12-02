@@ -46,6 +46,8 @@ public class CheckTaskServiceImpl implements ICheckTaskService {
         checkTaskListQueryData.setCheckDetail(checkTaskListReq.getCheckDetail());
         checkTaskListQueryData.setStart(checkTaskListReq.getStart(checkTaskListReq.getPageNo()));
         checkTaskListQueryData.setPageSize(checkTaskListReq.getPageSize());
+        checkTaskListQueryData.setAddTimeBegin(checkTaskListReq.getAddTimeBegin());
+        checkTaskListQueryData.setAddTimeEnd(checkTaskListReq.getAddTimeEnd());
 
         Integer totalCount = checkTaskMapper.queryCheckTaskCount(checkTaskListQueryData );
         List<CheckTaskRespData> jlCheckTasks = checkTaskMapper.queryCheckTask(checkTaskListQueryData );

@@ -15,21 +15,15 @@
  */
 package com.jialong.powersite.modular.system.mapper;
 
-import com.jialong.powersite.modular.system.model.JlAlarmLog;
-import com.jialong.powersite.modular.system.model.JlAlarmLogQueryData;
-import com.jialong.powersite.modular.system.model.response.data.AlarmLogGroupData;
-import com.jialong.powersite.modular.system.model.response.data.AlarmLogRespData;
+import com.jialong.powersite.modular.system.model.JlOperationRecordQueryData;
+import com.jialong.powersite.modular.system.model.JlPowerSiteOperationLog;
+import com.jialong.powersite.modular.system.model.response.data.OperationRecordRespData;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
-public interface AlarmLogMapper {
+public interface PowerSiteOperationLogMapper {
 
-    int queryAlarmLogCount(JlAlarmLogQueryData jlAlarmLogQueryData);
-
-    List<AlarmLogRespData> queryAlarmLogList(JlAlarmLogQueryData jlAlarmLogQueryData);
-
-    List<AlarmLogGroupData> queryAlarmLogGroup();
+    List<JlPowerSiteOperationLog> operationLogGroup();
 }

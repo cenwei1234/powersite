@@ -13,7 +13,9 @@ public class OperationRecordListReq extends Page<JlOperationRecord> {
 
     private  String operationDetail;
 
-    private Date operationTime;
+    private String operationTimeBegin;
+
+    private String operationTimeEnd;
 
     public Integer getAuditor() {
         return auditor;
@@ -39,12 +41,19 @@ public class OperationRecordListReq extends Page<JlOperationRecord> {
         this.operationDetail = operationDetail;
     }
 
-    public Date getOperationTime() {
-        return operationTime;
+    public String getOperationTimeBegin() {
+        return operationTimeBegin;
     }
 
-    public void setOperationTime(Date operationTime) {
-        this.operationTime = operationTime;
+    public void setOperationTimeBegin(String operationTimeBegin) {
+        this.operationTimeBegin = operationTimeBegin;
     }
 
+    public String getOperationTimeEnd() {
+        return operationTimeEnd;
+    }
+
+    public void setOperationTimeEnd(String operationTimeEnd) {
+        this.operationTimeEnd = operationTimeEnd;
+    }
 }

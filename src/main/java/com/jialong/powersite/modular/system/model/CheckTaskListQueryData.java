@@ -14,7 +14,11 @@ public class CheckTaskListQueryData extends Pagination {
 
     private  Integer status;
 
-    private Date addTime;
+    private String addTime;
+
+    private String addTimeBegin;
+
+    private String addTimeEnd;
 
     public Integer getChecker() {
         return checker;
@@ -48,11 +52,27 @@ public class CheckTaskListQueryData extends Pagination {
         this.status = status;
     }
 
-    public Date getAddTime() {
+    public String getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Date addTime) {
+    public void setAddTime(String addTime) {
         this.addTime = addTime;
+    }
+
+    public String getAddTimeBegin() {
+        return addTimeBegin;
+    }
+
+    public void setAddTimeBegin(String addTimeBegin) {
+        this.addTimeBegin = addTimeBegin;
+    }
+
+    public String getAddTimeEnd() {
+        return addTimeEnd;
+    }
+
+    public void setAddTimeEnd(String addTimeEnd) {
+        this.addTimeEnd = addTimeEnd;
     }
 }

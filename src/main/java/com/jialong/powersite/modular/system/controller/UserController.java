@@ -30,6 +30,13 @@ public class UserController {
         return userService.loginValid(userLoginRequest, httpSession, response, userLoginResp);
     }
 
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public UserListResp queryUsers(@RequestBody UserListReq userListReq)
+    {
+        UserListResp userListResp = new UserListResp();
+        return userService.queryUsers(userListReq, userListResp);
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public UserRegResp doRegister(@RequestBody UserRegReq userRegReq) {
         UserRegResp userRegResp = new UserRegResp();

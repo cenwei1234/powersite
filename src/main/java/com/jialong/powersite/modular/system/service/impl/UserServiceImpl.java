@@ -3,12 +3,15 @@ package com.jialong.powersite.modular.system.service.impl;
 import com.jialong.powersite.core.common.constant.Constant;
 import com.jialong.powersite.core.common.constant.state.UserStatus;
 import com.jialong.powersite.core.exception.BizExceptionEnum;
+import com.jialong.powersite.core.exception.ServiceException;
 import com.jialong.powersite.core.utils.ToolUtil;
 import com.jialong.powersite.modular.system.mapper.UserMapper;
 import com.jialong.powersite.modular.system.model.User;
+import com.jialong.powersite.modular.system.model.UserQueryData;
 import com.jialong.powersite.modular.system.model.request.*;
 import com.jialong.powersite.modular.system.model.response.*;
 import com.jialong.powersite.modular.system.model.response.data.LoginTokenData;
+import com.jialong.powersite.modular.system.model.response.data.UserListRespData;
 import com.jialong.powersite.modular.system.service.IUserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +22,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -72,6 +76,17 @@ public class UserServiceImpl implements IUserService {
         return userLoginResp;
     }
 
+    public UserListResp queryUsers(UserListReq userListReq, UserListResp userListResp)
+    {
+        UserQueryData userQueryData = new UserQueryData();
+        userQueryData.setUsername(userListReq.getUsername());
+        userQueryData.setStart(userListReq.getStart(userListReq.getPageNo()));
+        userQueryData.setPageSize(userListReq.getPageSize());
+        List<UserListRespData> users = this.userMapper.queryUserList(userQueryData);
+        userListResp.setData(users);
+        return userListResp;
+    }
+
     public UserRegResp register(UserRegReq userRegReq, UserRegResp userRegResp) {
         String username = userRegReq.getUsername();
         //用户名验证
@@ -98,6 +113,10 @@ public class UserServiceImpl implements IUserService {
 
 
     public UserResetResp resetPwd(UserResetReq userResetReq, UserResetResp userResetResp) {
+        //不能修改超级管理员
+        if (userResetReq.getUsername().equals(Constant.ADMIN_NAME)) {
+            throw new ServiceException(BizExceptionEnum.CANT_CHANGE_ADMIN);
+        }
         String md5Passwd = DigestUtils.md5Hex(userResetReq.getNewpassword());
         if (!this.userMapper.resetUserPwd(userResetReq.getUsername(), md5Passwd))
         {
@@ -117,10 +136,11 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserLogoutResp logout(UserLogoutReq userLogoutReq, HttpSession httpSession, UserLogoutResp userLogoutResp) {
-        //重置token以及salt
+        //重置token以及salt 更新token以及salt为null.这样再访问其他接口会提示token不合法
         this.userMapper.updateTokenByUserId(null, null, userLogoutReq.getId());
         //清空session
         httpSession.setAttribute(userLogoutReq.getUsername(), null);
+        httpSession.setMaxInactiveInterval(0);
         return userLogoutResp;
     }
 

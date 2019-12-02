@@ -1,5 +1,6 @@
 package com.jialong.powersite.modular.system.model.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jialong.powersite.core.utils.Page;
 import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
 
@@ -15,7 +16,9 @@ public class WorkSheetListReq  extends Page<JlWorkSheetRecord> {
 
     private  String worksheetDetail;
 
-    private Date addTime;
+    private String addTimeBegin;
+
+    private String addTimeEnd;
 
     public Integer getSiteId() {
         return siteId;
@@ -49,11 +52,19 @@ public class WorkSheetListReq  extends Page<JlWorkSheetRecord> {
         this.worksheetDetail = worksheetDetail;
     }
 
-    public Date getAddTime() {
-        return addTime;
+    public String getAddTimeBegin() {
+        return addTimeBegin;
     }
 
-    public void setAddTime(Date addTime) {
-        this.addTime = addTime;
+    public void setAddTimeBegin(String addTimeBegin) {
+        this.addTimeBegin = addTimeBegin;
+    }
+
+    public String getAddTimeEnd() {
+        return addTimeEnd;
+    }
+
+    public void setAddTimeEnd(String addTimeEnd) {
+        this.addTimeEnd = addTimeEnd;
     }
 }

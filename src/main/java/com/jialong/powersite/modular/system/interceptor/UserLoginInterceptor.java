@@ -27,7 +27,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getParameter("token");
+        String token = request.getHeader("token");
 
         BaseResp baseResp = new BaseResp();
         response.setContentType("text/html;charset=UTF-8");

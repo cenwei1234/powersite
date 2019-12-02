@@ -1,5 +1,6 @@
 package com.jialong.powersite.modular.system.model.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jialong.powersite.core.utils.Page;
 import com.jialong.powersite.modular.system.model.JlAlarmLog;
 
@@ -12,9 +13,19 @@ public class AlarmLogListReq extends Page<JlAlarmLog>{
 
     private  String alarmDetail;
 
-    private Date alarmTime;
+    private  String alarmTimeBegin;
+
+    private  String alarmTimeEnd;
 
     private  Integer siteId;
+
+    private Integer alarmLevel;
+
+    private String TriggerValue;
+
+    private Integer alarmDevice;
+
+    private Integer siteType;
 
     private  Integer auditor;
 
@@ -34,12 +45,20 @@ public class AlarmLogListReq extends Page<JlAlarmLog>{
         this.alarmDetail = alarmDetail;
     }
 
-    public Date getAlarmTime() {
-        return alarmTime;
+    public String getAlarmTimeBegin() {
+        return alarmTimeBegin;
     }
 
-    public void setAlarmTime(Date alarmTime) {
-        this.alarmTime = alarmTime;
+    public void setAlarmTimeBegin(String alarmTimeBegin) {
+        this.alarmTimeBegin = alarmTimeBegin;
+    }
+
+    public String getAlarmTimeEnd() {
+        return alarmTimeEnd;
+    }
+
+    public void setAlarmTimeEnd(String alarmTimeEnd) {
+        this.alarmTimeEnd = alarmTimeEnd;
     }
 
     public Integer getSiteId() {
@@ -56,5 +75,37 @@ public class AlarmLogListReq extends Page<JlAlarmLog>{
 
     public void setAuditor(Integer auditor) {
         this.auditor = auditor;
+    }
+
+    public Integer getAlarmLevel() {
+        return alarmLevel;
+    }
+
+    public void setAlarmLevel(Integer alarmLevel) {
+        this.alarmLevel = alarmLevel;
+    }
+
+    public String getTriggerValue() {
+        return TriggerValue;
+    }
+
+    public void setTriggerValue(String triggerValue) {
+        TriggerValue = triggerValue;
+    }
+
+    public Integer getAlarmDevice() {
+        return alarmDevice;
+    }
+
+    public void setAlarmDevice(Integer alarmDevice) {
+        this.alarmDevice = alarmDevice;
+    }
+
+    public Integer getSiteType() {
+        return siteType;
+    }
+
+    public void setSiteType(Integer siteType) {
+        this.siteType = siteType;
     }
 }

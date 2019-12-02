@@ -10,6 +10,8 @@ public interface IUserService {
 
     UserLoginResp loginValid(UserLoginReq userLoginRequest, HttpSession httpSession, HttpServletResponse response, UserLoginResp userLoginResp);
 
+    UserListResp queryUsers(UserListReq userListReq, UserListResp userListResp);
+
     UserRegResp register(UserRegReq userRegReq, UserRegResp userRegResp);
 
     UserResetResp resetPwd(UserResetReq userResetReq, UserResetResp userResetResp);

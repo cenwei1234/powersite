@@ -1,34 +1,49 @@
 package com.jialong.powersite.modular.system.model;
 
-import java.util.Date;
-
 public class JlAlarmLog {
 
-    private  long id;
+    private  Integer id;
 
-    private  long noticeType;
+    private  Integer siteId;
+
+    private  Integer noticeType;
 
     private  String alarmDetail;
 
-    private Date alarmTime;
+    private Integer alarmLevel;
 
-    private  long siteId;
+    private Integer siteType;
 
-    private  long auditor;
+    private String TriggerValue;
 
-    public long getId() {
+    private Integer alarmDevice;
+
+    private String alarmTime;
+
+    private  Integer auditor;
+
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public long getNoticeType() {
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
+    }
+
+    public Integer getNoticeType() {
         return noticeType;
     }
 
-    public void setNoticeType(long noticeType) {
+    public void setNoticeType(Integer noticeType) {
         this.noticeType = noticeType;
     }
 
@@ -40,39 +55,51 @@ public class JlAlarmLog {
         this.alarmDetail = alarmDetail;
     }
 
-    public Date getAlarmTime() {
+    public Integer getAlarmLevel() {
+        return alarmLevel;
+    }
+
+    public void setAlarmLevel(Integer alarmLevel) {
+        this.alarmLevel = alarmLevel;
+    }
+
+    public String getTriggerValue() {
+        return TriggerValue;
+    }
+
+    public void setTriggerValue(String triggerValue) {
+        TriggerValue = triggerValue;
+    }
+
+    public Integer getAlarmDevice() {
+        return alarmDevice;
+    }
+
+    public void setAlarmDevice(Integer alarmDevice) {
+        this.alarmDevice = alarmDevice;
+    }
+
+    public String getAlarmTime() {
         return alarmTime;
     }
 
-    public void setAlarmTime(Date alarmTime) {
+    public void setAlarmTime(String alarmTime) {
         this.alarmTime = alarmTime;
     }
 
-    public long getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(long siteId) {
-        this.siteId = siteId;
-    }
-
-    public long getAuditor() {
+    public Integer getAuditor() {
         return auditor;
     }
 
-    public void setAuditor(long auditor) {
+    public void setAuditor(Integer auditor) {
         this.auditor = auditor;
     }
 
-    @Override
-    public String toString() {
-        return "JlAlarmLog{" +
-                "id=" + id +
-                ", noticeType=" + noticeType +
-                ", alarmDetail='" + alarmDetail + '\'' +
-                ", alarmTime=" + alarmTime +
-                ", siteId=" + siteId +
-                ", auditor=" + auditor +
-                '}';
+    public Integer getSiteType() {
+        return siteType;
+    }
+
+    public void setSiteType(Integer siteType) {
+        this.siteType = siteType;
     }
 }

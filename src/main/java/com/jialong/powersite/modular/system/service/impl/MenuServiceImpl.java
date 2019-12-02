@@ -34,6 +34,16 @@ public class MenuServiceImpl implements IMenuService {
     public MenuAddResp insetMenus(MenuAddReq menuAddReq, MenuAddResp menuAddResp) {
         /**
          * 根据请求的父级菜单编号设置pcode和层级
+         * 这里前段传递过来的json类似于
+         * {
+         * 	"code":"mgr_auth",
+         * 	"pcode":"106",
+         * 	"name":"用户鉴权",
+         * 	"icon":"",
+         * 	"url":"/mgr/auth",
+         * 	"num":"1",
+         * 	"ismenu":0
+         * }
          */
         Menu menu = new Menu();
         if (StringUtils.isEmpty(menuAddReq.getPcode()) || menuAddReq.getPcode().equals("0")) {
@@ -47,6 +57,7 @@ public class MenuServiceImpl implements IMenuService {
             menu.setPcode(pMenu.getCode());
 
             //如果编号和父编号一致会导致无限递归
+            //这里在前段界面上 菜单编号只要不要填写数据就行了 填一个英文菜单标识最好，如果填数字  恰好和下面选择的父级别菜单编号相同 那么会抛出下面的异常
             if (menuAddReq.getCode().equals(menuAddReq.getPcode())) {
                 throw new ServiceException(BizExceptionEnum.MENU_PCODE_COINCIDENCE);
             }
@@ -56,14 +67,13 @@ public class MenuServiceImpl implements IMenuService {
         }
 
         menu.setStatus(MenuStatus.ENABLE.getCode());
-        //对象转换
+        //对象转换  这里没有设置isopen是否有影响待定 status 也不是前段传过来
         menu.setCode(menuAddReq.getCode());
         menu.setName(menuAddReq.getName());
         menu.setIcon(menuAddReq.getIcon());
         menu.setUrl(menuAddReq.getUrl());
         menu.setNum(menuAddReq.getNum());
         menu.setIsmenu(menuAddReq.getIsmenu());
-        menu.setIsopen(menuAddReq.getIsopen());
 
         menuMapper.insertMenus(menu);
         return menuAddResp;
@@ -139,8 +149,10 @@ public class MenuServiceImpl implements IMenuService {
         List<Long> menuIds = this.menuMapper.getMenuIdsByRoleId(roleMenuListReq.getRoleId());
         List<ZTreeNode> zTreeNodeList;
         if (CollectionUtil.isEmpty(menuIds)) {
+            //在当前角色还未关联菜单的情况下需要把菜单按照层级显示出来 并且需要计算菜单的是否打开。只要有子级的菜单都是需要打开的。
             zTreeNodeList = this.menuMapper.menuTreeList();
         } else {
+            //如果当前角色已经关联菜单的情况下，那么还需要计算这个菜单是否需要被checked 如果该菜单没有被选中 checked为false 否则为true
             zTreeNodeList = this.menuMapper.menuTreeListByMenuIds(menuIds);
         }
         roleMenuListResp.setData(zTreeNodeList);

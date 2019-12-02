@@ -1,7 +1,5 @@
 package com.jialong.powersite.modular.system.model.response.data;
 
-import java.util.Date;
-
 public class AlarmLogRespData {
 
     private  Integer id;
@@ -10,7 +8,15 @@ public class AlarmLogRespData {
 
     private  String alarmDetail;
 
-    private Date alarmTime;
+    private Integer alarmLevel;
+
+    private Integer siteType;
+
+    private String TriggerValue;
+
+    private Integer alarmDevice;
+
+    private String alarmTime;
 
     private  String siteName;
 
@@ -36,15 +42,47 @@ public class AlarmLogRespData {
         return alarmDetail;
     }
 
+    public Integer getSiteType() {
+        return siteType;
+    }
+
+    public void setSiteType(Integer siteType) {
+        this.siteType = siteType;
+    }
+
     public void setAlarmDetail(String alarmDetail) {
         this.alarmDetail = alarmDetail;
     }
 
-    public Date getAlarmTime() {
+    public Integer getAlarmLevel() {
+        return alarmLevel;
+    }
+
+    public void setAlarmLevel(Integer alarmLevel) {
+        this.alarmLevel = alarmLevel;
+    }
+
+    public String getTriggerValue() {
+        return TriggerValue;
+    }
+
+    public void setTriggerValue(String triggerValue) {
+        TriggerValue = triggerValue;
+    }
+
+    public Integer getAlarmDevice() {
+        return alarmDevice;
+    }
+
+    public void setAlarmDevice(Integer alarmDevice) {
+        this.alarmDevice = alarmDevice;
+    }
+
+    public String getAlarmTime() {
         return alarmTime;
     }
 
-    public void setAlarmTime(Date alarmTime) {
+    public void setAlarmTime(String alarmTime) {
         this.alarmTime = alarmTime;
     }
 

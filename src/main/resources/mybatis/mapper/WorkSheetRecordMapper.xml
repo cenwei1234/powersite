@@ -46,6 +46,9 @@
             <if test="worksheetDetail != null">
                 AND worksheet_detail = #{worksheetDetail}
             </if>
+            <if test="addTimeBegin != null and addTimeEnd != null ">
+                AND ( add_time between  CONCAT(#{addTimeBegin}, ' 00:00:00') and CONCAT(#{addTimeEnd}, ' 23:59:59'))
+            </if>
         </where>
             ;
     </select>
@@ -74,6 +77,9 @@
             </if>
             <if test="worksheetDetail != null">
                 AND worksheet_detail = #{worksheetDetail}
+            </if>
+            <if test="addTimeBegin != null and addTimeEnd != null ">
+                AND ( add_time between  CONCAT(#{addTimeBegin}, ' 00:00:00') and CONCAT(#{addTimeEnd}, ' 23:59:59'))
             </if>
         </where>
         LIMIT #{start}, #{pageSize};

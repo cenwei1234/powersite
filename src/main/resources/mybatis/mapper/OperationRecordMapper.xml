@@ -28,6 +28,9 @@
             <if test="operationDetail != null">
                 AND operation_detail like #{operationDetail}
             </if>
+            <if test="operationTimeBegin != null and operationTimeEnd != null">
+                AND (operation_time between  CONCAT(#{operationTimeBegin}, ' 00:00:00') and CONCAT(#{operationTimeEnd}, ' 23:59:59'))
+            </if>
         </where>
         ;
     </select>
@@ -52,6 +55,9 @@
             </if>
             <if test="operationDetail != null">
                 AND operation_detail like #{operationDetail}
+            </if>
+            <if test="operationTimeBegin != null and operationTimeEnd != null">
+                AND (operation_time between  CONCAT(#{operationTimeBegin}, ' 00:00:00') and CONCAT(#{operationTimeEnd}, ' 23:59:59'))
             </if>
         </where>
         LIMIT #{start}, #{pageSize};

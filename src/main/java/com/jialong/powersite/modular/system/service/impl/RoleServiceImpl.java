@@ -1,7 +1,11 @@
 package com.jialong.powersite.modular.system.service.impl;
 
 import cn.hutool.core.convert.Convert;
+import com.jialong.powersite.core.common.constant.Constant;
 import com.jialong.powersite.core.common.node.ZTreeNode;
+import com.jialong.powersite.core.exception.BizExceptionEnum;
+import com.jialong.powersite.core.exception.ServiceException;
+import com.jialong.powersite.core.utils.ToolUtil;
 import com.jialong.powersite.modular.system.mapper.RelationMapper;
 import com.jialong.powersite.modular.system.mapper.RoleMapper;
 import com.jialong.powersite.modular.system.mapper.UserMapper;
@@ -40,6 +44,15 @@ public class RoleServiceImpl implements IRoleService {
 
     @Transactional
     public RoleDelResp delRoleById(RoleDelReq roleDelReq, RoleDelResp roleDelResp) {
+        if (ToolUtil.isEmpty(roleDelReq.getId()))
+        {
+            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        }
+        //不能删除超级管理员角色
+        if (roleDelReq.getId().equals(Constant.ADMIN_ROLE_ID)) {
+            throw new ServiceException(BizExceptionEnum.CANT_DELETE_ADMIN);
+        }
+
         //删除角色
         this.roleMapper.deleteRoleById(roleDelReq.getId());
 
@@ -76,6 +89,12 @@ public class RoleServiceImpl implements IRoleService {
 
     public UserRoleListResp roleTreeListByUserId(UserRoleListReq userRoleReq, UserRoleListResp userRoleResp) {
         User theUser = this.userMapper.queryUserById(userRoleReq.getId());
+        if (null == theUser)
+        {
+            userRoleResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_NOT_EXISTED.getCode()));
+            userRoleResp.setErrorMsg(BizExceptionEnum.USER_NOT_EXISTED.getMessage());
+            return userRoleResp;
+        }
         String roleid = theUser.getRoleid();
         List<ZTreeNode> zTreeNodes;
         if (StringUtils.isEmpty(roleid)) {
@@ -100,7 +119,7 @@ public class RoleServiceImpl implements IRoleService {
     public RoleMenuSetResp setAuthority(RoleMenuSetReq roleMenuSetReq, RoleMenuSetResp roleMenuSetResp) {
         // 删除该角色所有的权限
         this.roleMapper.deleteRelationByRoleId(roleMenuSetReq.getRoleId());
-        // 添加新的权限
+        // 添加新的权限 也就是新增sys_relation里面的关联关系
         for (Long id : Convert.toLongArray(roleMenuSetReq.getMenuIds().split(","))) {
             Relation relation = new Relation();
             relation.setRoleid(roleMenuSetReq.getRoleId());

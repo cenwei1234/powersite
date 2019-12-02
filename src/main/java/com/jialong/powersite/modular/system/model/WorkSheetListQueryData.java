@@ -14,7 +14,11 @@ public class WorkSheetListQueryData extends Pagination {
 
     private  String worksheetDetail;
 
-    private Date addTime;
+    private String addTime;
+
+    private String addTimeBegin;
+
+    private String addTimeEnd;
 
     public Integer getSiteId() {
         return siteId;
@@ -48,11 +52,27 @@ public class WorkSheetListQueryData extends Pagination {
         this.worksheetDetail = worksheetDetail;
     }
 
-    public Date getAddTime() {
+    public String getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Date addTime) {
+    public void setAddTime(String addTime) {
         this.addTime = addTime;
+    }
+
+    public String getAddTimeBegin() {
+        return addTimeBegin;
+    }
+
+    public void setAddTimeBegin(String addTimeBegin) {
+        this.addTimeBegin = addTimeBegin;
+    }
+
+    public String getAddTimeEnd() {
+        return addTimeEnd;
+    }
+
+    public void setAddTimeEnd(String addTimeEnd) {
+        this.addTimeEnd = addTimeEnd;
     }
 }

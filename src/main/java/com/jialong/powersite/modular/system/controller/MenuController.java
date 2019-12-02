@@ -38,7 +38,7 @@ public class MenuController  {
     }
 
     @RequestMapping("/update")
-    public MenuUpdateResp queryMenuList(@RequestBody MenuUpdateReq menuUpdateReq)
+    public MenuUpdateResp updateMenu(@RequestBody MenuUpdateReq menuUpdateReq)
     {
         MenuUpdateResp menuUpdateResp = new MenuUpdateResp();
         menuService.updateMenus(menuUpdateReq, menuUpdateResp);

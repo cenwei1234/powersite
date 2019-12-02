@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.QuestionFeedbackMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlQuestionFeedback">
+        <result column="id" property="id" />
+        <result column="level" property="level" />
+        <result column="site_id" property="siteId" />
+        <result column="description" property="description" />
+        <result column="image" property="image" />
+        <result column="reportor" property="reportor" />
+    </resultMap>
+
+    <insert id="addQuestionFeedback">
+        INSERT INTO jl_question_feedback(
+            level,
+            site_id,
+            description,
+            image,
+            reportor
+        )
+        VALUES
+            (
+                #{level},
+                #{siteId},
+                #{description},
+                #{image},
+                #{reportor}
+            );
+    </insert>
+
+</mapper>

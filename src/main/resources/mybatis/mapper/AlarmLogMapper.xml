@@ -5,11 +5,20 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="map" type="com.jialong.powersite.modular.system.model.response.data.AlarmLogRespData">
         <result column="alid" property="id" />
+        <result column="site_name" property="siteName" />
         <result column="notice_type" property="noticeType" />
         <result column="alarm_detail" property="alarmDetail" />
+        <result column="alarm_level" property="alarmLevel" />
+        <result column="site_type" property="siteType" />
+        <result column="trigger_value" property="triggerValue" />
+        <result column="alarm_device" property="alarmDevice" />
         <result column="alarm_time" property="alarmTime" />
-        <result column="site_name" property="siteName" />
         <result column="username" property="username" />
+    </resultMap>
+
+    <resultMap id="alarmloggroupmap" type="com.jialong.powersite.modular.system.model.response.data.AlarmLogGroupData">
+        <result column="notice_type" property="noticeType" />
+        <result column="notice_num" property="noticeNum" />
     </resultMap>
 
     <select id="queryAlarmLogCount" parameterType="com.jialong.powersite.modular.system.model.JlAlarmLogQueryData"  resultType="integer">
@@ -29,8 +38,8 @@
             <if test="siteId != null">
                 AND site_id like #{siteId}
             </if>
-            <if test="auditor != null">
-                AND auditor like #{auditor}
+            <if test="alarmTimeBegin != null and alarmTimeEnd != null ">
+                AND (alarm_time between  CONCAT(#{alarmTimeBegin}, ' 00:00:00') and CONCAT(#{alarmTimeEnd}, ' 23:59:59'))
             </if>
         </where>
         ;
@@ -43,6 +52,10 @@
             alarm_detail,
             alarm_time,
             ps.site_name,
+            al.alarm_level,
+            al.site_type,
+            al.trigger_value,
+            al.alarm_device,
             u.username
         FROM
             jl_alarm_log al
@@ -61,8 +74,20 @@
             <if test="auditor != null">
                 AND auditor like #{auditor}
             </if>
+            <if test="alarmTimeBegin != null and alarmTimeEnd != null ">
+                AND (alarm_time between  CONCAT(#{alarmTimeBegin}, ' 00:00:00') and CONCAT(#{alarmTimeEnd}, ' 23:59:59'))
+            </if>
         </where>
         LIMIT #{start}, #{pageSize};
+    </select>
+
+    <select id="queryAlarmLogGroup" resultMap="alarmloggroupmap">
+        SELECT
+            notice_type,count(id) as notice_num
+        FROM
+            jl_alarm_log
+        GROUP BY
+            notice_type;
     </select>
 
 </mapper>

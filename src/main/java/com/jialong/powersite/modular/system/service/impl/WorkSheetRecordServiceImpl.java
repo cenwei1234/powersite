@@ -45,6 +45,8 @@ public class WorkSheetRecordServiceImpl implements IWorkSheetRecordService {
         workSheetListQueryData.setWorksheetDetail(workSheetListReq.getWorksheetDetail());
         workSheetListQueryData.setStart(workSheetListReq.getStart(workSheetListReq.getPageNo()));
         workSheetListQueryData.setPageSize(workSheetListReq.getPageSize());
+        workSheetListQueryData.setAddTimeBegin(workSheetListReq.getAddTimeBegin());
+        workSheetListQueryData.setAddTimeEnd(workSheetListReq.getAddTimeEnd());
         Integer totalCount = workSheetRecordMapper.queryWorkSheetCount(workSheetListQueryData);
         List<WorkSheetRecordRespData> jlWorkSheetRecords = workSheetRecordMapper.queryWorkSheet(workSheetListQueryData);
 
