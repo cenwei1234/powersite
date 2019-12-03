@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.PowerSiteOperationDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlPowerSiteOperationDetail">
+        <result column="id" property="id" />
+    </resultMap>
+
+
+    <insert id="AddPowerSiteOperationDetail" parameterType="com.jialong.powersite.modular.system.model.JlPowerSiteOperationDetail">
+        INSERT INTO jl_power_site_operation_detail (
+            site_id,
+            temperature1,
+            humidity1,
+            temperature2,
+            humidity2,
+            gas,
+            sf6,
+            ozone,
+            infrared,
+            fog,
+            waterlevel1,
+            waterlevel2,
+            alarm,
+            air_conditioning1,
+            air_conditioning2,
+            dehumidifier,
+            fan,
+            acs,
+            water_pump,
+            lamp_post,
+            monitor
+        )
+        VALUES
+            (
+                #{siteId},
+                #{temperature1},
+                #{humidity1},
+                #{temperature2},
+                #{humidity2},
+                #{gas},
+                #{sf6},
+                #{ozone},
+                #{infrared},
+                #{fog},
+                #{waterlevel1},
+                #{waterlevel2},
+                #{alarm}
+                #{airConditioning1},
+                #{airConditioning2},
+                #{dehumidifier},
+                #{fan},
+                #{acs},
+                #{waterPump},
+                #{lampPost},
+                #{monitor}
+            );
+
+    </insert>
+
+</mapper>

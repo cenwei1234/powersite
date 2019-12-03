@@ -3,6 +3,7 @@ package com.jialong.powersite.modular.system.mapper;
 import com.jialong.powersite.modular.system.model.User;
 import com.jialong.powersite.modular.system.model.UserQueryData;
 import com.jialong.powersite.modular.system.model.response.data.UserListRespData;
+import com.jialong.powersite.modular.system.model.response.data.UserLoginRespData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ public interface UserMapper{
 
     Integer userNameValid(@Param("username") String username);
 
-    User queryUserByUserName(@Param("username") String username);
+    UserLoginRespData queryUserByUserName(@Param("username") String username);
 
     Boolean updateTokenByUserId(@Param("token") String token, @Param("salt") String salt, @Param("userId") Integer userId);
 

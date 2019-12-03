@@ -70,4 +70,10 @@ public class UserController {
         userService.logout(userLogoutReq, httpSession, userLogoutResp);
         return userLogoutResp;
     }
+
+    @RequestMapping(value = "/detail", method = RequestMethod.POST)
+    public UserDetailQueryResp userProfile(@RequestBody UserDetailQueryReq userDetailQueryReq) {
+        UserDetailQueryResp userDetailQueryResp = new UserDetailQueryResp();
+        return userService.queryUserById(userDetailQueryReq, userDetailQueryResp);
+    }
 }

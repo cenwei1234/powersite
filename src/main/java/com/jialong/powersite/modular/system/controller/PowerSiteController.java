@@ -24,4 +24,11 @@ public class PowerSiteController {
         return powerSiteService.queryPowerSiteBySiteId(siteOperationReq, siteOperationResp);
     }
 
+    @RequestMapping("/add")
+    public SiteOperationAddResp addPowerSiteDetail(@RequestBody SiteOperationAddReq siteOperationAddReq)
+    {
+        SiteOperationAddResp siteOperationAddResp  = new  SiteOperationAddResp();
+        return powerSiteService.addPowerSiteData(siteOperationAddReq, siteOperationAddResp);
+    }
+
 }

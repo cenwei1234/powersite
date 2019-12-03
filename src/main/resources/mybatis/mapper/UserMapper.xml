@@ -39,6 +39,22 @@
 		<result column="createtime" property="createtime" />
 	</resultMap>
 
+	<!-- 通用查询映射结果 -->
+	<resultMap id="UserLoginResultMap" type="com.jialong.powersite.modular.system.model.response.data.UserLoginRespData">
+		<id column="uid" property="id" />
+		<result column="avatar" property="avatar" />
+		<result column="username" property="username" />
+		<result column="name" property="name" />
+		<result column="birthday" property="birthday" />
+		<result column="sex" property="sex" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="roleid" property="roleid" />
+		<result column="rolename" property="roleName" />
+		<result column="deptid" property="deptid" />
+		<result column="token" property="token" />
+	</resultMap>
+
 	<sql id="Base_Column_List">
 		id, username, name, password, birthday, sex, email, avatar,
 		phone, roleid,
@@ -58,10 +74,24 @@
 	</select>
 
 
-	<select id="queryUserByUserName" resultType="com.jialong.powersite.modular.system.model.User">
-		 select
-			<include refid="Base_Column_List" />
-		 from sys_user where username = #{username};
+	<select id="queryUserByUserName" resultMap="UserLoginResultMap">
+		 SELECT
+			u.id AS uid,
+			u.avatar,
+			u.username,
+			u.password,
+			u.`name`,
+			u.birthday,
+			u.sex,
+			u.email,
+			u.phone,
+			u.roleid,
+			r.`name` as rolename,
+			u.deptid,
+			u.token
+		FROM
+			sys_user u
+		LEFT JOIN sys_role r ON u.roleid = r.id where username = #{username};
 	</select>
 
 	<update id="updateTokenByUserId">

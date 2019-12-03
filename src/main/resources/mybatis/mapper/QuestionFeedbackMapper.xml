@@ -3,13 +3,13 @@
 <mapper namespace="com.jialong.powersite.modular.system.mapper.QuestionFeedbackMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlQuestionFeedback">
-        <result column="id" property="id" />
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.response.data.QuestionFeedbackRespData">
+        <result column="qfid" property="id" />
         <result column="level" property="level" />
-        <result column="site_id" property="siteId" />
+        <result column="site_name" property="siteName" />
         <result column="description" property="description" />
         <result column="image" property="image" />
-        <result column="reportor" property="reportor" />
+        <result column="username" property="username" />
     </resultMap>
 
     <insert id="addQuestionFeedback">
@@ -18,7 +18,8 @@
             site_id,
             description,
             image,
-            reportor
+            reportor,
+            add_time
         )
         VALUES
             (
@@ -26,8 +27,78 @@
                 #{siteId},
                 #{description},
                 #{image},
-                #{reportor}
+                #{reportor},
+                #{addTime}
             );
     </insert>
+
+    <select id="queryFeedBackList" parameterType="com.jialong.powersite.modular.system.model.QuestionListQueryData"  resultMap="map">
+        SELECT
+            qf.id AS qfid,
+            qf.`level`,
+            qf.description,
+            qf.image,
+            ps.site_name,
+            u.username
+        FROM
+            jl_question_feedback qf
+        LEFT JOIN jl_power_site ps ON qf.site_id = ps.id
+        LEFT JOIN sys_user u ON qf.reportor = u.id
+        <where>
+            <if test="level != null">
+                level = #{level}
+            </if>
+            <if test="siteId != null">
+                AND site_id = #{siteId}
+            </if>
+            <if test="reportor != null">
+                AND reportor like #{reportor}
+            </if>
+            <if test="reportStartTime != null and reportEndTime != null">
+                AND (add_time between  CONCAT(#{reportStartTime}, ' 00:00:00') and CONCAT(#{reportEndTime}, ' 23:59:59'))
+            </if>
+        </where>
+        LIMIT #{start}, #{pageSize};
+    </select>
+
+
+    <select id="queryFeedBackListCount" parameterType="com.jialong.powersite.modular.system.model.QuestionListQueryData"  resultMap="map">
+        SELECT
+        count(qf.id)
+        FROM
+        jl_question_feedback qf
+        LEFT JOIN jl_power_site ps ON qf.site_id = ps.id
+        LEFT JOIN sys_user u ON qf.reportor = u.id
+        <where>
+            <if test="level != null">
+                level = #{level}
+            </if>
+            <if test="siteId != null">
+                AND site_id = #{siteId}
+            </if>
+            <if test="reportor != null">
+                AND reportor like #{reportor}
+            </if>
+            <if test="reportStartTime != null and reportEndTime != null">
+                AND (add_time between  CONCAT(#{reportStartTime}, ' 00:00:00') and CONCAT(#{reportEndTime}, ' 23:59:59'))
+            </if>
+        </where>
+    </select>
+
+
+    <select id="queryFeedBackDetailById" resultMap="map">
+        SELECT
+            qf.id AS qfid,
+            qf.`level`,
+            qf.description,
+            qf.image,
+            ps.site_name,
+            u.username
+        FROM
+            jl_question_feedback qf
+        LEFT JOIN jl_power_site ps ON qf.site_id = ps.id
+        LEFT JOIN sys_user u ON qf.reportor = u.id
+        where qf.id = #{id}
+    </select>
 
 </mapper>

@@ -10,8 +10,8 @@ import com.jialong.powersite.modular.system.model.User;
 import com.jialong.powersite.modular.system.model.UserQueryData;
 import com.jialong.powersite.modular.system.model.request.*;
 import com.jialong.powersite.modular.system.model.response.*;
-import com.jialong.powersite.modular.system.model.response.data.LoginTokenData;
 import com.jialong.powersite.modular.system.model.response.data.UserListRespData;
+import com.jialong.powersite.modular.system.model.response.data.UserLoginRespData;
 import com.jialong.powersite.modular.system.service.IUserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -42,7 +42,7 @@ public class UserServiceImpl implements IUserService {
             return userLoginResp;
         }
 
-        User user = userMapper.queryUserByUserName(username);
+        UserLoginRespData user = userMapper.queryUserByUserName(username);
         //密码验证
         //说明已经找到用户，接下来校验密码
         String md5Passwd = DigestUtils.md5Hex(password);
@@ -70,9 +70,7 @@ public class UserServiceImpl implements IUserService {
             response.addCookie(cookieUserName);
             response.addCookie(cookiePassWord);
         }
-        LoginTokenData loginTokenData = new LoginTokenData();
-        loginTokenData.setToken(token);
-        userLoginResp.setData(loginTokenData);
+        userLoginResp.setData(user);
         return userLoginResp;
     }
 
@@ -142,6 +140,26 @@ public class UserServiceImpl implements IUserService {
         httpSession.setAttribute(userLogoutReq.getUsername(), null);
         httpSession.setMaxInactiveInterval(0);
         return userLogoutResp;
+    }
+
+    @Override
+    public UserDetailQueryResp queryUserById(UserDetailQueryReq userDetailQueryReq, UserDetailQueryResp userDetailQueryResp) {
+        User user = this.userMapper.queryUserById(userDetailQueryReq.getId());
+        userDetailQueryResp.setData(user);
+        return userDetailQueryResp;
+    }
+
+    @Override
+    public ApiUserPwResetResp updateUserPwdForClient(ApiUserPwResetReq apiUserPwResetReq, ApiUserPwResetResp apiUserPwResetResp) {
+        if (!apiUserPwResetReq.getNewpassword1().equals(apiUserPwResetReq.getGetNewpassword2()))
+        {
+            apiUserPwResetResp.setErrorCode(String.valueOf(BizExceptionEnum.TWO_PWD_NOT_MATCH.getCode()));
+            apiUserPwResetResp.setErrorMsg(BizExceptionEnum.TWO_PWD_NOT_MATCH.getMessage());
+            return apiUserPwResetResp;
+        }
+        String md5PassWd = DigestUtils.md5Hex(apiUserPwResetReq.getPassword());
+        userMapper.resetUserPwd(apiUserPwResetReq.getUsername(),md5PassWd);
+        return apiUserPwResetResp;
     }
 
 }

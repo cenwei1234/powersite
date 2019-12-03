@@ -8,7 +8,7 @@ public class JlParameterConfig {
     private  String paramName = "";
 
     //参数值类型(0 数值 1 状态值 top=0的时候才有值)
-    private  String paramValueType;
+    private  Integer paramValueType;
 
     private  Integer isTop;
 
@@ -36,11 +36,11 @@ public class JlParameterConfig {
         this.paramName = paramName;
     }
 
-    public String getParamValueType() {
+    public Integer getParamValueType() {
         return paramValueType;
     }
 
-    public void setParamValueType(String paramValueType) {
+    public void setParamValueType(Integer paramValueType) {
         this.paramValueType = paramValueType;
     }
 

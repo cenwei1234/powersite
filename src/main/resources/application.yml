@@ -6,6 +6,8 @@ server:
   servlet:
     context-path: /jialong
   port: 80
+  tomcat:
+    max-http-form-post-size: 2
 spring:
   profiles:
     active: dev

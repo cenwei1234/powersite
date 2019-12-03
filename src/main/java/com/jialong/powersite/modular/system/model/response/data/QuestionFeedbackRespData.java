@@ -1,20 +1,18 @@
-package com.jialong.powersite.modular.system.model;
+package com.jialong.powersite.modular.system.model.response.data;
 
-public class JlQuestionFeedback {
+public class QuestionFeedbackRespData {
 
     private  Integer id;
 
     private  Integer level;
 
-    private  Integer siteId;
+    private  String siteName;
 
     private  String description;
 
     private  String image;
 
-    private  Integer reportor;
-
-    private String addTime;
+    private  String username;
 
     public Integer getId() {
         return id;
@@ -32,12 +30,12 @@ public class JlQuestionFeedback {
         this.level = level;
     }
 
-    public Integer getSiteId() {
-        return siteId;
+    public String getSiteName() {
+        return siteName;
     }
 
-    public void setSiteId(Integer siteId) {
-        this.siteId = siteId;
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
     }
 
     public String getDescription() {
@@ -56,19 +54,11 @@ public class JlQuestionFeedback {
         this.image = image;
     }
 
-    public Integer getReportor() {
-        return reportor;
+    public String getUsername() {
+        return username;
     }
 
-    public void setReportor(Integer reportor) {
-        this.reportor = reportor;
-    }
-
-    public String getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(String addTime) {
-        this.addTime = addTime;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

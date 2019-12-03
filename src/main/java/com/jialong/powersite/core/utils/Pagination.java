@@ -1,7 +1,9 @@
 package com.jialong.powersite.core.utils;
 
 public class Pagination {
+
     private int pageSize;
+
     private int start;
 
     public int getPageSize() {

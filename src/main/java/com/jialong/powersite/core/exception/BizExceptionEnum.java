@@ -61,6 +61,12 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
     TOKEN_EXPIRED(103, "token失效"),
 
     /**
+     * 站房
+     */
+    PARAM_CONFIG_ERROR(301, "请求参数的数量和值的数量不相等"),
+    PARAM_CONFIG_NOEXISTS(302, "请求参数的id非法"),
+
+    /**
      * 签名异常
      */
     SIGN_ERROR(700, "签名验证失败"),
