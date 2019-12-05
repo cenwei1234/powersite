@@ -12,10 +12,11 @@ import java.util.List;
 @Repository
 public interface PowerSiteMapper {
 
-    List<JlSiteOperationData> queryPowerSiteBySiteId(@Param("siteId") Integer siteId);
+    List<JlSiteOperationData> queryPowerSiteOperationBySiteId(@Param("siteId") Integer siteId);
 
     Boolean addPowerSiteData(List<JlSiteOperation> jlSiteOperationList);
 
     List<JlParameterConfig> queryParamConfigBatch(@Param("ids") List<Integer> ids);
 
+    Boolean updateParamConfigState(JlSiteOperation jlSiteOperation);
 }

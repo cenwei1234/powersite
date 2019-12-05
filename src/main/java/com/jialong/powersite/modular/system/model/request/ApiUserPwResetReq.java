@@ -8,7 +8,7 @@ public class ApiUserPwResetReq {
 
     private String newpassword1;
 
-    private String getNewpassword2;
+    private String newpassword2;
 
     public String getUsername() {
         return username;
@@ -34,11 +34,11 @@ public class ApiUserPwResetReq {
         this.newpassword1 = newpassword1;
     }
 
-    public String getGetNewpassword2() {
-        return getNewpassword2;
+    public String getNewpassword2() {
+        return newpassword2;
     }
 
-    public void setGetNewpassword2(String getNewpassword2) {
-        this.getNewpassword2 = getNewpassword2;
+    public void setNewpassword2(String newpassword2) {
+        this.newpassword2 = newpassword2;
     }
 }

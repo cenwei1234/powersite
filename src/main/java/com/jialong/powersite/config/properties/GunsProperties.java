@@ -43,7 +43,7 @@ public class GunsProperties {
         //如果没有写文件上传路径,保存到临时目录
         if (ToolUtil.isEmpty(fileUploadPath)) {
             //这里需要修改
-            return "";
+            return ToolUtil.getTempPath();
         } else {
             //判断有没有结尾符,没有得加上
             if (!fileUploadPath.endsWith(File.separator)) {

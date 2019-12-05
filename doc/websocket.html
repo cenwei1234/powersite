@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>websocket测试页面</title>
+</head>
+<body>
+
+<div>
+    <h1>websocket测试</h1>
+    <div>
+        <label>服务器地址/连接地址/订阅地址/websocket服务EndPoint地址：</label>
+        <input type="text" id="server-path" value="ws://localhost/jialong/ws/topic" placeholder="如ws://localhost/jialong/ws/topic" style="width: 200px">
+    </div>
+    <div>
+        <hr>
+        <div>
+            tips:如果想页面打开时就连接并监听，则在页面加载完成后就执行上面按钮的逻辑，或运行startWebSocket()函数。
+        </div>
+        <hr>
+        <div>
+            <h3>实时日志显示信息</h3>
+            <div id="info">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+</body>
+</html>
+
+
+
+<script>
+    $(function () {
+        //页面开始就连接websocket到服务器开始监听日志消息。
+        startWebSocket();
+    });
+
+
+
+    function startWebSocket()
+    {
+        if ("WebSocket" in window)
+        {
+            console.log("您的浏览器支持 WebSocket!");
+            // 打开一个 web socket
+            ws = new WebSocket($('#server-path').val());
+
+            //开启事件回调
+            ws.onopen = function()
+            {
+                // Web Socket 已连接上，可以使用 send() 方法来发送数据，也可以什么都不发，等待接收信息即可。
+                // ws.send("发送数据");
+                console.log("websocket 已连接...");
+            };
+
+            //接收到消息的回调
+            ws.onmessage = function (evt)
+            {
+                var received_msg = evt.data;
+                //此处将获取到的信息添加到显示信息中。
+                $('#info').append("<p>"+received_msg+"</p>");
+            };
+
+            ws.onclose = function()
+            {
+                // 关闭 websocket
+                console.log("连接已关闭...");
+                //重新启用开始按钮。
+                $('#start').removeAttr('disabled');
+            };
+
+            //禁用button
+            $('#start').attr('disabled',true);
+
+        }
+        else
+        {
+            // 浏览器不支持 WebSocket
+            console.log("您的浏览器不支持 WebSocket!");
+        }
+    }
+</script>

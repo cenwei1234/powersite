@@ -19,6 +19,11 @@ public class JlSiteOperation {
 	 //参数值单位
     private  String paramValueUnit;
 
+    //参数值单位
+    private  String addTime;
+
+    private Integer isOverdue;
+
     public Integer getId() {
         return id;
     }
@@ -65,5 +70,21 @@ public class JlSiteOperation {
 
     public void setParamValueUnit(String paramValueUnit) {
         this.paramValueUnit = paramValueUnit;
+    }
+
+    public Integer getIsOverdue() {
+        return isOverdue;
+    }
+
+    public void setIsOverdue(Integer isOverdue) {
+        this.isOverdue = isOverdue;
+    }
+
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
     }
 }

@@ -7,9 +7,11 @@ import sun.misc.BASE64Decoder;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.UUID;
-//未导入的包自动补全即刻
 
 
+/**
+ * 需要优化 暂不能用
+ */
 @Service
 public class Base64 {
 

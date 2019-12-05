@@ -81,11 +81,20 @@ public class UserServiceImpl implements IUserService {
         userQueryData.setStart(userListReq.getStart(userListReq.getPageNo()));
         userQueryData.setPageSize(userListReq.getPageSize());
         List<UserListRespData> users = this.userMapper.queryUserList(userQueryData);
+        Integer totalCount = this.userMapper.queryUserListCount(userQueryData);
         userListResp.setData(users);
+        userListResp.setTotalCount(totalCount);
         return userListResp;
     }
 
     public UserRegResp register(UserRegReq userRegReq, UserRegResp userRegResp) {
+        if (!userRegReq.getPassword().equals(userRegReq.getRePassword()))
+        {
+            userRegResp.setErrorCode(String.valueOf(BizExceptionEnum.TWO_PWD_NOT_MATCH.getCode()));
+            userRegResp.setErrorMsg(BizExceptionEnum.TWO_PWD_NOT_MATCH.getMessage());
+            return userRegResp;
+        }
+
         String username = userRegReq.getUsername();
         //用户名验证
         if (userMapper.userNameValid(username) == 1)
@@ -98,6 +107,14 @@ public class UserServiceImpl implements IUserService {
         String md5Passwd = DigestUtils.md5Hex(userRegReq.getPassword());
         user.setPassword(md5Passwd);
         user.setUsername(username);
+        user.setSex(userRegReq.getSex());
+        user.setAvatar(userRegReq.getAvatar());
+        user.setEmail(userRegReq.getEmail());
+        user.setName(userRegReq.getName());
+        user.setBirthday(userRegReq.getBirthday());
+        user.setDeptid(userRegReq.getDeptid());
+        user.setRoleid(userRegReq.getRoleid());
+        user.setPhone(userRegReq.getPhone());
         //状态默认为启用
         user.setStatus(UserStatus.ENABLE.getCode());
         user.setCreatetime(new Date());
@@ -151,7 +168,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ApiUserPwResetResp updateUserPwdForClient(ApiUserPwResetReq apiUserPwResetReq, ApiUserPwResetResp apiUserPwResetResp) {
-        if (!apiUserPwResetReq.getNewpassword1().equals(apiUserPwResetReq.getGetNewpassword2()))
+        if (!apiUserPwResetReq.getNewpassword1().equals(apiUserPwResetReq.getNewpassword2()))
         {
             apiUserPwResetResp.setErrorCode(String.valueOf(BizExceptionEnum.TWO_PWD_NOT_MATCH.getCode()));
             apiUserPwResetResp.setErrorMsg(BizExceptionEnum.TWO_PWD_NOT_MATCH.getMessage());

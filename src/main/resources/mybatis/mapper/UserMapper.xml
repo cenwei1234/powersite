@@ -128,6 +128,19 @@
 		;
 	</select>
 
+	<select id="queryUserListCount" resultType="Integer">
+		select
+			count(u.id)
+		from sys_user u
+		LEFT JOIN sys_role r ON u.roleid = r.id
+		<where>
+			<if test="username != null">
+				username = #{username}
+			</if>
+		</where>
+		;
+	</select>
+
 
 	<insert id="insertUser" parameterType="com.jialong.powersite.modular.system.model.User">
 		INSERT INTO sys_user (

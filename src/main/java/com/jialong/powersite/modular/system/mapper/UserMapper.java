@@ -28,5 +28,7 @@ public interface UserMapper{
 
     List<UserListRespData> queryUserList(UserQueryData userQueryData);
 
+    Integer queryUserListCount(UserQueryData userQueryData);
+
     int setRoles(@Param("userId") Integer userId, @Param("roleIds") String roleIds);
 }

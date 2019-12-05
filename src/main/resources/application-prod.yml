@@ -5,3 +5,5 @@ spring:
     url: jdbc:mysql://localhost:3306/jialong?serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+guns:
+  file-upload-path: /home/upload

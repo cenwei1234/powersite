@@ -13,6 +13,7 @@ import com.jialong.powersite.modular.system.service.IPowerSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -23,7 +24,7 @@ public class PowerSiteServiceImpl implements IPowerSiteService {
 
     @Override
     public SiteOperationResp queryPowerSiteBySiteId(SiteOperationReq siteOperationReq, SiteOperationResp siteOperationResp) {
-        List<JlSiteOperationData> jlSiteOperationData = powerSiteMapper.queryPowerSiteBySiteId(siteOperationReq.getSiteId());
+        List<JlSiteOperationData> jlSiteOperationData = powerSiteMapper.queryPowerSiteOperationBySiteId(siteOperationReq.getSiteId());
         siteOperationResp.setData(jlSiteOperationData);
         return siteOperationResp;
     }
@@ -50,11 +51,24 @@ public class PowerSiteServiceImpl implements IPowerSiteService {
             return siteOperationAddResp;
         }
 
+        //以site_id和param_id联合条件作为标准 将已有的记录标识为过期 在查询的时候过滤过期的记录 同时新增的记录标识为未过期
+        for (int i = 0; i < jlParameterConfigs.size(); i++) {
+            JlSiteOperation jlSiteOperation = new JlSiteOperation();
+            jlSiteOperation.setSiteId(siteOperationAddReq.getSiteId());
+            jlSiteOperation.setParamId(jlParameterConfigs.get(i).getId());
+            jlSiteOperation.setIsOverdue(0);
+            powerSiteMapper.updateParamConfigState(jlSiteOperation);
+        }
+
+
         Map<Integer,Integer> parameterConfigsMap =new HashMap<>();
         for (int index = 0; index < jlParameterConfigs.size(); index++) {
             //存储查询出集合中参数id和
             parameterConfigsMap.put(jlParameterConfigs.get(index).getId(),index);
         }
+
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//可以方便地修改日期格式
 
         for (int i = 0; i < paramIdArr.length; i++) {
             JlSiteOperation jlSiteOperation = new JlSiteOperation();
@@ -65,6 +79,8 @@ public class PowerSiteServiceImpl implements IPowerSiteService {
             Integer paramIdIndex = parameterConfigsMap.get(siteOperationAddReq.getParamId()[i]);
             jlSiteOperation.setParamValueType(jlParameterConfigs.get(paramIdIndex).getParamValueType());
             jlSiteOperation.setParamValueUnit(jlParameterConfigs.get(paramIdIndex).getParamValueUnit());
+            jlSiteOperation.setAddTime(dateFormat.format(now));
+            jlSiteOperation.setIsOverdue(0);
             jlSiteOperationList.add(jlSiteOperation);
         }
         powerSiteMapper.addPowerSiteData(jlSiteOperationList);

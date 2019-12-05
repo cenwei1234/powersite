@@ -44,7 +44,7 @@ public class User {
     /**
      * 角色id
      */
-    private String roleid;
+    private Integer roleid;
     /**
      * 部门id
      */
@@ -147,11 +147,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getRoleid() {
+    public Integer getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(String roleid) {
+    public void setRoleid(Integer roleid) {
         this.roleid = roleid;
     }
 
