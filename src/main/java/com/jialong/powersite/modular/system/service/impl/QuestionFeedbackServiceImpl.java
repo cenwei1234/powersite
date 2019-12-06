@@ -6,9 +6,9 @@ import com.jialong.powersite.modular.system.model.QuestionListQueryData;
 import com.jialong.powersite.modular.system.model.request.QuestionFeedbackAddReq;
 import com.jialong.powersite.modular.system.model.request.QuestionFeedbackDetailReq;
 import com.jialong.powersite.modular.system.model.request.QuestionFeedbackListReq;
-import com.jialong.powersite.modular.system.model.response.QuestionFeedbackAddResp;
-import com.jialong.powersite.modular.system.model.response.QuestionFeedbackDetailResp;
-import com.jialong.powersite.modular.system.model.response.QuestionFeedbackListResp;
+import com.jialong.powersite.modular.system.model.response.BaseBeanResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.model.response.data.QuestionFeedbackRespData;
 import com.jialong.powersite.modular.system.service.IQuestionFeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class QuestionFeedbackServiceImpl implements IQuestionFeedbackService
     private QuestionFeedbackMapper questionFeedbackMapper;
 
     @Override
-    public QuestionFeedbackAddResp addQuestionFeedback(QuestionFeedbackAddReq questionFeedbackAddReq, QuestionFeedbackAddResp questionFeedbackAddResp) {
+    public BaseResp addQuestionFeedback(QuestionFeedbackAddReq questionFeedbackAddReq, BaseResp baseResp) {
 
         JlQuestionFeedback jlQuestionFeedback = new JlQuestionFeedback();
         jlQuestionFeedback.setLevel(questionFeedbackAddReq.getLevel());
@@ -33,11 +33,11 @@ public class QuestionFeedbackServiceImpl implements IQuestionFeedbackService
         jlQuestionFeedback.setImage(questionFeedbackAddReq.getImage());
         jlQuestionFeedback.setReportor(questionFeedbackAddReq.getReportor());
         this.questionFeedbackMapper.addQuestionFeedback(jlQuestionFeedback);
-        return questionFeedbackAddResp;
+        return baseResp;
     }
 
     @Override
-    public QuestionFeedbackListResp queryQuestionFeedbackList(QuestionFeedbackListReq questionFeedbackListReq, QuestionFeedbackListResp questionFeedbackListResp) {
+    public BaseListResp queryQuestionFeedbackList(QuestionFeedbackListReq questionFeedbackListReq, BaseListResp<QuestionFeedbackRespData> baseListResp) {
 
         QuestionListQueryData questionListQueryData = new QuestionListQueryData();
         questionListQueryData.setLevel(questionFeedbackListReq.getLevel());
@@ -52,15 +52,15 @@ public class QuestionFeedbackServiceImpl implements IQuestionFeedbackService
 
         Integer totalCount = this.questionFeedbackMapper.queryFeedBackListCount(questionListQueryData);
 
-        questionFeedbackListResp.setTotalCount(totalCount);
-        questionFeedbackListResp.setData(questionFeedbackListRespData);
-        return questionFeedbackListResp;
+        baseListResp.setTotalCount(totalCount);
+        baseListResp.setData(questionFeedbackListRespData);
+        return baseListResp;
     }
 
     @Override
-    public QuestionFeedbackDetailResp queryQuestionFeedbackById(QuestionFeedbackDetailReq questionFeedbackDetailReq, QuestionFeedbackDetailResp questionFeedbackDetailResp) {
+    public BaseBeanResp queryQuestionFeedbackById(QuestionFeedbackDetailReq questionFeedbackDetailReq, BaseBeanResp<QuestionFeedbackRespData> baseBeanResp) {
         QuestionFeedbackRespData questionFeedbackListRespData = questionFeedbackMapper.queryFeedBackDetailById(questionFeedbackDetailReq.getId());
-        questionFeedbackDetailResp.setData(questionFeedbackListRespData);
-        return questionFeedbackDetailResp;
+        baseBeanResp.setData(questionFeedbackListRespData);
+        return baseBeanResp;
     }
 }

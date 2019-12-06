@@ -1,19 +1,17 @@
 package com.jialong.powersite.modular.system.service.impl;
 
-import com.jialong.powersite.core.utils.Pagination;
 import com.jialong.powersite.modular.system.mapper.CheckTaskMapper;
 import com.jialong.powersite.modular.system.model.CheckTaskListQueryData;
 import com.jialong.powersite.modular.system.model.JlCheckTask;
 import com.jialong.powersite.modular.system.model.request.CheckTaskAddReq;
 import com.jialong.powersite.modular.system.model.request.CheckTaskListReq;
-import com.jialong.powersite.modular.system.model.response.CheckTaskAddRsp;
-import com.jialong.powersite.modular.system.model.response.CheckTaskListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.model.response.data.CheckTaskRespData;
 import com.jialong.powersite.modular.system.service.ICheckTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class CheckTaskServiceImpl implements ICheckTaskService {
     private CheckTaskMapper checkTaskMapper;
 
     @Override
-    public CheckTaskAddRsp addCheckTask(CheckTaskAddReq checkTaskAddReq, CheckTaskAddRsp checkTaskAddRsp)
+    public BaseResp addCheckTask(CheckTaskAddReq checkTaskAddReq, BaseResp baseResp)
     {
         JlCheckTask jlCheckTask = new JlCheckTask();
         jlCheckTask.setChecker(checkTaskAddReq.getChecker());
@@ -33,11 +31,11 @@ public class CheckTaskServiceImpl implements ICheckTaskService {
         jlCheckTask.setAddTime(new Date());
         jlCheckTask.setStatus(1);
         checkTaskMapper.insertCheckTask(jlCheckTask);
-        return checkTaskAddRsp;
+        return baseResp;
     }
 
     @Override
-    public CheckTaskListResp queryCheckTask(CheckTaskListReq checkTaskListReq, CheckTaskListResp checkTaskListResp)
+    public BaseListResp queryCheckTask(CheckTaskListReq checkTaskListReq, BaseListResp<CheckTaskRespData> baseListResp)
     {
         CheckTaskListQueryData checkTaskListQueryData = new CheckTaskListQueryData();
         checkTaskListQueryData.setSiteId(checkTaskListReq.getSiteId());
@@ -51,8 +49,8 @@ public class CheckTaskServiceImpl implements ICheckTaskService {
 
         Integer totalCount = checkTaskMapper.queryCheckTaskCount(checkTaskListQueryData );
         List<CheckTaskRespData> jlCheckTasks = checkTaskMapper.queryCheckTask(checkTaskListQueryData );
-        checkTaskListResp.setTotalCount(totalCount);
-        checkTaskListResp.setData(jlCheckTasks);
-        return checkTaskListResp;
+        baseListResp.setTotalCount(totalCount);
+        baseListResp.setData(jlCheckTasks);
+        return baseListResp;
     }
 }

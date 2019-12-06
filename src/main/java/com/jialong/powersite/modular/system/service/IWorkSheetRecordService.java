@@ -2,13 +2,14 @@ package com.jialong.powersite.modular.system.service;
 
 import com.jialong.powersite.modular.system.model.request.WorkSheetAddReq;
 import com.jialong.powersite.modular.system.model.request.WorkSheetListReq;
-import com.jialong.powersite.modular.system.model.response.WorkSheetAddRsp;
-import com.jialong.powersite.modular.system.model.response.WorkSheetListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
+import com.jialong.powersite.modular.system.model.response.data.WorkSheetRecordRespData;
 
 public interface IWorkSheetRecordService {
 
-    WorkSheetAddRsp addWorkSheet(WorkSheetAddReq workSheetAddReq, WorkSheetAddRsp workSheetAddRsp);
+    BaseResp addWorkSheet(WorkSheetAddReq workSheetAddReq, BaseResp baseResp);
 
-    WorkSheetListResp queryWorkSheet(WorkSheetListReq workSheetListReq, WorkSheetListResp workSheetListResp);
+    BaseListResp queryWorkSheet(WorkSheetListReq workSheetListReq, BaseListResp<WorkSheetRecordRespData> baseListResp);
 
 }

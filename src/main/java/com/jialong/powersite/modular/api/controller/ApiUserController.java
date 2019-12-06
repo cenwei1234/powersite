@@ -1,9 +1,10 @@
 package com.jialong.powersite.modular.api.controller;
 
+import com.jialong.powersite.modular.system.model.User;
 import com.jialong.powersite.modular.system.model.request.ApiUserPwResetReq;
 import com.jialong.powersite.modular.system.model.request.UserDetailQueryReq;
-import com.jialong.powersite.modular.system.model.response.ApiUserPwResetResp;
-import com.jialong.powersite.modular.system.model.response.UserDetailQueryResp;
+import com.jialong.powersite.modular.system.model.response.BaseBeanResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,16 +20,16 @@ public class ApiUserController {
     private IUserService userService;
 
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
-    public UserDetailQueryResp userProfile(@RequestBody UserDetailQueryReq userDetailQueryReq) {
-        UserDetailQueryResp userDetailQueryResp = new UserDetailQueryResp();
-        return userService.queryUserById(userDetailQueryReq, userDetailQueryResp);
+    public BaseBeanResp userProfile(@RequestBody UserDetailQueryReq userDetailQueryReq) {
+        BaseBeanResp<User> baseBeanResp = new BaseBeanResp<>();
+        return userService.queryUserById(userDetailQueryReq, baseBeanResp);
     }
 
     @RequestMapping(value = "/resetpwd", method = RequestMethod.POST)
-    public ApiUserPwResetResp userPwdReset(@RequestBody ApiUserPwResetReq apiUserPwResetReq)
+    public BaseResp userPwdReset(@RequestBody ApiUserPwResetReq apiUserPwResetReq)
     {
-        ApiUserPwResetResp apiUserPwResetResp = new ApiUserPwResetResp();
-        return userService.updateUserPwdForClient(apiUserPwResetReq, apiUserPwResetResp);
+        BaseResp baseResp = new BaseResp();
+        return userService.updateUserPwdForClient(apiUserPwResetReq, baseResp);
     }
 
 }

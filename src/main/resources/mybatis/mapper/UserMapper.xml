@@ -124,6 +124,7 @@
 				username = #{username}
 			</if>
 		</where>
+		order by u.id aesc
 		limit #{start}, #{pageSize}
 		;
 	</select>

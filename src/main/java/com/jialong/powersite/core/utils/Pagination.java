@@ -2,23 +2,23 @@ package com.jialong.powersite.core.utils;
 
 public class Pagination {
 
-    private int pageSize;
+    private Integer pageSize;
 
-    private int start;
+    private Integer start;
 
-    public int getPageSize() {
+    public Integer getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
     }
 
-    public int getStart() {
+    public Integer getStart() {
         return start;
     }
 
-    public void setStart(int start) {
+    public void setStart(Integer start) {
         this.start = start;
     }
 }

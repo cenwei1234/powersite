@@ -1,7 +1,8 @@
 package com.jialong.powersite.modular.api.controller;
 
 import com.jialong.powersite.modular.system.model.request.OperationRecordListReq;
-import com.jialong.powersite.modular.system.model.response.OperationRecordListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.data.OperationRecordRespData;
 import com.jialong.powersite.modular.system.service.IOperationRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +17,9 @@ public class ApiOperationRecordController {
     private IOperationRecordService operationRecordService;
 
     @RequestMapping("/list")
-    public OperationRecordListResp queryAlarmLogList(@RequestBody OperationRecordListReq operationRecordListReq)
+    public BaseListResp queryAlarmLogList(@RequestBody OperationRecordListReq operationRecordListReq)
     {
-        OperationRecordListResp operationRecordListResp = new OperationRecordListResp();
-        return operationRecordService.queryOperationRecordList(operationRecordListReq, operationRecordListResp);
+        BaseListResp<OperationRecordRespData> baseListResp = new BaseListResp<>();
+        return operationRecordService.queryOperationRecordList(operationRecordListReq, baseListResp);
     }
 }

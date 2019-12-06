@@ -4,8 +4,7 @@ import com.jialong.powersite.modular.system.mapper.AlarmLogMapper;
 import com.jialong.powersite.modular.system.model.JlAlarmLogQueryData;
 import com.jialong.powersite.modular.system.model.request.AlarmLogGroupReq;
 import com.jialong.powersite.modular.system.model.request.AlarmLogListReq;
-import com.jialong.powersite.modular.system.model.response.AlarmLogGroupResp;
-import com.jialong.powersite.modular.system.model.response.AlarmLogListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.data.AlarmLogGroupData;
 import com.jialong.powersite.modular.system.model.response.data.AlarmLogRespData;
 import com.jialong.powersite.modular.system.service.IAlarmLogService;
@@ -21,11 +20,9 @@ public class AlarmLogServiceImpl implements IAlarmLogService {
     private AlarmLogMapper alarmLogMapper;
 
     @Override
-    public AlarmLogListResp queryAlarmLogList(AlarmLogListReq alarmLogListReq, AlarmLogListResp alarmLogListResp)
+    public BaseListResp queryAlarmLogList(AlarmLogListReq alarmLogListReq, BaseListResp<AlarmLogRespData> baseListResp)
     {
-        JlAlarmLogQueryData jlAlarmLogQueryData = new JlAlarmLogQueryData();
-        jlAlarmLogQueryData.setStart(alarmLogListReq.getStart(alarmLogListReq.getPageNo()));
-        jlAlarmLogQueryData.setPageSize(alarmLogListReq.getPageSize());
+        JlAlarmLogQueryData jlAlarmLogQueryData = new JlAlarmLogQueryData(alarmLogListReq.getPageNo(), alarmLogListReq.getPageSize());
         jlAlarmLogQueryData.setNoticeType(alarmLogListReq.getNoticeType());
         jlAlarmLogQueryData.setAlarmDetail(alarmLogListReq.getAlarmDetail());
         jlAlarmLogQueryData.setAuditor(alarmLogListReq.getAuditor());
@@ -37,18 +34,17 @@ public class AlarmLogServiceImpl implements IAlarmLogService {
         jlAlarmLogQueryData.setAlarmTimeBegin(alarmLogListReq.getAlarmTimeBegin());
         jlAlarmLogQueryData.setAlarmTimeEnd(alarmLogListReq.getAlarmTimeEnd());
 
-
         List<AlarmLogRespData> jlAlarmLogs = alarmLogMapper.queryAlarmLogList(jlAlarmLogQueryData);
         int totalCount = alarmLogMapper.queryAlarmLogCount(jlAlarmLogQueryData);
-        alarmLogListResp.setTotalCount(totalCount);
-        alarmLogListResp.setData(jlAlarmLogs);
-        return alarmLogListResp;
+        baseListResp.setTotalCount(totalCount);
+        baseListResp.setData(jlAlarmLogs);
+        return baseListResp;
     }
 
     @Override
-    public AlarmLogGroupResp queryAlarmLogGroup(AlarmLogGroupReq alarmLogGroupReq, AlarmLogGroupResp alarmLogGroupResp) {
+    public BaseListResp queryAlarmLogGroup(AlarmLogGroupReq alarmLogGroupReq, BaseListResp<AlarmLogGroupData> baseListResp) {
         List<AlarmLogGroupData> alarmLogGroupData = this.alarmLogMapper.queryAlarmLogGroup();
-        alarmLogGroupResp.setData(alarmLogGroupData);
-        return alarmLogGroupResp;
+        baseListResp.setData(alarmLogGroupData);
+        return baseListResp;
     }
 }

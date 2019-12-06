@@ -4,10 +4,8 @@ import com.jialong.powersite.modular.system.model.request.CheckTaskAddReq;
 import com.jialong.powersite.modular.system.model.request.CheckTaskListReq;
 import com.jialong.powersite.modular.system.model.request.WorkSheetAddReq;
 import com.jialong.powersite.modular.system.model.request.WorkSheetListReq;
-import com.jialong.powersite.modular.system.model.response.CheckTaskAddRsp;
-import com.jialong.powersite.modular.system.model.response.CheckTaskListResp;
-import com.jialong.powersite.modular.system.model.response.WorkSheetAddRsp;
-import com.jialong.powersite.modular.system.model.response.WorkSheetListResp;
+import com.jialong.powersite.modular.system.model.response.*;
+import com.jialong.powersite.modular.system.model.response.data.CheckTaskRespData;
 import com.jialong.powersite.modular.system.service.ICheckTaskService;
 import com.jialong.powersite.modular.system.service.impl.CheckTaskServiceImpl;
 import com.jialong.powersite.modular.system.service.impl.WorkSheetRecordServiceImpl;
@@ -24,18 +22,18 @@ public class CheckTaskController {
     private ICheckTaskService checkTaskService;
 
     @RequestMapping("/list")
-    public CheckTaskListResp queryWorksheet(@RequestBody CheckTaskListReq checkTaskListReq)
+    public BaseListResp queryWorksheet(@RequestBody CheckTaskListReq checkTaskListReq)
     {
-        CheckTaskListResp checkTaskListResp = new CheckTaskListResp();
-        checkTaskService.queryCheckTask(checkTaskListReq, checkTaskListResp);
-        return checkTaskListResp;
+        BaseListResp<CheckTaskRespData> baseListResp = new BaseListResp<>();
+        checkTaskService.queryCheckTask(checkTaskListReq, baseListResp);
+        return baseListResp;
     }
 
     @RequestMapping("/add")
-    public CheckTaskAddRsp addCheckTask(@RequestBody CheckTaskAddReq checkTaskAddReq)
+    public BaseResp addCheckTask(@RequestBody CheckTaskAddReq checkTaskAddReq)
     {
-        CheckTaskAddRsp checkTaskAddRsp = new CheckTaskAddRsp();
-        checkTaskService.addCheckTask(checkTaskAddReq,checkTaskAddRsp);
-        return checkTaskAddRsp;
+        BaseResp baseResp = new BaseResp();
+        checkTaskService.addCheckTask(checkTaskAddReq,baseResp);
+        return baseResp;
     }
 }

@@ -1,9 +1,9 @@
 package com.jialong.powersite.modular.system.controller;
 
+import com.jialong.powersite.modular.system.model.RegionSite;
 import com.jialong.powersite.modular.system.model.request.RegionSiteListReq;
-import com.jialong.powersite.modular.system.model.response.RegionSiteListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.service.IRegionSiteService;
-import com.jialong.powersite.modular.system.service.impl.RegionSiteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +18,9 @@ public class RegionSiteController {
 
 
     @RequestMapping("/list")
-    public RegionSiteListResp queryRegionSite(@RequestBody RegionSiteListReq regionSiteListReq)
+    public BaseListResp queryRegionSite(@RequestBody RegionSiteListReq regionSiteListReq)
     {
-        RegionSiteListResp regionSiteListResp = new RegionSiteListResp();
-        return regionSiteService.queryRegionSiteList(regionSiteListReq, regionSiteListResp);
+        BaseListResp<RegionSite> baseListResp = new BaseListResp<>();
+        return regionSiteService.queryRegionSiteList(regionSiteListReq, baseListResp);
     }
 }

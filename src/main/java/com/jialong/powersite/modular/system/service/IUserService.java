@@ -1,26 +1,31 @@
 package com.jialong.powersite.modular.system.service;
 
+import com.jialong.powersite.modular.system.model.User;
 import com.jialong.powersite.modular.system.model.request.*;
-import com.jialong.powersite.modular.system.model.response.*;
+import com.jialong.powersite.modular.system.model.response.BaseBeanResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
+import com.jialong.powersite.modular.system.model.response.data.UserListRespData;
+import com.jialong.powersite.modular.system.model.response.data.UserLoginRespData;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public interface IUserService {
 
-    UserLoginResp loginValid(UserLoginReq userLoginRequest, HttpSession httpSession, HttpServletResponse response, UserLoginResp userLoginResp);
+    BaseBeanResp loginValid(UserLoginReq userLoginRequest, HttpSession httpSession, HttpServletResponse response, BaseBeanResp<UserLoginRespData> baseBeanResp);
 
-    UserListResp queryUsers(UserListReq userListReq, UserListResp userListResp);
+    BaseListResp queryUsers(UserListReq userListReq, BaseListResp<UserListRespData> baseListResp);
 
-    UserRegResp register(UserRegReq userRegReq, UserRegResp userRegResp);
+    BaseResp register(UserRegReq userRegReq, BaseResp baseResp);
 
-    UserResetResp resetPwd(UserResetReq userResetReq, UserResetResp userResetResp);
+    BaseResp resetPwd(UserResetReq userResetReq, BaseResp baseResp);
 
-    UserRoleSetResp setUserRole(UserRoleSetReq userRoleSetReq, UserRoleSetResp userRoleSetResp);
+    BaseResp setUserRole(UserRoleSetReq userRoleSetReq, BaseResp baseResp);
 
-    UserLogoutResp logout(UserLogoutReq userLogoutReq, HttpSession httpSession, UserLogoutResp userLogoutResp);
+    BaseResp logout(UserLogoutReq userLogoutReq, HttpSession httpSession, BaseResp baseResp);
 
-    UserDetailQueryResp queryUserById(UserDetailQueryReq userDetailQueryReq, UserDetailQueryResp userDetailQueryResp);
+    BaseBeanResp queryUserById(UserDetailQueryReq userDetailQueryReq, BaseBeanResp<User> baseBeanResp);
 
-    ApiUserPwResetResp updateUserPwdForClient(ApiUserPwResetReq apiUserPwResetReq, ApiUserPwResetResp apiUserPwResetResp);
+    BaseResp updateUserPwdForClient(ApiUserPwResetReq apiUserPwResetReq, BaseResp baseResp);
 }

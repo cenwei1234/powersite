@@ -35,15 +35,15 @@ public class RoleServiceImpl implements IRoleService {
     @Autowired
     private RelationMapper relationMapper;
 
-    public RoleListResp queryRoleList(RoleListReq roleListReq, RoleListResp roleListResp)
+    public BaseListResp queryRoleList(RoleListReq roleListReq, BaseListResp<Role> baseListResp)
     {
         List<Role> roles = roleMapper.selectRoles();
-        roleListResp.setData(roles);
-        return roleListResp;
+        baseListResp.setData(roles);
+        return baseListResp;
     }
 
     @Transactional
-    public RoleDelResp delRoleById(RoleDelReq roleDelReq, RoleDelResp roleDelResp) {
+    public BaseResp delRoleById(RoleDelReq roleDelReq, BaseResp baseResp) {
         if (ToolUtil.isEmpty(roleDelReq.getId()))
         {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
@@ -59,10 +59,10 @@ public class RoleServiceImpl implements IRoleService {
         // 删除该角色所有的权限
         this.roleMapper.deleteRelationByRoleId(roleDelReq.getId());
 
-        return roleDelResp;
+        return baseResp;
     }
 
-    public RoleAddResp addRole(RoleAddReq roleAddReq, RoleAddResp roleAddResp) {
+    public BaseResp addRole(RoleAddReq roleAddReq, BaseResp baseResp) {
         Role role = new Role();
         role.setName(roleAddReq.getName());
         role.setNum(roleAddReq.getNum());
@@ -71,10 +71,10 @@ public class RoleServiceImpl implements IRoleService {
         role.setTips(roleAddReq.getTips());
         role.setVersion(roleAddReq.getVersion());
         this.roleMapper.addRole(role);
-        return roleAddResp;
+        return baseResp;
     }
 
-    public RoleUpdateResp updateRole(RoleUpdateReq roleUpdateReq, RoleUpdateResp roleUpdateResp) {
+    public BaseResp updateRole(RoleUpdateReq roleUpdateReq, BaseResp baseResp) {
         Role role = new Role();
         role.setId(roleUpdateReq.getId());
         role.setName(roleUpdateReq.getName());
@@ -84,16 +84,16 @@ public class RoleServiceImpl implements IRoleService {
         role.setTips(roleUpdateReq.getTips());
         role.setVersion(roleUpdateReq.getVersion());
         this.roleMapper.updateRole(role);
-        return roleUpdateResp;
+        return baseResp;
     }
 
-    public UserRoleListResp roleTreeListByUserId(UserRoleListReq userRoleReq, UserRoleListResp userRoleResp) {
+    public BaseListResp roleTreeListByUserId(UserRoleListReq userRoleReq, BaseListResp<ZTreeNode> baseListResp) {
         User theUser = this.userMapper.queryUserById(userRoleReq.getId());
         if (null == theUser)
         {
-            userRoleResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_NOT_EXISTED.getCode()));
-            userRoleResp.setErrorMsg(BizExceptionEnum.USER_NOT_EXISTED.getMessage());
-            return userRoleResp;
+            baseListResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_NOT_EXISTED.getCode()));
+            baseListResp.setErrorMsg(BizExceptionEnum.USER_NOT_EXISTED.getMessage());
+            return baseListResp;
         }
         String roleid = theUser.getRoleid();
         List<ZTreeNode> zTreeNodes;
@@ -103,8 +103,8 @@ public class RoleServiceImpl implements IRoleService {
             String[] strArray = roleid.split(",");
             zTreeNodes = this.roleTreeListByRoleId(strArray);
         }
-        userRoleResp.setData(zTreeNodes);
-        return userRoleResp;
+        baseListResp.setData(zTreeNodes);
+        return baseListResp;
     }
 
     public List<ZTreeNode> roleTreeList() {
@@ -116,7 +116,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Transactional
-    public RoleMenuSetResp setAuthority(RoleMenuSetReq roleMenuSetReq, RoleMenuSetResp roleMenuSetResp) {
+    public BaseResp setAuthority(RoleMenuSetReq roleMenuSetReq, BaseResp baseResp) {
         // 删除该角色所有的权限
         this.roleMapper.deleteRelationByRoleId(roleMenuSetReq.getRoleId());
         // 添加新的权限 也就是新增sys_relation里面的关联关系
@@ -126,6 +126,6 @@ public class RoleServiceImpl implements IRoleService {
             relation.setMenuid(id);
             this.relationMapper.insertRelation(relation);
         }
-        return roleMenuSetResp;
+        return baseResp;
     }
 }

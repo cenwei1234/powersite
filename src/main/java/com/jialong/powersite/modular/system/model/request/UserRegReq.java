@@ -18,7 +18,7 @@ public class UserRegReq {
 
     private Integer deptid;
 
-    private Integer roleid;
+    private String roleid;
 
     private String avatar;
 
@@ -106,11 +106,11 @@ public class UserRegReq {
         this.name = name;
     }
 
-    public Integer getRoleid() {
+    public String getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(Integer roleid) {
+    public void setRoleid(String roleid) {
         this.roleid = roleid;
     }
 }

@@ -2,15 +2,13 @@ package com.jialong.powersite.modular.system.service;
 
 import com.jialong.powersite.modular.system.model.request.AlarmLogGroupReq;
 import com.jialong.powersite.modular.system.model.request.AlarmLogListReq;
-import com.jialong.powersite.modular.system.model.response.AlarmLogGroupResp;
-import com.jialong.powersite.modular.system.model.response.AlarmLogListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.data.AlarmLogGroupData;
-
-import java.util.List;
+import com.jialong.powersite.modular.system.model.response.data.AlarmLogRespData;
 
 public interface IAlarmLogService {
 
-    AlarmLogListResp queryAlarmLogList(AlarmLogListReq alarmLogListReq, AlarmLogListResp alarmLogListResp);
+    BaseListResp queryAlarmLogList(AlarmLogListReq alarmLogListReq, BaseListResp<AlarmLogRespData> baseListResp);
 
-    AlarmLogGroupResp queryAlarmLogGroup(AlarmLogGroupReq alarmLogGroupReq, AlarmLogGroupResp alarmLogGroupResp);
+    BaseListResp queryAlarmLogGroup(AlarmLogGroupReq alarmLogGroupReq, BaseListResp<AlarmLogGroupData> baseListResp);
 }

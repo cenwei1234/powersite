@@ -7,15 +7,15 @@ import com.jialong.powersite.modular.system.model.response.data.AlarmLogRespData
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AlarmLogListResp extends BaseResp {
+public class BaseListResp<T> extends BaseResp {
 
-    private List<AlarmLogRespData> data;
+    private List<T> data;
 
-    public List<AlarmLogRespData> getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(List<AlarmLogRespData> data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 }

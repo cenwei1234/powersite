@@ -24,14 +24,14 @@ public class MenuServiceImpl implements IMenuService {
     private MenuMapper menuMapper;
 
     @Override
-    public MenuListResp selectMenus(MenuListReq menuListReq, MenuListResp menuListResp) {
+    public BaseListResp selectMenus(MenuListReq menuListReq, BaseListResp<Menu> baseListResp) {
         List<Menu> menus = menuMapper.selectMenus();
-        menuListResp.setData(menus);
-        return menuListResp;
+        baseListResp.setData(menus);
+        return baseListResp;
     }
 
     @Override
-    public MenuAddResp insetMenus(MenuAddReq menuAddReq, MenuAddResp menuAddResp) {
+    public BaseResp insetMenus(MenuAddReq menuAddReq, BaseResp baseResp) {
         /**
          * 根据请求的父级菜单编号设置pcode和层级
          * 这里前段传递过来的json类似于
@@ -76,11 +76,11 @@ public class MenuServiceImpl implements IMenuService {
         menu.setIsmenu(menuAddReq.getIsmenu());
 
         menuMapper.insertMenus(menu);
-        return menuAddResp;
+        return baseResp;
     }
 
     @Override
-    public MenuUpdateResp updateMenus(MenuUpdateReq menuUpdateReq, MenuUpdateResp menuUpdateResp) {
+    public BaseResp updateMenus(MenuUpdateReq menuUpdateReq, BaseResp baseResp) {
 
         Menu menu = new Menu();
         if (StringUtils.isEmpty(menuUpdateReq.getPcode()) || menuUpdateReq.getPcode().equals("0")) {
@@ -114,12 +114,12 @@ public class MenuServiceImpl implements IMenuService {
         menu.setIsopen(menuUpdateReq.getIsopen());
 
         menuMapper.updateMenus(menu);
-        return menuUpdateResp;
+        return baseResp;
     }
 
     @Override
     @Transactional
-    public MenuDelResp delMenus(MenuDelReq menuDelReq, MenuDelResp menuDelResp) {
+    public BaseResp delMenus(MenuDelReq menuDelReq, BaseResp baseResp) {
         Menu menu = menuMapper.selectById(menuDelReq.getMenuId());
         //删除当前菜单
         delMenu(menu.getId());
@@ -129,7 +129,7 @@ public class MenuServiceImpl implements IMenuService {
         for (Menu temp : menus) {
             delMenu(temp.getId());
         }
-        return menuDelResp;
+        return baseResp;
     }
 
     @Override
@@ -144,7 +144,7 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     @Override
-    public RoleMenuListResp getRoleMenuList(RoleMenuListReq roleMenuListReq, RoleMenuListResp roleMenuListResp)
+    public BaseListResp getRoleMenuList(RoleMenuListReq roleMenuListReq, BaseListResp<ZTreeNode> baseListResp)
     {
         List<Long> menuIds = this.menuMapper.getMenuIdsByRoleId(roleMenuListReq.getRoleId());
         List<ZTreeNode> zTreeNodeList;
@@ -155,7 +155,7 @@ public class MenuServiceImpl implements IMenuService {
             //如果当前角色已经关联菜单的情况下，那么还需要计算这个菜单是否需要被checked 如果该菜单没有被选中 checked为false 否则为true
             zTreeNodeList = this.menuMapper.menuTreeListByMenuIds(menuIds);
         }
-        roleMenuListResp.setData(zTreeNodeList);
-        return roleMenuListResp;
+        baseListResp.setData(zTreeNodeList);
+        return baseListResp;
     }
 }

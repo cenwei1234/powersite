@@ -1,6 +1,7 @@
 package com.jialong.powersite.modular.api.controller;
 
-import com.jialong.powersite.modular.system.model.response.FileUploadResp;
+import com.jialong.powersite.modular.system.model.response.BaseBeanResp;
+import com.jialong.powersite.modular.system.model.response.data.FileUploadRespData;
 import com.jialong.powersite.modular.system.service.IUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +23,8 @@ public class ApiUploadController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/image")
     @ResponseBody
-    public FileUploadResp upload(@RequestPart("file") MultipartFile file) {
-        FileUploadResp fileUploadResp = new FileUploadResp();
-        return uploadService.uploadFile(file, fileUploadResp);
+    public BaseBeanResp upload(@RequestPart("file") MultipartFile file) {
+        BaseBeanResp<FileUploadRespData> baseBeanResp = new BaseBeanResp<>();
+        return uploadService.uploadFile(file, baseBeanResp);
     }
 }

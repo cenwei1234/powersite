@@ -3,9 +3,10 @@ package com.jialong.powersite.modular.system.controller;
 import com.jialong.powersite.modular.system.model.request.QuestionFeedbackAddReq;
 import com.jialong.powersite.modular.system.model.request.QuestionFeedbackDetailReq;
 import com.jialong.powersite.modular.system.model.request.QuestionFeedbackListReq;
-import com.jialong.powersite.modular.system.model.response.QuestionFeedbackAddResp;
-import com.jialong.powersite.modular.system.model.response.QuestionFeedbackDetailResp;
-import com.jialong.powersite.modular.system.model.response.QuestionFeedbackListResp;
+import com.jialong.powersite.modular.system.model.response.BaseBeanResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
+import com.jialong.powersite.modular.system.model.response.data.QuestionFeedbackRespData;
 import com.jialong.powersite.modular.system.service.IQuestionFeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,23 +21,23 @@ public class QuestionFeedbackController {
     private IQuestionFeedbackService questionFeedbackService;
 
     @RequestMapping("/add")
-    public QuestionFeedbackAddResp addQuestionFeedback(@RequestBody QuestionFeedbackAddReq questionFeedbackAddReq)
+    public BaseResp addQuestionFeedback(@RequestBody QuestionFeedbackAddReq questionFeedbackAddReq)
     {
-        QuestionFeedbackAddResp questionFeedbackAddResp = new QuestionFeedbackAddResp();
-        return questionFeedbackService.addQuestionFeedback(questionFeedbackAddReq, questionFeedbackAddResp);
+        BaseResp baseResp = new BaseResp();
+        return questionFeedbackService.addQuestionFeedback(questionFeedbackAddReq, baseResp);
     }
 
     @RequestMapping("/list")
-    public QuestionFeedbackListResp addQuestionFeedback(@RequestBody QuestionFeedbackListReq questionFeedbackListReq)
+    public BaseListResp addQuestionFeedback(@RequestBody QuestionFeedbackListReq questionFeedbackListReq)
     {
-        QuestionFeedbackListResp questionFeedbackListResp = new QuestionFeedbackListResp();
-        return questionFeedbackService.queryQuestionFeedbackList(questionFeedbackListReq, questionFeedbackListResp);
+        BaseListResp<QuestionFeedbackRespData> baseListResp = new BaseListResp<>();
+        return questionFeedbackService.queryQuestionFeedbackList(questionFeedbackListReq, baseListResp);
     }
 
     @RequestMapping("/detail")
-    public QuestionFeedbackDetailResp queryQuestionFeedbackById(@RequestBody QuestionFeedbackDetailReq questionFeedbackDetailReq)
+    public BaseBeanResp queryQuestionFeedbackById(@RequestBody QuestionFeedbackDetailReq questionFeedbackDetailReq)
     {
-        QuestionFeedbackDetailResp questionFeedbackDetailResp = new QuestionFeedbackDetailResp();
-        return questionFeedbackService.queryQuestionFeedbackById(questionFeedbackDetailReq, questionFeedbackDetailResp);
+        BaseBeanResp<QuestionFeedbackRespData> baseBeanResp = new BaseBeanResp<>();
+        return questionFeedbackService.queryQuestionFeedbackById(questionFeedbackDetailReq, baseBeanResp);
     }
 }

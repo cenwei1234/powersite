@@ -3,7 +3,7 @@ package com.jialong.powersite.modular.system.service.impl;
 import com.jialong.powersite.modular.system.mapper.OperationRecordMapper;
 import com.jialong.powersite.modular.system.model.JlOperationRecordQueryData;
 import com.jialong.powersite.modular.system.model.request.OperationRecordListReq;
-import com.jialong.powersite.modular.system.model.response.OperationRecordListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.data.OperationRecordRespData;
 import com.jialong.powersite.modular.system.service.IOperationRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class OperationRecordServiceImpl implements IOperationRecordService {
     private OperationRecordMapper operationRecordMapper;
 
     @Override
-    public OperationRecordListResp queryOperationRecordList(OperationRecordListReq operationRecordListReq, OperationRecordListResp operationRecordListResp)
+    public BaseListResp queryOperationRecordList(OperationRecordListReq operationRecordListReq, BaseListResp<OperationRecordRespData> baseListResp)
     {
         JlOperationRecordQueryData jlOperationRecordQueryData = new JlOperationRecordQueryData();
         jlOperationRecordQueryData.setAuditor(operationRecordListReq.getAuditor());
@@ -30,11 +30,11 @@ public class OperationRecordServiceImpl implements IOperationRecordService {
         jlOperationRecordQueryData.setPageSize(operationRecordListReq.getPageSize());
 
         Integer totalCount = operationRecordMapper.queryOperationRecordCount(jlOperationRecordQueryData);
-        operationRecordListResp.setTotalCount(totalCount);
+        baseListResp.setTotalCount(totalCount);
 
         List<OperationRecordRespData> jlOperationRecords = operationRecordMapper.queryOperationRecordList(jlOperationRecordQueryData);
 
-        operationRecordListResp.setData(jlOperationRecords);
-        return operationRecordListResp;
+        baseListResp.setData(jlOperationRecords);
+        return baseListResp;
     }
 }

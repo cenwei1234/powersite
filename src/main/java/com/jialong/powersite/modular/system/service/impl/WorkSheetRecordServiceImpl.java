@@ -1,13 +1,12 @@
 package com.jialong.powersite.modular.system.service.impl;
 
-import com.jialong.powersite.core.utils.Pagination;
 import com.jialong.powersite.modular.system.mapper.WorkSheetRecordMapper;
 import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
 import com.jialong.powersite.modular.system.model.WorkSheetListQueryData;
 import com.jialong.powersite.modular.system.model.request.WorkSheetAddReq;
 import com.jialong.powersite.modular.system.model.request.WorkSheetListReq;
-import com.jialong.powersite.modular.system.model.response.WorkSheetAddRsp;
-import com.jialong.powersite.modular.system.model.response.WorkSheetListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.model.response.data.WorkSheetRecordRespData;
 import com.jialong.powersite.modular.system.service.IWorkSheetRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class WorkSheetRecordServiceImpl implements IWorkSheetRecordService {
     private WorkSheetRecordMapper workSheetRecordMapper;
 
     @Override
-    public WorkSheetAddRsp addWorkSheet(WorkSheetAddReq workSheetAddReq, WorkSheetAddRsp workSheetAddRsp)
+    public BaseResp addWorkSheet(WorkSheetAddReq workSheetAddReq, BaseResp baseResp)
     {
         JlWorkSheetRecord jlWorkSheetRecord = new JlWorkSheetRecord();
         jlWorkSheetRecord.setOperatorId(workSheetAddReq.getOperatorId());
@@ -32,11 +31,11 @@ public class WorkSheetRecordServiceImpl implements IWorkSheetRecordService {
         jlWorkSheetRecord.setWorksheetDetail(workSheetAddReq.getWorksheetDetail());
         jlWorkSheetRecord.setAddTime(new Date());
         workSheetRecordMapper.insertWorkSheet(jlWorkSheetRecord);
-        return workSheetAddRsp;
+        return baseResp;
     }
 
     @Override
-    public WorkSheetListResp queryWorkSheet(WorkSheetListReq workSheetListReq, WorkSheetListResp workSheetListResp)
+    public BaseListResp queryWorkSheet(WorkSheetListReq workSheetListReq, BaseListResp<WorkSheetRecordRespData> baseListResp)
     {
         WorkSheetListQueryData workSheetListQueryData = new WorkSheetListQueryData();
         workSheetListQueryData.setSiteId(workSheetListReq.getSiteId());
@@ -50,8 +49,8 @@ public class WorkSheetRecordServiceImpl implements IWorkSheetRecordService {
         Integer totalCount = workSheetRecordMapper.queryWorkSheetCount(workSheetListQueryData);
         List<WorkSheetRecordRespData> jlWorkSheetRecords = workSheetRecordMapper.queryWorkSheet(workSheetListQueryData);
 
-        workSheetListResp.setTotalCount(totalCount);
-        workSheetListResp.setData(jlWorkSheetRecords);
-        return workSheetListResp;
+        baseListResp.setTotalCount(totalCount);
+        baseListResp.setData(jlWorkSheetRecords);
+        return baseListResp;
     }
 }

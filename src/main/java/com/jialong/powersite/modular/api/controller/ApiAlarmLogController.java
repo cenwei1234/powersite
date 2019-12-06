@@ -1,7 +1,8 @@
 package com.jialong.powersite.modular.api.controller;
 
 import com.jialong.powersite.modular.system.model.request.AlarmLogListReq;
-import com.jialong.powersite.modular.system.model.response.AlarmLogListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.data.AlarmLogRespData;
 import com.jialong.powersite.modular.system.service.IAlarmLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +17,9 @@ public class ApiAlarmLogController {
     private IAlarmLogService alarmLogService;
 
     @RequestMapping("/list")
-    public AlarmLogListResp queryAlarmLogList(@RequestBody AlarmLogListReq alarmLogListReq)
+    public BaseListResp queryAlarmLogList(@RequestBody AlarmLogListReq alarmLogListReq)
     {
-        AlarmLogListResp alarmLogListResp = new AlarmLogListResp();
-        return alarmLogService.queryAlarmLogList(alarmLogListReq, alarmLogListResp);
+        BaseListResp<AlarmLogRespData> baseListResp = new BaseListResp<>();
+        return alarmLogService.queryAlarmLogList(alarmLogListReq, baseListResp);
     }
 }

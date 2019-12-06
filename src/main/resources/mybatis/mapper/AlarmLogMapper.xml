@@ -78,6 +78,7 @@
                 AND (alarm_time between  CONCAT(#{alarmTimeBegin}, ' 00:00:00') and CONCAT(#{alarmTimeEnd}, ' 23:59:59'))
             </if>
         </where>
+        order by alarm_time desc
         LIMIT #{start}, #{pageSize};
     </select>
 

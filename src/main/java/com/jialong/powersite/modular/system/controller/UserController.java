@@ -1,7 +1,11 @@
 package com.jialong.powersite.modular.system.controller;
 
+import com.jialong.powersite.core.common.node.ZTreeNode;
+import com.jialong.powersite.modular.system.model.User;
 import com.jialong.powersite.modular.system.model.request.*;
 import com.jialong.powersite.modular.system.model.response.*;
+import com.jialong.powersite.modular.system.model.response.data.UserListRespData;
+import com.jialong.powersite.modular.system.model.response.data.UserLoginRespData;
 import com.jialong.powersite.modular.system.service.IRoleService;
 import com.jialong.powersite.modular.system.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,55 +29,55 @@ public class UserController {
     private IRoleService roleService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public UserLoginResp doLogin(@RequestBody UserLoginReq userLoginRequest, HttpSession httpSession, HttpServletResponse response) {
-        UserLoginResp userLoginResp = new UserLoginResp();
-        return userService.loginValid(userLoginRequest, httpSession, response, userLoginResp);
+    public BaseBeanResp doLogin(@RequestBody UserLoginReq userLoginRequest, HttpSession httpSession, HttpServletResponse response) {
+        BaseBeanResp<UserLoginRespData> baseBeanResp = new BaseBeanResp<>();
+        return userService.loginValid(userLoginRequest, httpSession, response, baseBeanResp);
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
-    public UserListResp queryUsers(@RequestBody UserListReq userListReq)
+    public BaseListResp queryUsers(@RequestBody UserListReq userListReq)
     {
-        UserListResp userListResp = new UserListResp();
-        return userService.queryUsers(userListReq, userListResp);
+        BaseListResp<UserListRespData> baseListResp = new BaseListResp<>();
+        return userService.queryUsers(userListReq, baseListResp);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public UserRegResp doRegister(@RequestBody UserRegReq userRegReq) {
-        UserRegResp userRegResp = new UserRegResp();
-        return userService.register(userRegReq, userRegResp);
+    public BaseResp doRegister(@RequestBody UserRegReq userRegReq) {
+        BaseResp baseResp = new BaseResp();
+        return userService.register(userRegReq, baseResp);
     }
 
     @RequestMapping(value = "/resetpwd", method = RequestMethod.POST)
-    public UserResetResp resetPwd(@RequestBody UserResetReq userResetReq) {
-        UserResetResp userResetResp = new UserResetResp();
-        return userService.resetPwd(userResetReq, userResetResp);
+    public BaseResp resetPwd(@RequestBody UserResetReq userResetReq) {
+        BaseResp baseResp = new BaseResp();
+        return userService.resetPwd(userResetReq, baseResp);
     }
 
     @RequestMapping(value = "/setuserrole", method = RequestMethod.POST)
-    public UserRoleSetResp setUserRole(@RequestBody UserRoleSetReq userRoleSetReq) {
-        UserRoleSetResp userRoleSetResp = new UserRoleSetResp();
-        userService.setUserRole(userRoleSetReq,userRoleSetResp);
-        return userRoleSetResp;
+    public BaseResp setUserRole(@RequestBody UserRoleSetReq userRoleSetReq) {
+        BaseResp baseResp = new BaseResp();
+        userService.setUserRole(userRoleSetReq,baseResp);
+        return baseResp;
     }
 
     @RequestMapping("/queryuserrole")
-    public UserRoleListResp selectUserRole(@RequestBody UserRoleListReq userRoleReq)
+    public BaseResp selectUserRole(@RequestBody UserRoleListReq userRoleReq)
     {
-        UserRoleListResp userRoleResp = new UserRoleListResp();
-        return this.roleService.roleTreeListByUserId(userRoleReq, userRoleResp);
+        BaseListResp<ZTreeNode> baseListResp = new BaseListResp<>();
+        return this.roleService.roleTreeListByUserId(userRoleReq, baseListResp);
     }
 
     @RequestMapping("/logout")
-    public UserLogoutResp logout(@RequestBody UserLogoutReq userLogoutReq, HttpSession httpSession)
+    public BaseResp logout(@RequestBody UserLogoutReq userLogoutReq, HttpSession httpSession)
     {
-        UserLogoutResp userLogoutResp = new UserLogoutResp();
-        userService.logout(userLogoutReq, httpSession, userLogoutResp);
-        return userLogoutResp;
+        BaseResp baseResp = new BaseResp();
+        userService.logout(userLogoutReq, httpSession, baseResp);
+        return baseResp;
     }
 
     @RequestMapping(value = "/detail", method = RequestMethod.POST)
-    public UserDetailQueryResp userProfile(@RequestBody UserDetailQueryReq userDetailQueryReq) {
-        UserDetailQueryResp userDetailQueryResp = new UserDetailQueryResp();
-        return userService.queryUserById(userDetailQueryReq, userDetailQueryResp);
+    public BaseBeanResp userProfile(@RequestBody UserDetailQueryReq userDetailQueryReq) {
+        BaseBeanResp<User> baseBeanResp = new BaseBeanResp<>();
+        return userService.queryUserById(userDetailQueryReq, baseBeanResp);
     }
 }

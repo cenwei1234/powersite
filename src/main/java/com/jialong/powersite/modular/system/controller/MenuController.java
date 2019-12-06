@@ -1,13 +1,12 @@
 package com.jialong.powersite.modular.system.controller;
 
+import com.jialong.powersite.modular.system.model.Menu;
 import com.jialong.powersite.modular.system.model.request.MenuAddReq;
 import com.jialong.powersite.modular.system.model.request.MenuDelReq;
 import com.jialong.powersite.modular.system.model.request.MenuListReq;
 import com.jialong.powersite.modular.system.model.request.MenuUpdateReq;
-import com.jialong.powersite.modular.system.model.response.MenuAddResp;
-import com.jialong.powersite.modular.system.model.response.MenuDelResp;
-import com.jialong.powersite.modular.system.model.response.MenuListResp;
-import com.jialong.powersite.modular.system.model.response.MenuUpdateResp;
+import com.jialong.powersite.modular.system.model.response.*;
+import com.jialong.powersite.modular.system.model.response.data.CheckTaskRespData;
 import com.jialong.powersite.modular.system.service.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,34 +21,34 @@ public class MenuController  {
     private IMenuService menuService;
 
     @RequestMapping("/list")
-    public MenuListResp queryMenuList(@RequestBody MenuListReq menuListReq)
+    public BaseListResp queryMenuList(@RequestBody MenuListReq menuListReq)
     {
-        MenuListResp menuListResp = new MenuListResp();
-        menuService.selectMenus(menuListReq, menuListResp);
-        return menuListResp;
+        BaseListResp<Menu> baseListResp = new BaseListResp<>();
+        menuService.selectMenus(menuListReq, baseListResp);
+        return baseListResp;
     }
 
     @RequestMapping("/add")
-    public MenuAddResp addMenu(@RequestBody MenuAddReq menuAddReq)
+    public BaseResp addMenu(@RequestBody MenuAddReq menuAddReq)
     {
-        MenuAddResp menuAddResp = new MenuAddResp();
-        menuService.insetMenus(menuAddReq, menuAddResp);
-        return menuAddResp;
+        BaseResp baseResp = new BaseResp();
+        menuService.insetMenus(menuAddReq, baseResp);
+        return baseResp;
     }
 
     @RequestMapping("/update")
-    public MenuUpdateResp updateMenu(@RequestBody MenuUpdateReq menuUpdateReq)
+    public BaseResp updateMenu(@RequestBody MenuUpdateReq menuUpdateReq)
     {
-        MenuUpdateResp menuUpdateResp = new MenuUpdateResp();
-        menuService.updateMenus(menuUpdateReq, menuUpdateResp);
-        return menuUpdateResp;
+        BaseResp baseResp = new BaseResp();
+        menuService.updateMenus(menuUpdateReq, baseResp);
+        return baseResp;
     }
 
     @RequestMapping("/del")
-    public MenuDelResp delMenu(@RequestBody MenuDelReq menuDelReq)
+    public BaseResp delMenu(@RequestBody MenuDelReq menuDelReq)
     {
-        MenuDelResp menuDelResp = new MenuDelResp();
-        menuService.delMenus(menuDelReq, menuDelResp);
-        return menuDelResp;
+        BaseResp baseResp = new BaseResp();
+        menuService.delMenus(menuDelReq, baseResp);
+        return baseResp;
     }
 }

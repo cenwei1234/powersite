@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public interface IWSService {
 
-    public void pushAlarmLog() throws IOException;
+    void pushAlarmLog() throws IOException;
 
-    public void pushOperationRecord() throws IOException;
+    void pushOperationRecord() throws IOException;
 }

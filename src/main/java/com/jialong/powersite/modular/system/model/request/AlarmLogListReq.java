@@ -1,13 +1,6 @@
 package com.jialong.powersite.modular.system.model.request;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.jialong.powersite.core.utils.Page;
-import com.jialong.powersite.modular.system.model.JlAlarmLog;
-
-import java.util.Date;
-
-
-public class AlarmLogListReq extends Page<JlAlarmLog>{
+public class AlarmLogListReq{
 
     private  Integer noticeType;
 
@@ -28,6 +21,10 @@ public class AlarmLogListReq extends Page<JlAlarmLog>{
     private Integer siteType;
 
     private  Integer auditor;
+
+    private Integer pageSize;
+
+    private Integer pageNo;
 
     public Integer getNoticeType() {
         return noticeType;
@@ -107,5 +104,21 @@ public class AlarmLogListReq extends Page<JlAlarmLog>{
 
     public void setSiteType(Integer siteType) {
         this.siteType = siteType;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getPageNo() {
+        return pageNo;
+    }
+
+    public void setPageNo(Integer pageNo) {
+        this.pageNo = pageNo;
     }
 }

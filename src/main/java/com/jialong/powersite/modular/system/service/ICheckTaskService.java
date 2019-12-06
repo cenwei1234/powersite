@@ -2,12 +2,13 @@ package com.jialong.powersite.modular.system.service;
 
 import com.jialong.powersite.modular.system.model.request.CheckTaskAddReq;
 import com.jialong.powersite.modular.system.model.request.CheckTaskListReq;
-import com.jialong.powersite.modular.system.model.response.CheckTaskAddRsp;
-import com.jialong.powersite.modular.system.model.response.CheckTaskListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
+import com.jialong.powersite.modular.system.model.response.data.CheckTaskRespData;
 
 public interface ICheckTaskService {
 
-    CheckTaskAddRsp addCheckTask(CheckTaskAddReq checkTaskAddReq, CheckTaskAddRsp checkTaskAddRsp);
+    BaseResp addCheckTask(CheckTaskAddReq checkTaskAddReq, BaseResp baseResp);
 
-    CheckTaskListResp queryCheckTask(CheckTaskListReq checkTaskListReq, CheckTaskListResp checkTaskListResp);
+    BaseListResp queryCheckTask(CheckTaskListReq checkTaskListReq, BaseListResp<CheckTaskRespData> baseListResp);
 }

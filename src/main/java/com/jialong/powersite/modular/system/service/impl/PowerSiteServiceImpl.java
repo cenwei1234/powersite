@@ -7,8 +7,8 @@ import com.jialong.powersite.modular.system.model.JlSiteOperation;
 import com.jialong.powersite.modular.system.model.JlSiteOperationData;
 import com.jialong.powersite.modular.system.model.request.SiteOperationAddReq;
 import com.jialong.powersite.modular.system.model.request.SiteOperationReq;
-import com.jialong.powersite.modular.system.model.response.SiteOperationAddResp;
-import com.jialong.powersite.modular.system.model.response.SiteOperationResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.service.IPowerSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,14 +23,14 @@ public class PowerSiteServiceImpl implements IPowerSiteService {
     private PowerSiteMapper powerSiteMapper;
 
     @Override
-    public SiteOperationResp queryPowerSiteBySiteId(SiteOperationReq siteOperationReq, SiteOperationResp siteOperationResp) {
+    public BaseListResp queryPowerSiteBySiteId(SiteOperationReq siteOperationReq, BaseListResp<JlSiteOperationData> baseListResp) {
         List<JlSiteOperationData> jlSiteOperationData = powerSiteMapper.queryPowerSiteOperationBySiteId(siteOperationReq.getSiteId());
-        siteOperationResp.setData(jlSiteOperationData);
-        return siteOperationResp;
+        baseListResp.setData(jlSiteOperationData);
+        return baseListResp;
     }
 
     @Override
-    public SiteOperationAddResp addPowerSiteData(SiteOperationAddReq siteOperationAddReq, SiteOperationAddResp siteOperationAddResp) {
+    public BaseResp addPowerSiteData(SiteOperationAddReq siteOperationAddReq, BaseResp baseResp) {
         List<JlSiteOperation> jlSiteOperationList = new ArrayList<>();
         //校验
         Integer[] paramIdArr = siteOperationAddReq.getParamId();
@@ -38,17 +38,17 @@ public class PowerSiteServiceImpl implements IPowerSiteService {
         //校验参数值和参数数目是否一致
         if (paramIdArr.length != paramValueArr.length)
         {
-            siteOperationAddResp.setErrorCode(String.valueOf(BizExceptionEnum.PARAM_CONFIG_ERROR.getCode()));
-            siteOperationAddResp.setErrorMsg(BizExceptionEnum.PARAM_CONFIG_ERROR.getMessage());
-            return siteOperationAddResp;
+            baseResp.setErrorCode(String.valueOf(BizExceptionEnum.PARAM_CONFIG_ERROR.getCode()));
+            baseResp.setErrorMsg(BizExceptionEnum.PARAM_CONFIG_ERROR.getMessage());
+            return baseResp;
         }
         List<JlParameterConfig> jlParameterConfigs = powerSiteMapper.queryParamConfigBatch(Arrays.asList(paramIdArr));
         //这里证明提交的paramId数组有问题
         if (jlParameterConfigs.size() != paramIdArr.length)
         {
-            siteOperationAddResp.setErrorCode(String.valueOf(BizExceptionEnum.PARAM_CONFIG_NOEXISTS.getCode()));
-            siteOperationAddResp.setErrorMsg(BizExceptionEnum.PARAM_CONFIG_NOEXISTS.getMessage());
-            return siteOperationAddResp;
+            baseResp.setErrorCode(String.valueOf(BizExceptionEnum.PARAM_CONFIG_NOEXISTS.getCode()));
+            baseResp.setErrorMsg(BizExceptionEnum.PARAM_CONFIG_NOEXISTS.getMessage());
+            return baseResp;
         }
 
         //以site_id和param_id联合条件作为标准 将已有的记录标识为过期 在查询的时候过滤过期的记录 同时新增的记录标识为未过期
@@ -84,6 +84,6 @@ public class PowerSiteServiceImpl implements IPowerSiteService {
             jlSiteOperationList.add(jlSiteOperation);
         }
         powerSiteMapper.addPowerSiteData(jlSiteOperationList);
-        return siteOperationAddResp;
+        return baseResp;
     }
 }

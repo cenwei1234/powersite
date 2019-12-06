@@ -1,14 +1,15 @@
 package com.jialong.powersite.modular.system.service;
 
+import com.jialong.powersite.modular.system.model.JlSiteOperationData;
 import com.jialong.powersite.modular.system.model.request.SiteOperationAddReq;
 import com.jialong.powersite.modular.system.model.request.SiteOperationReq;
-import com.jialong.powersite.modular.system.model.response.SiteOperationAddResp;
-import com.jialong.powersite.modular.system.model.response.SiteOperationResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
 
 
 public interface IPowerSiteService {
 
-    SiteOperationResp queryPowerSiteBySiteId(SiteOperationReq siteOperationReq, SiteOperationResp siteOperationResp);
+    BaseListResp queryPowerSiteBySiteId(SiteOperationReq siteOperationReq, BaseListResp<JlSiteOperationData> baseListResp);
 
-    SiteOperationAddResp addPowerSiteData(SiteOperationAddReq siteOperationAddReq, SiteOperationAddResp siteOperationAddResp);
+    BaseResp addPowerSiteData(SiteOperationAddReq siteOperationAddReq, BaseResp baseResp);
 }

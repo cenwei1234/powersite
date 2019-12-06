@@ -1,11 +1,15 @@
 package com.jialong.powersite.modular.system.controller;
 
-import com.jialong.powersite.modular.system.model.response.FileUploadResp;
+import com.jialong.powersite.modular.system.model.response.BaseBeanResp;
+import com.jialong.powersite.modular.system.model.response.data.FileUploadRespData;
 import com.jialong.powersite.modular.system.service.IUploadService;
 import com.jialong.powersite.modular.system.service.impl.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -33,8 +37,8 @@ public class UploadController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/image")
     @ResponseBody
-    public FileUploadResp upload(@RequestPart("file") MultipartFile file) {
-        FileUploadResp fileUploadResp = new FileUploadResp();
-        return uploadService.uploadFile(file, fileUploadResp);
+    public BaseBeanResp upload(@RequestPart("file") MultipartFile file) {
+        BaseBeanResp<FileUploadRespData> baseBeanResp = new BaseBeanResp<>();
+        return uploadService.uploadFile(file, baseBeanResp);
     }
 }

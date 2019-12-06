@@ -1,7 +1,7 @@
 package com.jialong.powersite.modular.api.controller;
 
 import com.jialong.powersite.modular.system.model.request.SiteOperationAddReq;
-import com.jialong.powersite.modular.system.model.response.SiteOperationAddResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.service.IPowerSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +16,9 @@ public class ApiPowerSiteController {
     private IPowerSiteService powerSiteService;
 
     @RequestMapping("/add")
-    public SiteOperationAddResp addSiteOperation(@RequestBody SiteOperationAddReq siteOperationAddReq)
+    public BaseResp addSiteOperation(@RequestBody SiteOperationAddReq siteOperationAddReq)
     {
-        SiteOperationAddResp siteOperationAddResp = new SiteOperationAddResp();
-        return powerSiteService.addPowerSiteData(siteOperationAddReq, siteOperationAddResp);
+        BaseResp baseResp = new BaseResp();
+        return powerSiteService.addPowerSiteData(siteOperationAddReq, baseResp);
     }
 }

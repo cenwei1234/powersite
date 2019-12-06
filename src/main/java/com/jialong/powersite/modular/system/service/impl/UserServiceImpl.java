@@ -30,16 +30,16 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserMapper userMapper;
 
-    public UserLoginResp loginValid(UserLoginReq userLoginRequest, HttpSession httpSession, HttpServletResponse response, UserLoginResp userLoginResp) {
+    public BaseBeanResp loginValid(UserLoginReq userLoginRequest, HttpSession httpSession, HttpServletResponse response, BaseBeanResp<UserLoginRespData> baseBeanResp) {
         String username = userLoginRequest.getUsername();
         String password = userLoginRequest.getPassword();
         String remember = userLoginRequest.getRemember();
 
         if (userMapper.userNameValid(username) == 0)
         {
-            userLoginResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_NOT_EXISTED.getCode()));
-            userLoginResp.setErrorMsg(BizExceptionEnum.USER_NOT_EXISTED.getMessage());
-            return userLoginResp;
+            baseBeanResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_NOT_EXISTED.getCode()));
+            baseBeanResp.setErrorMsg(BizExceptionEnum.USER_NOT_EXISTED.getMessage());
+            return baseBeanResp;
         }
 
         UserLoginRespData user = userMapper.queryUserByUserName(username);
@@ -48,9 +48,9 @@ public class UserServiceImpl implements IUserService {
         String md5Passwd = DigestUtils.md5Hex(password);
         if(!StringUtils.equals(md5Passwd, user.getPassword())){
             //说明密码不正确
-            userLoginResp.setErrorCode(String.valueOf(BizExceptionEnum.PWD_NOT_RIGHT.getCode()));
-            userLoginResp.setErrorMsg(BizExceptionEnum.PWD_NOT_RIGHT.getMessage());
-            return userLoginResp;
+            baseBeanResp.setErrorCode(String.valueOf(BizExceptionEnum.PWD_NOT_RIGHT.getCode()));
+            baseBeanResp.setErrorMsg(BizExceptionEnum.PWD_NOT_RIGHT.getMessage());
+            return baseBeanResp;
         }
         //生成token
         String randomSalt = ToolUtil.getRandomString(6);
@@ -70,11 +70,11 @@ public class UserServiceImpl implements IUserService {
             response.addCookie(cookieUserName);
             response.addCookie(cookiePassWord);
         }
-        userLoginResp.setData(user);
-        return userLoginResp;
+        baseBeanResp.setData(user);
+        return baseBeanResp;
     }
 
-    public UserListResp queryUsers(UserListReq userListReq, UserListResp userListResp)
+    public BaseListResp queryUsers(UserListReq userListReq, BaseListResp<UserListRespData> baseListResp)
     {
         UserQueryData userQueryData = new UserQueryData();
         userQueryData.setUsername(userListReq.getUsername());
@@ -82,26 +82,26 @@ public class UserServiceImpl implements IUserService {
         userQueryData.setPageSize(userListReq.getPageSize());
         List<UserListRespData> users = this.userMapper.queryUserList(userQueryData);
         Integer totalCount = this.userMapper.queryUserListCount(userQueryData);
-        userListResp.setData(users);
-        userListResp.setTotalCount(totalCount);
-        return userListResp;
+        baseListResp.setData(users);
+        baseListResp.setTotalCount(totalCount);
+        return baseListResp;
     }
 
-    public UserRegResp register(UserRegReq userRegReq, UserRegResp userRegResp) {
+    public BaseResp register(UserRegReq userRegReq, BaseResp baseResp) {
         if (!userRegReq.getPassword().equals(userRegReq.getRePassword()))
         {
-            userRegResp.setErrorCode(String.valueOf(BizExceptionEnum.TWO_PWD_NOT_MATCH.getCode()));
-            userRegResp.setErrorMsg(BizExceptionEnum.TWO_PWD_NOT_MATCH.getMessage());
-            return userRegResp;
+            baseResp.setErrorCode(String.valueOf(BizExceptionEnum.TWO_PWD_NOT_MATCH.getCode()));
+            baseResp.setErrorMsg(BizExceptionEnum.TWO_PWD_NOT_MATCH.getMessage());
+            return baseResp;
         }
 
         String username = userRegReq.getUsername();
         //用户名验证
         if (userMapper.userNameValid(username) == 1)
         {
-            userRegResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_ALREADY_REG.getCode()));
-            userRegResp.setErrorMsg(BizExceptionEnum.USER_ALREADY_REG.getMessage());
-            return userRegResp;
+            baseResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_ALREADY_REG.getCode()));
+            baseResp.setErrorMsg(BizExceptionEnum.USER_ALREADY_REG.getMessage());
+            return baseResp;
         }
         User user = new User();
         String md5Passwd = DigestUtils.md5Hex(userRegReq.getPassword());
@@ -120,14 +120,14 @@ public class UserServiceImpl implements IUserService {
         user.setCreatetime(new Date());
         if (!this.userMapper.insertUser(user))
         {
-            userRegResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_ADD_FAILED.getCode()));
-            userRegResp.setErrorMsg(BizExceptionEnum.USER_ADD_FAILED.getMessage());
+            baseResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_ADD_FAILED.getCode()));
+            baseResp.setErrorMsg(BizExceptionEnum.USER_ADD_FAILED.getMessage());
         }
-        return userRegResp;
+        return baseResp;
     }
 
 
-    public UserResetResp resetPwd(UserResetReq userResetReq, UserResetResp userResetResp) {
+    public BaseResp resetPwd(UserResetReq userResetReq, BaseResp baseResp) {
         //不能修改超级管理员
         if (userResetReq.getUsername().equals(Constant.ADMIN_NAME)) {
             throw new ServiceException(BizExceptionEnum.CANT_CHANGE_ADMIN);
@@ -135,48 +135,48 @@ public class UserServiceImpl implements IUserService {
         String md5Passwd = DigestUtils.md5Hex(userResetReq.getNewpassword());
         if (!this.userMapper.resetUserPwd(userResetReq.getUsername(), md5Passwd))
         {
-            userResetResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_RESET_FAILED.getCode()));
-            userResetResp.setErrorMsg(BizExceptionEnum.USER_RESET_FAILED.getMessage());
+            baseResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_RESET_FAILED.getCode()));
+            baseResp.setErrorMsg(BizExceptionEnum.USER_RESET_FAILED.getMessage());
         }
-        return userResetResp;
+        return baseResp;
     }
 
-    public UserRoleSetResp setUserRole(UserRoleSetReq userRoleSetReq, UserRoleSetResp userRoleSetResp)
+    public BaseResp setUserRole(UserRoleSetReq userRoleSetReq, BaseResp baseResp)
     {
         Integer userId = userRoleSetReq.getUserId();
         String roleIds = userRoleSetReq.getRoleIds();
         this.userMapper.setRoles(userId, roleIds);
-        return userRoleSetResp;
+        return baseResp;
     }
 
     @Override
-    public UserLogoutResp logout(UserLogoutReq userLogoutReq, HttpSession httpSession, UserLogoutResp userLogoutResp) {
+    public BaseResp logout(UserLogoutReq userLogoutReq, HttpSession httpSession, BaseResp baseResp) {
         //重置token以及salt 更新token以及salt为null.这样再访问其他接口会提示token不合法
         this.userMapper.updateTokenByUserId(null, null, userLogoutReq.getId());
         //清空session
         httpSession.setAttribute(userLogoutReq.getUsername(), null);
         httpSession.setMaxInactiveInterval(0);
-        return userLogoutResp;
+        return baseResp;
     }
 
     @Override
-    public UserDetailQueryResp queryUserById(UserDetailQueryReq userDetailQueryReq, UserDetailQueryResp userDetailQueryResp) {
+    public BaseBeanResp queryUserById(UserDetailQueryReq userDetailQueryReq, BaseBeanResp<User> baseBeanResp) {
         User user = this.userMapper.queryUserById(userDetailQueryReq.getId());
-        userDetailQueryResp.setData(user);
-        return userDetailQueryResp;
+        baseBeanResp.setData(user);
+        return baseBeanResp;
     }
 
     @Override
-    public ApiUserPwResetResp updateUserPwdForClient(ApiUserPwResetReq apiUserPwResetReq, ApiUserPwResetResp apiUserPwResetResp) {
+    public BaseResp updateUserPwdForClient(ApiUserPwResetReq apiUserPwResetReq, BaseResp baseResp) {
         if (!apiUserPwResetReq.getNewpassword1().equals(apiUserPwResetReq.getNewpassword2()))
         {
-            apiUserPwResetResp.setErrorCode(String.valueOf(BizExceptionEnum.TWO_PWD_NOT_MATCH.getCode()));
-            apiUserPwResetResp.setErrorMsg(BizExceptionEnum.TWO_PWD_NOT_MATCH.getMessage());
-            return apiUserPwResetResp;
+            baseResp.setErrorCode(String.valueOf(BizExceptionEnum.TWO_PWD_NOT_MATCH.getCode()));
+            baseResp.setErrorMsg(BizExceptionEnum.TWO_PWD_NOT_MATCH.getMessage());
+            return baseResp;
         }
         String md5PassWd = DigestUtils.md5Hex(apiUserPwResetReq.getPassword());
         userMapper.resetUserPwd(apiUserPwResetReq.getUsername(),md5PassWd);
-        return apiUserPwResetResp;
+        return baseResp;
     }
 
 }

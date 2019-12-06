@@ -1,22 +1,25 @@
 package com.jialong.powersite.modular.system.service;
 
+import com.jialong.powersite.core.common.node.ZTreeNode;
+import com.jialong.powersite.modular.system.model.Menu;
 import com.jialong.powersite.modular.system.model.request.*;
-import com.jialong.powersite.modular.system.model.response.*;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface IMenuService {
 
-    MenuListResp selectMenus(MenuListReq menuListReq, MenuListResp menuListResp);
+    BaseListResp selectMenus(MenuListReq menuListReq, BaseListResp<Menu> baseListResp);
 
-    MenuAddResp insetMenus(MenuAddReq menuAddReq, MenuAddResp menuAddResp);
+    BaseResp insetMenus(MenuAddReq menuAddReq, BaseResp baseResp);
 
-    MenuUpdateResp updateMenus(MenuUpdateReq menuUpdateReq, MenuUpdateResp menuUpdateResp);
+    BaseResp updateMenus(MenuUpdateReq menuUpdateReq, BaseResp baseResp);
 
     @Transactional
-    MenuDelResp delMenus(MenuDelReq menuDelReq, MenuDelResp menuDelResp);
+    BaseResp delMenus(MenuDelReq menuDelReq, BaseResp baseResp);
 
     @Transactional
     void delMenu(Long menuId);
 
-    RoleMenuListResp getRoleMenuList(RoleMenuListReq roleMenuListReq, RoleMenuListResp roleMenuListResp);
+    BaseListResp getRoleMenuList(RoleMenuListReq roleMenuListReq, BaseListResp<ZTreeNode> baseListResp);
 }

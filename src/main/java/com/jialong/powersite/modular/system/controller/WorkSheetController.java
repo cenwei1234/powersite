@@ -2,8 +2,9 @@ package com.jialong.powersite.modular.system.controller;
 
 import com.jialong.powersite.modular.system.model.request.WorkSheetAddReq;
 import com.jialong.powersite.modular.system.model.request.WorkSheetListReq;
-import com.jialong.powersite.modular.system.model.response.WorkSheetAddRsp;
-import com.jialong.powersite.modular.system.model.response.WorkSheetListResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseResp;
+import com.jialong.powersite.modular.system.model.response.data.WorkSheetRecordRespData;
 import com.jialong.powersite.modular.system.service.IWorkSheetRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,18 +19,18 @@ public class WorkSheetController {
     private IWorkSheetRecordService workSheetRecordService;
 
     @RequestMapping("/list")
-    public WorkSheetListResp queryWorksheet(@RequestBody WorkSheetListReq workSheetListReq)
+    public BaseListResp queryWorksheet(@RequestBody WorkSheetListReq workSheetListReq)
     {
-        WorkSheetListResp workSheetListResp = new WorkSheetListResp();
-        workSheetRecordService.queryWorkSheet(workSheetListReq,workSheetListResp);
-        return workSheetListResp;
+        BaseListResp<WorkSheetRecordRespData> baseListResp = new BaseListResp<>();
+        workSheetRecordService.queryWorkSheet(workSheetListReq,baseListResp);
+        return baseListResp;
     }
 
     @RequestMapping("/add")
-    public WorkSheetAddRsp addWorksheet(@RequestBody WorkSheetAddReq workSheetAddReq)
+    public BaseResp addWorksheet(@RequestBody WorkSheetAddReq workSheetAddReq)
     {
-        WorkSheetAddRsp workSheetAddRsp = new WorkSheetAddRsp();
-        workSheetRecordService.addWorkSheet(workSheetAddReq,workSheetAddRsp);
-        return workSheetAddRsp;
+        BaseResp baseResp = new BaseResp();
+        workSheetRecordService.addWorkSheet(workSheetAddReq,baseResp);
+        return baseResp;
     }
 }
