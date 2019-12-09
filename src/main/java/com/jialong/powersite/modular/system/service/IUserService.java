@@ -19,6 +19,10 @@ public interface IUserService {
 
     BaseResp register(UserRegReq userRegReq, BaseResp baseResp);
 
+    BaseResp removeUser(UserRemoveReq userRemoveReq, BaseResp baseResp);
+
+    BaseResp modifyUser(UserModifyReq userModifyReq, BaseResp baseResp);
+
     BaseResp resetPwd(UserResetReq userResetReq, BaseResp baseResp);
 
     BaseResp setUserRole(UserRoleSetReq userRoleSetReq, BaseResp baseResp);

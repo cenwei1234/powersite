@@ -2,7 +2,7 @@ package com.jialong.powersite.modular.system.model.request;
 
 public class ApiUserPwResetReq {
 
-    private String username;
+    private Integer id;
 
     private String password;
 
@@ -10,12 +10,13 @@ public class ApiUserPwResetReq {
 
     private String newpassword2;
 
-    public String getUsername() {
-        return username;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPassword() {

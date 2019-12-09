@@ -22,7 +22,9 @@ public interface UserMapper{
 
     Boolean insertUser(User user);
 
-    Boolean resetUserPwd(@Param("username") String username, @Param("password") String password);
+    Boolean removeUser(@Param("userId") Integer userId);
+
+    Boolean modifyUser(User user);
 
     User queryUserById(@Param("userId") Integer userId);
 
@@ -31,4 +33,6 @@ public interface UserMapper{
     Integer queryUserListCount(UserQueryData userQueryData);
 
     int setRoles(@Param("userId") Integer userId, @Param("roleIds") String roleIds);
+
+    Boolean resetUserPwd(@Param("userId") Integer userId, @Param("password") String password);
 }

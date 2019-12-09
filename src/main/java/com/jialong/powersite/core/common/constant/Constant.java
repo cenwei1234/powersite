@@ -22,4 +22,9 @@ public class Constant {
      * 超级管理员角色id
      */
     public static Integer ADMIN_ROLE_ID = 1;
+
+    /**
+     * 默认重置的密码
+     */
+    public static String DEFAULT_RESET_PASSWRD = "111111";
 }

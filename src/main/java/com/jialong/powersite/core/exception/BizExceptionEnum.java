@@ -3,6 +3,8 @@ package com.jialong.powersite.core.exception;
 
 public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
 
+    PARAM_ERROR(100, "参数错误"),
+
     /**
      * 字典
      */
@@ -42,7 +44,6 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
     USER_ADD_FAILED(406, "注册失败"),
     USER_LOGIN_FAILED(407, "登陆失败"),
     USER_RESET_FAILED(408, "密码重置失败"),
-
     /**
      * 错误的请求
      */

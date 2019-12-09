@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -127,13 +128,46 @@ public class UserServiceImpl implements IUserService {
     }
 
 
+    @Override
+    public BaseResp removeUser(UserRemoveReq userRemoveReq, BaseResp baseResp) {
+        this.userMapper.removeUser(userRemoveReq.getUserId());
+        return baseResp;
+    }
+
+    public BaseResp modifyUser(UserModifyReq userModifyReq, BaseResp baseResp) {
+        //不能修改超级管理员
+        if (Constant.ADMIN_NAME.equals(userModifyReq.getUsername()) || Constant.ADMIN_ID.equals(userModifyReq.getId())) {
+            baseResp.setErrorCode(String.valueOf(BizExceptionEnum.PARAM_ERROR.getCode()));
+            baseResp.setErrorMsg(BizExceptionEnum.PARAM_ERROR.getMessage());
+        }
+        //id没传 则参数错误
+        if (Objects.isNull(userModifyReq.getId()))
+        {
+            baseResp.setErrorCode(String.valueOf(BizExceptionEnum.PARAM_ERROR.getCode()));
+            baseResp.setErrorMsg(BizExceptionEnum.PARAM_ERROR.getMessage());
+        }
+
+        User user = new User();
+        user.setId(userModifyReq.getId());
+        user.setUsername(userModifyReq.getUsername());
+        user.setSex(userModifyReq.getSex());
+        user.setEmail(userModifyReq.getEmail());
+        user.setName(userModifyReq.getName());
+        user.setBirthday(userModifyReq.getBirthday());
+        user.setDeptid(userModifyReq.getDeptid());
+        user.setRoleid(userModifyReq.getRoleid());
+        user.setPhone(userModifyReq.getPhone());
+        this.userMapper.modifyUser(user);
+        return baseResp;
+    }
+
     public BaseResp resetPwd(UserResetReq userResetReq, BaseResp baseResp) {
         //不能修改超级管理员
-        if (userResetReq.getUsername().equals(Constant.ADMIN_NAME)) {
+        if (Constant.ADMIN_ID.equals(userResetReq.getId())) {
             throw new ServiceException(BizExceptionEnum.CANT_CHANGE_ADMIN);
         }
-        String md5Passwd = DigestUtils.md5Hex(userResetReq.getNewpassword());
-        if (!this.userMapper.resetUserPwd(userResetReq.getUsername(), md5Passwd))
+        String md5Passwd = DigestUtils.md5Hex(Constant.DEFAULT_RESET_PASSWRD);
+        if (!this.userMapper.resetUserPwd(userResetReq.getId(), md5Passwd))
         {
             baseResp.setErrorCode(String.valueOf(BizExceptionEnum.USER_RESET_FAILED.getCode()));
             baseResp.setErrorMsg(BizExceptionEnum.USER_RESET_FAILED.getMessage());
@@ -175,7 +209,7 @@ public class UserServiceImpl implements IUserService {
             return baseResp;
         }
         String md5PassWd = DigestUtils.md5Hex(apiUserPwResetReq.getPassword());
-        userMapper.resetUserPwd(apiUserPwResetReq.getUsername(),md5PassWd);
+        userMapper.resetUserPwd(apiUserPwResetReq.getId(),md5PassWd);
         return baseResp;
     }
 

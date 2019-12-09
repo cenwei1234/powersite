@@ -47,6 +47,19 @@ public class UserController {
         return userService.register(userRegReq, baseResp);
     }
 
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    public BaseResp removeUser(@RequestBody UserRemoveReq userRemoveReq) {
+        BaseResp baseResp = new BaseResp();
+        return userService.removeUser(userRemoveReq, baseResp);
+    }
+
+
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    public BaseResp modifyUser(@RequestBody UserModifyReq userModifyReq) {
+        BaseResp baseResp = new BaseResp();
+        return userService.modifyUser(userModifyReq, baseResp);
+    }
+
     @RequestMapping(value = "/resetpwd", method = RequestMethod.POST)
     public BaseResp resetPwd(@RequestBody UserResetReq userResetReq) {
         BaseResp baseResp = new BaseResp();
