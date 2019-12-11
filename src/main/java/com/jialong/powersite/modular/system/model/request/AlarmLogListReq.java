@@ -1,6 +1,9 @@
 package com.jialong.powersite.modular.system.model.request;
 
-public class AlarmLogListReq{
+import com.jialong.powersite.core.utils.Page;
+import com.jialong.powersite.modular.system.model.JlAlarmLog;
+
+public class AlarmLogListReq extends Page<JlAlarmLog> {
 
     private  Integer noticeType;
 
@@ -21,10 +24,6 @@ public class AlarmLogListReq{
     private Integer siteType;
 
     private  Integer auditor;
-
-    private Integer pageSize;
-
-    private Integer pageNo;
 
     public Integer getNoticeType() {
         return noticeType;
@@ -106,19 +105,4 @@ public class AlarmLogListReq{
         this.siteType = siteType;
     }
 
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public Integer getPageNo() {
-        return pageNo;
-    }
-
-    public void setPageNo(Integer pageNo) {
-        this.pageNo = pageNo;
-    }
 }

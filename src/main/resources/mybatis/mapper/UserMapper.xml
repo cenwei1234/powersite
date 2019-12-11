@@ -124,7 +124,7 @@
 				username = #{username}
 			</if>
 		</where>
-		order by u.id aesc
+		order by u.id asc
 		limit #{start}, #{pageSize}
 		;
 	</select>
@@ -165,13 +165,21 @@
 			(#{avatar}, #{username}, #{password}, #{salt}, #{name}, #{birthday}, #{sex}, #{email}, #{phone}, #{roleid}, #{deptid}, #{status}, #{createtime}, #{version}, #{token});
 	</insert>
 
-	<update id="resetUserPwd">
-		update sys_user set password = #{password} where username = #{username};
+    <delete id="removeUser" parameterType="java.lang.Integer">
+		delete from sys_user where id = #{userId};
+	</delete>
+
+	<update id="modifyUser">
+		update sys_user set username = #{username}, name = #{name}, sex = #{sex}, roleid = #{roleid}, email = #{email}, phone = #{phone}, roleid = #{roleid}, deptid = #{deptid} , birthday = #{birthday} where id = #{id};
 	</update>
 
 	<update id="setRoles">
 		update sys_user set roleid = #{roleIds} where id =
 		#{userId}
+	</update>
+
+	<update id="resetUserPwd">
+		update sys_user set password = #{password} where id = #{userId};
 	</update>
 
 </mapper>

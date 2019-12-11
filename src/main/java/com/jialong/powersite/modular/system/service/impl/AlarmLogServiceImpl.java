@@ -22,7 +22,7 @@ public class AlarmLogServiceImpl implements IAlarmLogService {
     @Override
     public BaseListResp queryAlarmLogList(AlarmLogListReq alarmLogListReq, BaseListResp<AlarmLogRespData> baseListResp)
     {
-        JlAlarmLogQueryData jlAlarmLogQueryData = new JlAlarmLogQueryData(alarmLogListReq.getPageNo(), alarmLogListReq.getPageSize());
+        JlAlarmLogQueryData jlAlarmLogQueryData = new JlAlarmLogQueryData();
         jlAlarmLogQueryData.setNoticeType(alarmLogListReq.getNoticeType());
         jlAlarmLogQueryData.setAlarmDetail(alarmLogListReq.getAlarmDetail());
         jlAlarmLogQueryData.setAuditor(alarmLogListReq.getAuditor());
@@ -33,6 +33,8 @@ public class AlarmLogServiceImpl implements IAlarmLogService {
         jlAlarmLogQueryData.setTriggerValue(alarmLogListReq.getTriggerValue());
         jlAlarmLogQueryData.setAlarmTimeBegin(alarmLogListReq.getAlarmTimeBegin());
         jlAlarmLogQueryData.setAlarmTimeEnd(alarmLogListReq.getAlarmTimeEnd());
+        jlAlarmLogQueryData.setStart(alarmLogListReq.getStart(alarmLogListReq.getPageNo()));
+        jlAlarmLogQueryData.setPageSize(alarmLogListReq.getPageSize());
 
         List<AlarmLogRespData> jlAlarmLogs = alarmLogMapper.queryAlarmLogList(jlAlarmLogQueryData);
         int totalCount = alarmLogMapper.queryAlarmLogCount(jlAlarmLogQueryData);

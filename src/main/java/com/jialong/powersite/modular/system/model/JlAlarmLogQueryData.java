@@ -1,11 +1,8 @@
 package com.jialong.powersite.modular.system.model;
 
-import com.jialong.powersite.core.page.PageQueryUtil;
 import com.jialong.powersite.core.utils.Pagination;
 
-import java.util.Date;
-
-public class JlAlarmLogQueryData extends PageQueryUtil {
+public class JlAlarmLogQueryData extends Pagination {
 
     private  Integer noticeType;
 
@@ -28,10 +25,6 @@ public class JlAlarmLogQueryData extends PageQueryUtil {
     private Integer alarmDevice;
 
     private Integer siteType;
-
-    public JlAlarmLogQueryData(Integer pageNo, Integer pageSize) {
-        super(pageNo, pageSize);
-    }
 
     public Integer getNoticeType() {
         return noticeType;

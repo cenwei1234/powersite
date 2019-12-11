@@ -5,6 +5,7 @@ import com.jialong.powersite.modular.system.model.RegionSite;
 import com.jialong.powersite.modular.system.model.Role;
 import com.jialong.powersite.modular.system.model.request.*;
 import com.jialong.powersite.modular.system.model.response.*;
+import com.jialong.powersite.modular.system.model.response.data.RoleListRespData;
 import com.jialong.powersite.modular.system.model.response.data.UserListRespData;
 import com.jialong.powersite.modular.system.service.impl.MenuServiceImpl;
 import com.jialong.powersite.modular.system.service.impl.RoleServiceImpl;
@@ -24,7 +25,7 @@ public class RoleController {
     @RequestMapping("/list")
     public BaseListResp queryRoleList(@RequestBody RoleListReq roleListReq)
     {
-        BaseListResp<Role> baseListResp = new BaseListResp<>();
+        BaseListResp<RoleListRespData> baseListResp = new BaseListResp<>();
         return this.roleService.queryRoleList(roleListReq, baseListResp);
     }
 

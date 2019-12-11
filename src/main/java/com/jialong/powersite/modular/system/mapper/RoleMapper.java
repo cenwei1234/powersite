@@ -17,6 +17,7 @@ package com.jialong.powersite.modular.system.mapper;
 
 import com.jialong.powersite.core.common.node.ZTreeNode;
 import com.jialong.powersite.modular.system.model.Role;
+import com.jialong.powersite.modular.system.model.response.data.RoleListRespData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,7 @@ import java.util.List;
 @Repository
 public interface RoleMapper {
 
-    List<Role> selectRoles();
+    List<RoleListRespData> selectRoles();
 
     int deleteRoleById(@Param("roleId") Integer roleId);
 

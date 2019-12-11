@@ -14,13 +14,16 @@ import com.jialong.powersite.modular.system.model.Role;
 import com.jialong.powersite.modular.system.model.User;
 import com.jialong.powersite.modular.system.model.request.*;
 import com.jialong.powersite.modular.system.model.response.*;
+import com.jialong.powersite.modular.system.model.response.data.RoleListRespData;
 import com.jialong.powersite.modular.system.service.IRoleService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -35,9 +38,23 @@ public class RoleServiceImpl implements IRoleService {
     @Autowired
     private RelationMapper relationMapper;
 
-    public BaseListResp queryRoleList(RoleListReq roleListReq, BaseListResp<Role> baseListResp)
+    public BaseListResp queryRoleList(RoleListReq roleListReq, BaseListResp<RoleListRespData> baseListResp)
     {
-        List<Role> roles = roleMapper.selectRoles();
+        List<RoleListRespData> roles = roleMapper.selectRoles();
+        Map<Integer,String> roleMap = new HashMap<>();
+        for (RoleListRespData role : roles) {
+             roleMap.put(role.getId(), role.getName());
+        }
+        for (RoleListRespData role : roles) {
+            if (role.getPid() == 0)
+            {
+                role.setPname("--");
+            }
+            else
+            {
+                role.setPname(roleMap.get(role.getPid()));
+            }
+        }
         baseListResp.setData(roles);
         return baseListResp;
     }
