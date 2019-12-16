@@ -26,4 +26,8 @@
             );
     </select>
 
+    <select id="queryDeviceList" resultMap="map">
+        select * from jl_device where site_id = #{siteId};
+    </select>
+
 </mapper>

@@ -4,16 +4,18 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlSiteOperationRaw">
-        <result column="soid" property="id" />
+        <result column="id" property="id" />
+        <result column="uuid" property="uuid" />
         <result column="site_id" property="siteId" />
-        <result column="operationDetail" property="operationDetail" />
-        <result column="addTime" property="addTime" />
-        <result column="isOverdue" property="isOverdue" />
+        <result column="operation_detail" property="operationDetail" />
+        <result column="add_time" property="addTime" />
+        <result column="is_overdue" property="isOverdue" />
     </resultMap>
 
     <insert id="addSiteOperationRaw" parameterType="com.jialong.powersite.modular.system.model.JlSiteOperationRaw">
         INSERT INTO jl_site_operation_raw (
             site_id,
+            uuid,
             operation_detail,
             add_time,
             is_overdue
@@ -21,11 +23,22 @@
         VALUES
             (
                 #{siteId},
+                #{uuid},
                 #{operationDetail},
                 #{addTime},
                 #{isOverdue}
             );
     </insert>
+
+    <select id="querySiteOperationRawBySiteId"  resultMap="map">
+        SELECT
+            *
+        FROM
+            jl_site_operation_raw
+        WHERE
+            site_id = #{siteId}
+        AND is_overdue = 0;
+    </select>
 
     <update id="updateSiteOperationRawBySiteId" parameterType="com.jialong.powersite.modular.system.model.JlSiteOperationRaw">
         UPDATE jl_site_operation_raw

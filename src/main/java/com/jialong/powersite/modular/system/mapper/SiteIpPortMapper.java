@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface SiteIpPortMapper {
 
     Boolean updateSiteIpBySiteId(JlSiteIpport jlSiteIpport);
+
+    Boolean addSiteIpPort(JlSiteIpport jlSiteIpport);
 }

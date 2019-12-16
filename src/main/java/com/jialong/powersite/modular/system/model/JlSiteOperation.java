@@ -6,6 +6,8 @@ public class JlSiteOperation {
      
 	 //站房id
     private  Integer siteId;
+
+    private  String  uuid;
      
 	 //参数id(关联jl_parameter_config表id)
     private  Integer paramId;
@@ -23,6 +25,14 @@ public class JlSiteOperation {
     private  String addTime;
 
     private Integer isOverdue;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public Integer getId() {
         return id;

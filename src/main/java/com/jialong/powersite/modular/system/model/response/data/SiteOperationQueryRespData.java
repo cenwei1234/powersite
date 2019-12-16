@@ -1,19 +1,16 @@
-package com.jialong.powersite.modular.system.model.request;
+package com.jialong.powersite.modular.system.model.response.data;
 
 import com.jialong.powersite.modular.system.model.SiteOperationAddDeviceData;
 
 import java.util.List;
 
-public class SiteOperationAddReq {
+public class SiteOperationQueryRespData {
 
-    //站房id
-    private  Integer siteId;
+    private Integer siteId;
 
-    private   String  uuid;
+    private String uuid;
 
-    //参数id(关联jl_parameter_config表id)
     private List<SiteOperationAddDeviceData> deviceDataList;
-
 
     public Integer getSiteId() {
         return siteId;

@@ -1,5 +1,7 @@
 package com.jialong.powersite.modular.system.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jialong.powersite.core.exception.BizExceptionEnum;
@@ -8,8 +10,10 @@ import com.jialong.powersite.modular.system.model.*;
 import com.jialong.powersite.modular.system.model.request.SiteOperationAddParamData;
 import com.jialong.powersite.modular.system.model.request.SiteOperationAddReq;
 import com.jialong.powersite.modular.system.model.request.SiteOperationReq;
+import com.jialong.powersite.modular.system.model.response.BaseBeanResp;
 import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
+import com.jialong.powersite.modular.system.model.response.data.SiteOperationQueryRespData;
 import com.jialong.powersite.modular.system.service.ISiteOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,10 +40,15 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
     private DeviceParamMapper deviceParamMapper;
 
     @Override
-    public BaseListResp querySiteOperationBySiteId(SiteOperationReq siteOperationReq, BaseListResp<JlSiteOperationData> baseListResp) {
-        List<JlSiteOperationData> jlSiteOperationData = siteOperationMapper.queryPowerSiteOperationBySiteId(siteOperationReq.getSiteId());
-        baseListResp.setData(jlSiteOperationData);
-        return baseListResp;
+    public BaseBeanResp querySiteOperationBySiteId(SiteOperationReq siteOperationReq, BaseBeanResp<SiteOperationQueryRespData> baseBeanResp) {
+        JlSiteOperationRaw jlSiteOperationRaw = siteOperationRawMapper.querySiteOperationRawBySiteId(siteOperationReq.getSiteId());
+        if (null != jlSiteOperationRaw)
+        {
+            String operationDetail = jlSiteOperationRaw.getOperationDetail();
+            SiteOperationQueryRespData siteOperationQueryRespDataList = JSON.parseObject(operationDetail, new TypeReference<SiteOperationQueryRespData>() {});
+            baseBeanResp.setData(siteOperationQueryRespDataList);
+        }
+        return baseBeanResp;
     }
 
     @Override
@@ -92,6 +101,7 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
         for (int i = 0; i < paramIdArr.size(); i++) {
             JlSiteOperation jlSiteOperation = new JlSiteOperation();
             jlSiteOperation.setSiteId(siteOperationAddReq.getSiteId());
+            jlSiteOperation.setUuid(siteOperationAddReq.getUuid());
             jlSiteOperation.setParamId(paramIdArr.get(i));
             jlSiteOperation.setParamValue(paramValueArr.get(i));
             //获取对应的参数所在的List中的位置 这里需要补充参数字典表里面的相关字段的值
@@ -111,6 +121,7 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
         siteOperationRawMapper.updateSiteOperationRawBySiteId(jlSiteOperationRaw);
 
         //在原始数据表里面存储
+        jlSiteOperationRaw.setUuid(siteOperationAddReq.getUuid());
         jlSiteOperationRaw.setOperationDetail(siteOperationAddReq.getDeviceDataList().toString());
         jlSiteOperationRaw.setAddTime(dateFormat.format(now));
         jlSiteOperationRaw.setIsOverdue(0);

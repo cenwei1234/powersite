@@ -10,4 +10,6 @@ import java.util.List;
 public interface SiteDeviceMapper {
 
     List<JlSiteDevice> querySiteDeviceBySiteId(@Param(("siteId")) Integer siteId, @Param("deviceIdList") List<Integer> deviceIdList);
+
+    Integer addSiteDevice(JlSiteDevice jlSiteDevice);
 }

@@ -7,6 +7,8 @@ public class JlSiteOperationRaw {
     //站房id
     private  Integer siteId;
 
+    private String uuid;
+
     //运行信息信息（json原始数据）
     private  String operationDetail;
 
@@ -54,5 +56,13 @@ public class JlSiteOperationRaw {
 
     public void setIsOverdue(Integer isOverdue) {
         this.isOverdue = isOverdue;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

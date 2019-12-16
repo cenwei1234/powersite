@@ -1,6 +1,8 @@
 package com.jialong.powersite.modular.api.controller;
 
+import com.jialong.powersite.modular.system.model.request.SiteDeviceAddReq;
 import com.jialong.powersite.modular.system.model.request.SiteIpPortUpdateReq;
+import com.jialong.powersite.modular.system.model.request.SiteOperationAddReq;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.service.IPowerSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,13 @@ public class ApiPowerSiteController {
     {
         BaseResp baseResp = new BaseResp();
         return powerSiteService.updateSiteIpPort(siteIpPortUpdateReq, baseResp);
+    }
+
+    @RequestMapping("/addsitedevice")
+    public BaseResp addSiteDevice(@RequestBody SiteDeviceAddReq siteDeviceAddReq)
+    {
+        BaseResp baseResp = new BaseResp();
+        return powerSiteService.addSiteDevice(siteDeviceAddReq, baseResp);
     }
 
 }

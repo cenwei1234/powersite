@@ -3,43 +3,29 @@
 <mapper namespace="com.jialong.powersite.modular.system.mapper.SiteOperationMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlSiteOperationData">
-        <result column="soid" property="id" />
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlSiteOperation">
+        <result column="id" property="id" />
+        <result column="uuid" property="uuid" />
         <result column="site_id" property="siteId" />
+        <result column="param_id" property="paramId" />
         <result column="param_value" property="paramValue" />
         <result column="param_value_unit" property="paramValueUnit" />
-        <result column="param_name" property="paramName" />
-        <result column="pid" property="pid" />
-        <result column="p_param_name" property="pParamName" />
-        <result column="p_node_num" property="pNodeNum" />
-        <result column="p_node_level" property="pNodeLevel" />
+        <result column="param_value_type" property="paramValueType" />
+        <result column="add_time" property="addTime" />
+        <result column="is_overdue" property="isOverdue" />
     </resultMap>
 
-    <select id="queryPowerSiteOperationBySiteId"  resultMap="map">
-        SELECT
-            so.id AS soid,
-            so.site_id,
-            so.param_value,
-            so.param_value_unit,
-            pc.param_name,
-            pc.pid,
-            pc2.param_name AS p_param_name,
-            IFNULL(pc2.num, pc.num) AS p_node_num,
-            IFNULL(pc2. LEVEL, pc. LEVEL) AS p_node_level
-        FROM
-            jl_site_operation so
-        LEFT JOIN jl_parameter_config pc ON so.param_id = pc.id
-        LEFT JOIN jl_parameter_config pc2 ON pc.pid = pc2.id
-        where so.is_overdue=0 and so.site_id = #{siteId}
-    </select>
-
     <update id="updateSiteOperationState" parameterType="com.jialong.powersite.modular.system.model.JlSiteOperation">
-        update jl_site_operation set is_overdue = 1 where site_id = #{siteId} and param_id = #{paramId} and is_overdue = #{isOverdue}
+        UPDATE jl_site_operation
+            SET is_overdue = 1
+        WHERE
+            site_id = #{siteId} and param_id = #{paramId} and is_overdue = #{isOverdue}
     </update>
 
     <insert id="addPowerSiteData" parameterType="com.jialong.powersite.modular.system.model.JlSiteOperation">
         INSERT INTO jl_site_operation (
         site_id,
+        uuid,
         param_id,
         param_value,
         param_value_type,
@@ -49,7 +35,7 @@
         )
         VALUES
         <foreach collection="list" index="index" item="i" separator=",">
-            (#{i.siteId}, #{i.paramId}, #{i.paramValue}, #{i.paramValueType}, #{i.paramValueUnit}, #{i.addTime}, #{i.isOverdue})
+            (#{i.siteId}, #{i.uuid}, #{i.paramId}, #{i.paramValue}, #{i.paramValueType}, #{i.paramValueUnit}, #{i.addTime}, #{i.isOverdue})
         </foreach>
         ;
     </insert>

@@ -24,4 +24,22 @@
         </foreach>
     </select>
 
+    <insert id="addSiteDevice" parameterType="com.jialong.powersite.modular.system.model.JlSiteDevice">
+        INSERT INTO jl_site_device (
+            site_id,
+            device_id,
+            is_del,
+            auditor,
+            add_time
+        )
+        VALUES
+            (
+                #{siteId},
+                #{deviceId},
+                #{isDel},
+                #{auditor},
+                #{addTime}
+            );
+    </insert>
+
 </mapper>

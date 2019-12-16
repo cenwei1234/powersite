@@ -34,4 +34,34 @@
             site_id = #{siteId};
     </update>
 
+    <insert id="addSiteIpPort" parameterType="com.jialong.powersite.modular.system.model.JlSiteIpport">
+        INSERT INTO jl_site_ipport (
+            site_id,
+            public_ip,
+            websocket_port,
+            status_port,
+            username,
+            password,
+            http_port,
+            https_port,
+            tcp_port,
+            udp_port,
+            rtsp_port
+        )
+        VALUES
+            (
+                #{siteId},
+                #{publicIp},
+                #{websocketPort},
+                #{statusPort},
+                #{username},
+                #{password},
+                #{httpPort},
+                #{httpsPort},
+                #{tcpPort},
+                #{udpPort},
+                #{rtspPort}
+            );
+    </insert>
+
 </mapper>

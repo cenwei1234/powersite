@@ -1,6 +1,7 @@
 package com.jialong.powersite.modular.system.controller;
 
 import com.jialong.powersite.modular.system.model.request.DeviceAddReq;
+import com.jialong.powersite.modular.system.model.request.DeviceParamAddReq;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.service.IDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +24,14 @@ public class DeviceController {
         deviceService.addDevice(deviceAddReq,baseResp);
         return baseResp;
     }
+
+    @RequestMapping("/adddeviceparam")
+    public BaseResp addDeviceParam(@RequestBody DeviceParamAddReq deviceParamAddReq)
+    {
+        BaseResp baseResp = new BaseResp();
+        deviceService.addDeviceParam(deviceParamAddReq,baseResp);
+        return baseResp;
+    }
+
+
 }

@@ -1,10 +1,10 @@
 package com.jialong.powersite.modular.api.controller;
 
-import com.jialong.powersite.modular.system.model.JlSiteOperationData;
 import com.jialong.powersite.modular.system.model.request.SiteOperationAddReq;
 import com.jialong.powersite.modular.system.model.request.SiteOperationReq;
-import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.model.response.BaseBeanResp;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
+import com.jialong.powersite.modular.system.model.response.data.SiteOperationQueryRespData;
 import com.jialong.powersite.modular.system.service.ISiteOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiSiteOperationController {
 
     @Autowired
-    private ISiteOperationService serviceOperationService;
+    private ISiteOperationService siteOperationService;
 
     @RequestMapping("/list")
-    public BaseListResp querySiteOperation(@RequestBody SiteOperationReq siteOperationReq)
+    public BaseBeanResp querySiteOperation(@RequestBody SiteOperationReq siteOperationReq)
     {
-        BaseListResp<JlSiteOperationData> baseListResp = new BaseListResp<>();
-        return serviceOperationService.querySiteOperationBySiteId(siteOperationReq, baseListResp);
+        BaseBeanResp<SiteOperationQueryRespData> baseBeanResp = new BaseBeanResp<>();
+        return siteOperationService.querySiteOperationBySiteId(siteOperationReq, baseBeanResp);
     }
 
     @RequestMapping("/add")
     public BaseResp addSiteOperation(@RequestBody SiteOperationAddReq siteOperationAddReq)
     {
         BaseResp baseResp = new BaseResp();
-        return serviceOperationService.addSiteOperation(siteOperationAddReq, baseResp);
+        return siteOperationService.addSiteOperation(siteOperationAddReq, baseResp);
     }
 }

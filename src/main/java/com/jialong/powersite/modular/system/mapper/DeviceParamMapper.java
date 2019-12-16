@@ -10,4 +10,6 @@ import java.util.List;
 public interface DeviceParamMapper {
 
     List<JlDeviceParameterConfig> queryDeviceParamBySiteIdAndDeviceId(@Param("siteId") Integer siteId, @Param("deviceIdList") List<Integer> deviceIdList);
+
+    Integer addDeviceParam(JlDeviceParameterConfig jlDeviceParameterConfig);
 }

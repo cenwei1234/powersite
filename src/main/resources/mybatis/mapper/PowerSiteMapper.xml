@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jialong.powersite.modular.system.mapper.PowerSiteMapper">
 
-    <insert id="addPowerSite">
+    <insert id="addPowerSite" parameterType="com.jialong.powersite.modular.system.model.PowerSite">
         INSERT INTO jl_power_site (
             rid,
             site_name,
@@ -21,6 +21,9 @@
                 #{siteStatus},
                 #{siteHost},
                 #{sitePorts}
-            );
+            )
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            select LAST_INSERT_ID() as id;
+        </selectKey>
     </insert>
 </mapper>

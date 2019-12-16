@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface DeviceMapper {
 
     Integer addDevice(JlDevice jlDevice);
+
+    JlDevice queryDeviceList(JlDevice jlDevice);
 }
