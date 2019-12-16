@@ -5,6 +5,7 @@ import com.jialong.powersite.modular.system.model.CheckTaskListQueryData;
 import com.jialong.powersite.modular.system.model.JlCheckTask;
 import com.jialong.powersite.modular.system.model.request.CheckTaskAddReq;
 import com.jialong.powersite.modular.system.model.request.CheckTaskListReq;
+import com.jialong.powersite.modular.system.model.request.CheckTaskStatusUpdateReq;
 import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.model.response.data.CheckTaskRespData;
@@ -52,5 +53,14 @@ public class CheckTaskServiceImpl implements ICheckTaskService {
         baseListResp.setTotalCount(totalCount);
         baseListResp.setData(jlCheckTasks);
         return baseListResp;
+    }
+
+    @Override
+    public BaseResp updateCheckTaskStatus(CheckTaskStatusUpdateReq checkTaskStatusUpdateReq, BaseResp baseResp) {
+        JlCheckTask jlCheckTask = new JlCheckTask();
+        jlCheckTask.setId(checkTaskStatusUpdateReq.getId());
+        jlCheckTask.setStatus(checkTaskStatusUpdateReq.getStatus());
+        this.checkTaskMapper.updateCheckTaskStatus(jlCheckTask);
+        return baseResp;
     }
 }

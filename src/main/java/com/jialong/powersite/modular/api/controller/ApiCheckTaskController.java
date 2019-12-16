@@ -2,6 +2,8 @@ package com.jialong.powersite.modular.api.controller;
 
 import com.jialong.powersite.modular.system.model.request.CheckTaskAddReq;
 import com.jialong.powersite.modular.system.model.request.CheckTaskListReq;
+import com.jialong.powersite.modular.system.model.request.CheckTaskStatusUpdateReq;
+import com.jialong.powersite.modular.system.model.request.WorkSheetStatusUpdateReq;
 import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.model.response.data.CheckTaskRespData;
@@ -31,6 +33,14 @@ public class ApiCheckTaskController {
     {
         BaseResp baseResp = new BaseResp();
         checkTaskService.addCheckTask(checkTaskAddReq,baseResp);
+        return baseResp;
+    }
+
+    @RequestMapping("/updatestatus")
+    public BaseResp updateCheckTaskStatus(@RequestBody CheckTaskStatusUpdateReq checkTaskStatusUpdateReq)
+    {
+        BaseResp baseResp = new BaseResp();
+        checkTaskService.updateCheckTaskStatus(checkTaskStatusUpdateReq,baseResp);
         return baseResp;
     }
 }

@@ -64,4 +64,20 @@
         LIMIT #{start}, #{pageSize};
     </select>
 
+    <insert id="addOperationRecord" parameterType="com.jialong.powersite.modular.system.model.OperationRecordAddData">
+        INSERT INTO jl_operation_record (
+            auditor,
+            site_id,
+            operation_detail,
+            operation_time
+        )
+        VALUES
+            (
+                #{auditor},
+                #{siteId},
+                #{operationDetail},
+                #{operationTime}
+            );
+    </insert>
+
 </mapper>

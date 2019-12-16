@@ -65,7 +65,9 @@ public enum BizExceptionEnum implements AbstractBaseExceptionEnum {
      * 站房
      */
     PARAM_CONFIG_ERROR(301, "请求参数的数量和值的数量不相等"),
-    PARAM_CONFIG_NOEXISTS(302, "请求参数的id非法"),
+    PARAM_CONFIG_NOTMATCH(302, "请求参数中参数项的不匹配"),
+
+    PARAM_DEVICE_NOTMATCH(303, "请求参数中的设备不匹配"),
 
     /**
      * 签名异常

@@ -24,6 +24,8 @@ public class JlAlarmLogQueryData extends Pagination {
 
     private Integer alarmDevice;
 
+    private Integer alarmParam;
+
     private Integer siteType;
 
     public Integer getNoticeType() {
@@ -112,5 +114,13 @@ public class JlAlarmLogQueryData extends Pagination {
 
     public void setSiteType(Integer siteType) {
         this.siteType = siteType;
+    }
+
+    public Integer getAlarmParam() {
+        return alarmParam;
+    }
+
+    public void setAlarmParam(Integer alarmParam) {
+        this.alarmParam = alarmParam;
     }
 }

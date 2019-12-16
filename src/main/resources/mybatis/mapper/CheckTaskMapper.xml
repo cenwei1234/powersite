@@ -87,4 +87,12 @@
         ;
     </select>
 
+
+    <update id="updateCheckTaskStatus" parameterType="com.jialong.powersite.modular.system.model.JlCheckTask">
+        UPDATE jl_check_task
+        SET STATUS = #{status}
+        WHERE
+            id = #{id};
+    </update>
+
 </mapper>

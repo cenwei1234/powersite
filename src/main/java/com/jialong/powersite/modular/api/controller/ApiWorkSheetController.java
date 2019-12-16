@@ -2,6 +2,7 @@ package com.jialong.powersite.modular.api.controller;
 
 import com.jialong.powersite.modular.system.model.request.WorkSheetAddReq;
 import com.jialong.powersite.modular.system.model.request.WorkSheetListReq;
+import com.jialong.powersite.modular.system.model.request.WorkSheetStatusUpdateReq;
 import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.model.response.data.WorkSheetRecordRespData;
@@ -31,6 +32,14 @@ public class ApiWorkSheetController {
     {
         BaseResp baseResp = new BaseResp();
         workSheetRecordService.addWorkSheet(workSheetAddReq,baseResp);
+        return baseResp;
+    }
+
+    @RequestMapping("/updatestatus")
+    public BaseResp updateWorksheetStatus(@RequestBody WorkSheetStatusUpdateReq workSheetStatusUpdateReq)
+    {
+        BaseResp baseResp = new BaseResp();
+        workSheetRecordService.updateWorkSheetStatus(workSheetStatusUpdateReq,baseResp);
         return baseResp;
     }
 }

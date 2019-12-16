@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.SiteDeviceParamMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.SiteDeviceParam">
+        <result column="id" property="id" />
+        <result column="device_id" property="deviceId" />
+        <collection property="paramList" column="device_id" ofType="com.jialong.powersite.modular.system.model.JlParameterConfig">
+            <result column="pcid" property="id" />
+            <result column="param_name" property="paramName" />
+            <result column="param_value_type" property="paramValueType" />
+            <result column="param_value_unit" property="paramValueUnit" />
+            <result column="pid" property="pid" />
+            <result column="is_top" property="isTop" />
+            <result column="param_icon" property="paramIcon" />
+        </collection>
+    </resultMap>
+
+    <select id="queryParamBySiteId" resultMap="map">
+        SELECT
+            d.id,
+            sd.site_id,
+            sd.device_id,
+            dp.param_id,
+            pc.id as pcid,
+            pc.param_name,
+            pc.param_value_type,
+            pc.param_value_unit,
+            pc.pid,
+            pc.is_top,
+            pc.param_icon
+        FROM
+            jl_site_device sd
+        LEFT JOIN jl_device_parameter_config dp ON sd.device_id = dp.device_id
+        LEFT JOIN jl_device d ON sd.device_id = d.id
+        left join jl_parameter_config pc on dp.param_id=pc.id
+        where sd.site_id = #{siteId};
+    </select>
+</mapper>

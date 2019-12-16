@@ -1,15 +1,16 @@
 package com.jialong.powersite.modular.system.model.request;
 
+import com.jialong.powersite.modular.system.model.SiteOperationAddDeviceData;
+
+import java.util.List;
+
 public class SiteOperationAddReq {
 
     //站房id
     private  Integer siteId;
 
     //参数id(关联jl_parameter_config表id)
-    private  Integer[] paramId;
-
-    //参数名称对应的值
-    private  String[] paramValue;
+    private List<SiteOperationAddDeviceData> deviceDataList;
 
 
     public Integer getSiteId() {
@@ -20,19 +21,11 @@ public class SiteOperationAddReq {
         this.siteId = siteId;
     }
 
-    public Integer[] getParamId() {
-        return paramId;
+    public List<SiteOperationAddDeviceData> getDeviceDataList() {
+        return deviceDataList;
     }
 
-    public void setParamId(Integer[] paramId) {
-        this.paramId = paramId;
-    }
-
-    public String[] getParamValue() {
-        return paramValue;
-    }
-
-    public void setParamValue(String[] paramValue) {
-        this.paramValue = paramValue;
+    public void setDeviceDataList(List<SiteOperationAddDeviceData> deviceDataList) {
+        this.deviceDataList = deviceDataList;
     }
 }

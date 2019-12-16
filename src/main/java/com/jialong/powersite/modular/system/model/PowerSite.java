@@ -12,7 +12,7 @@ public class PowerSite {
 
     private String siteAddr;
 
-    private String siteStatus;
+    private Integer siteStatus;
 
     private String siteHost;
 
@@ -58,11 +58,11 @@ public class PowerSite {
         this.siteAddr = siteAddr;
     }
 
-    public String getSiteStatus() {
+    public Integer getSiteStatus() {
         return siteStatus;
     }
 
-    public void setSiteStatus(String siteStatus) {
+    public void setSiteStatus(Integer siteStatus) {
         this.siteStatus = siteStatus;
     }
 

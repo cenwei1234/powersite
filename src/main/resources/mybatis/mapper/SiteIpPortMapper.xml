@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.SiteIpPortMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlSiteIpport">
+        <result column="id" property="id" />
+        <result column="site_id" property="siteId" />
+        <result column="public_ip" property="publicIp" />
+        <result column="websocket_port" property="websocketPort" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="http_port" property="httpPort" />
+        <result column="https_port" property="httpsPort" />
+        <result column="tcp_port" property="tcpPort" />
+        <result column="udp_port" property="udpPort" />
+        <result column="rtsp_port" property="rtspPort" />
+    </resultMap>
+
+    <update id="updateSiteIpBySiteId" parameterType="com.jialong.powersite.modular.system.model.JlSiteIpport">
+        UPDATE jl_site_ipport
+        SET
+         public_ip = #{publicIp},
+         websocket_port = #{websocketPort},
+         status_port = #{statusPort},
+         username = #{username},
+         password = #{password},
+         http_port = #{httpPort},
+         https_port = #{httpsPort},
+         tcp_port = #{tcpPort},
+         udp_port = #{udpPort},
+         rtsp_port = #{rtspPort}
+        WHERE
+            site_id = #{siteId};
+    </update>
+
+</mapper>

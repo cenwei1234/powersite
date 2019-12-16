@@ -5,6 +5,7 @@ import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
 import com.jialong.powersite.modular.system.model.WorkSheetListQueryData;
 import com.jialong.powersite.modular.system.model.request.WorkSheetAddReq;
 import com.jialong.powersite.modular.system.model.request.WorkSheetListReq;
+import com.jialong.powersite.modular.system.model.request.WorkSheetStatusUpdateReq;
 import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.model.response.data.WorkSheetRecordRespData;
@@ -52,5 +53,14 @@ public class WorkSheetRecordServiceImpl implements IWorkSheetRecordService {
         baseListResp.setTotalCount(totalCount);
         baseListResp.setData(jlWorkSheetRecords);
         return baseListResp;
+    }
+
+    @Override
+    public BaseResp updateWorkSheetStatus(WorkSheetStatusUpdateReq workSheetStatusUpdateReq, BaseResp baseResp) {
+        JlWorkSheetRecord jlWorkSheetRecord = new JlWorkSheetRecord();
+        jlWorkSheetRecord.setId(workSheetStatusUpdateReq.getId());
+        jlWorkSheetRecord.setStatus(workSheetStatusUpdateReq.getStatus());
+        workSheetRecordMapper.updateWorkSheetStatus(jlWorkSheetRecord);
+        return baseResp;
     }
 }

@@ -12,6 +12,7 @@
         <result column="site_type" property="siteType" />
         <result column="trigger_value" property="triggerValue" />
         <result column="alarm_device" property="alarmDevice" />
+        <result column="alarm_param" property="alarmParam" />
         <result column="alarm_time" property="alarmTime" />
         <result column="username" property="username" />
     </resultMap>
@@ -56,6 +57,7 @@
             al.site_type,
             al.trigger_value,
             al.alarm_device,
+            al.alarm_param,
             u.username
         FROM
             jl_alarm_log al
@@ -90,5 +92,34 @@
         GROUP BY
             notice_type;
     </select>
+
+    <insert id="addAlarmLog" parameterType="com.jialong.powersite.modular.system.model.AlarmLogAddData">
+
+        INSERT INTO jl_alarm_log (
+            site_id,
+            notice_type,
+            alarm_detail,
+            alarm_level,
+            site_type,
+            trigger_value,
+            alarm_device,
+            alarm_param,
+            alarm_time,
+            auditor
+        )
+        VALUES
+            (
+                #{siteId},
+                #{noticeType},
+                #{alarmDetail},
+                #{alarmLevel},
+                #{siteType},
+                #{triggerValue},
+                #{alarmDevice},
+                #{alarmParam},
+                #{alarmTime},
+                #{auditor}
+            );
+    </insert>
 
 </mapper>

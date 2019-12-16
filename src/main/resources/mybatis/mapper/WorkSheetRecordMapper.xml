@@ -86,4 +86,11 @@
         LIMIT #{start}, #{pageSize};
     </select>
 
+    <update id="updateWorkSheetStatus" parameterType="com.jialong.powersite.modular.system.model.JlWorkSheetRecord">
+        UPDATE jl_worksheet_record
+        SET STATUS = #{status}
+        WHERE
+            id = #{id};
+    </update>
+
 </mapper>

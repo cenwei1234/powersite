@@ -2,69 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jialong.powersite.modular.system.mapper.PowerSiteMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlSiteOperationData">
-        <result column="soid" property="id" />
-        <result column="site_id" property="siteId" />
-        <result column="param_value" property="paramValue" />
-        <result column="param_value_unit" property="paramValueUnit" />
-        <result column="param_name" property="paramName" />
-        <result column="pid" property="pid" />
-        <result column="p_param_name" property="pParamName" />
-        <result column="p_node_num" property="pNodeNum" />
-        <result column="p_node_level" property="pNodeLevel" />
-    </resultMap>
-
-    <select id="queryPowerSiteOperationBySiteId"  resultMap="map">
-        SELECT
-            so.id AS soid,
-            so.site_id,
-            so.param_value,
-            so.param_value_unit,
-            pc.param_name,
-            pc.pid,
-            pc2.param_name AS p_param_name,
-            IFNULL(pc2.num, pc.num) AS p_node_num,
-            IFNULL(pc2. LEVEL, pc. LEVEL) AS p_node_level
-        FROM
-            jl_site_operation so
-        LEFT JOIN jl_parameter_config pc ON so.param_id = pc.id
-        LEFT JOIN jl_parameter_config pc2 ON pc.pid = pc2.id
-        where so.is_overdue=0 and so.site_id = #{siteId}
-    </select>
-
-    <insert id="addPowerSiteData" parameterType="com.jialong.powersite.modular.system.model.JlSiteOperation">
-        INSERT INTO jl_site_operation (
-            site_id,
-            param_id,
-            param_value,
-            param_value_type,
-            param_value_unit,
-            add_time,
-            is_overdue
+    <insert id="addPowerSite">
+        INSERT INTO jl_power_site (
+            rid,
+            site_name,
+            site_shortname,
+            site_addr,
+            site_status,
+            site_host,
+            site_ports
         )
         VALUES
-        <foreach collection="list" index="index" item="i" separator=",">
-            (#{i.siteId}, #{i.paramId}, #{i.paramValue}, #{i.paramValueType}, #{i.paramValueUnit}, #{i.addTime}, #{i.isOverdue})
-        </foreach>
-        ;
+            (
+                #{rid},
+                #{siteName},
+                #{siteShortname},
+                #{siteAddr},
+                #{siteStatus},
+                #{siteHost},
+                #{sitePorts}
+            );
     </insert>
-
-    <select id="queryParamConfigBatch" resultType="com.jialong.powersite.modular.system.model.JlParameterConfig">
-        SELECT
-            *
-        FROM
-            jl_parameter_config
-        WHERE
-            id IN
-        (
-        <foreach collection="ids" index="index" item="id" separator=",">
-            #{id}
-        </foreach>
-        );
-    </select>
-
-    <update id="updateParamConfigState" parameterType="com.jialong.powersite.modular.system.model.JlSiteOperation">
-        update jl_site_operation set is_overdue = 1 where site_id = #{siteId} and param_id = #{paramId} and is_overdue = #{isOverdue}
-    </update>
 </mapper>

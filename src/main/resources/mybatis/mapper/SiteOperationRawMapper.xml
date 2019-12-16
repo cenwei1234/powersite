@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.SiteOperationRawMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlSiteOperationRaw">
+        <result column="soid" property="id" />
+        <result column="site_id" property="siteId" />
+        <result column="operationDetail" property="operationDetail" />
+        <result column="addTime" property="addTime" />
+        <result column="isOverdue" property="isOverdue" />
+    </resultMap>
+
+    <insert id="addSiteOperationRaw" parameterType="com.jialong.powersite.modular.system.model.JlSiteOperationRaw">
+        INSERT INTO jl_site_operation_raw (
+            site_id,
+            operation_detail,
+            add_time,
+            is_overdue
+        )
+        VALUES
+            (
+                #{siteId},
+                #{operationDetail},
+                #{addTime},
+                #{isOverdue}
+            );
+    </insert>
+
+    <update id="updateSiteOperationRawBySiteId" parameterType="com.jialong.powersite.modular.system.model.JlSiteOperationRaw">
+        UPDATE jl_site_operation_raw
+        SET
+         is_overdue = 1
+        WHERE
+            site_id = #{siteId};
+    </update>
+
+</mapper>

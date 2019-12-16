@@ -2,6 +2,7 @@ package com.jialong.powersite.modular.system.mapper;
 
 import com.jialong.powersite.modular.system.model.CheckTaskListQueryData;
 import com.jialong.powersite.modular.system.model.JlCheckTask;
+import com.jialong.powersite.modular.system.model.JlWorkSheetRecord;
 import com.jialong.powersite.modular.system.model.response.data.CheckTaskRespData;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,7 @@ public interface CheckTaskMapper {
     List<CheckTaskRespData> queryCheckTask(CheckTaskListQueryData checkTaskListQueryData );
 
     void insertCheckTask(JlCheckTask jlCheckTask);
+
+    Boolean updateCheckTaskStatus(JlCheckTask jlCheckTask);
 
 }

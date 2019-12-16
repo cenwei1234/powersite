@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.ParameterConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlParameterConfig">
+        <result column="id" property="id" />
+        <result column="param_name" property="paramName" />
+        <result column="param_value_type" property="paramValueType" />
+        <result column="param_value_unit" property="paramValueUnit" />
+        <result column="is_top" property="isTop" />
+        <result column="pid" property="pid" />
+        <result column="param_value_unit" property="paramValueUnit" />
+    </resultMap>
+
+    <select id="queryParamConfigBatch" resultType="com.jialong.powersite.modular.system.model.JlParameterConfig">
+        SELECT
+        *
+        FROM
+        jl_parameter_config
+        WHERE
+        id IN
+        (
+        <foreach collection="ids" index="index" item="id" separator=",">
+            #{id}
+        </foreach>
+        );
+    </select>
+
+    <insert id="addParameterConfig" parameterType="com.jialong.powersite.modular.system.model.JlParameterConfig">
+        INSERT INTO jl_parameter_config (
+            param_name,
+            param_value_type,
+            is_top,
+            pid,
+            level,
+            num,
+            param_value_unit,
+            param_icon
+        )
+        VALUES
+            (
+                #{paramName},
+                #{paramValueType},
+                #{isTop},
+                #{pid},
+                #{level},
+                #{num},
+                #{paramValueUnit},
+                #{paramIcon}
+            );
+    </insert>
+
+</mapper>

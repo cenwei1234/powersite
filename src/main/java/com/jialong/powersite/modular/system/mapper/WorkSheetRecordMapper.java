@@ -14,5 +14,7 @@ public interface WorkSheetRecordMapper {
 
     List<WorkSheetRecordRespData> queryWorkSheet(WorkSheetListQueryData workSheetListQueryData);
 
+    Boolean updateWorkSheetStatus(JlWorkSheetRecord jlWorkSheetRecord);
+
     Integer queryWorkSheetCount(WorkSheetListQueryData workSheetListQueryData);
 }

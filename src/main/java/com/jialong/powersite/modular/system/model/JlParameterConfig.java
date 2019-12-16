@@ -1,7 +1,10 @@
 package com.jialong.powersite.modular.system.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class JlParameterConfig {
 
+    @JsonProperty(value = "param_type")
     private  Integer id;
 
     //参数名称
@@ -13,6 +16,10 @@ public class JlParameterConfig {
     private  Integer isTop;
 
     private  Integer pid;
+
+    private Integer level;
+
+    private Integer num;
 
     //参数值类型
     private  String paramValueUnit;
@@ -74,6 +81,22 @@ public class JlParameterConfig {
 
     public void setParamIcon(String paramIcon) {
         this.paramIcon = paramIcon;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
     }
 
     @Override

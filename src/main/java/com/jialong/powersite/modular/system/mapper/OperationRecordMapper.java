@@ -16,6 +16,7 @@
 package com.jialong.powersite.modular.system.mapper;
 
 import com.jialong.powersite.modular.system.model.JlOperationRecordQueryData;
+import com.jialong.powersite.modular.system.model.OperationRecordAddData;
 import com.jialong.powersite.modular.system.model.response.data.OperationRecordRespData;
 import org.springframework.stereotype.Repository;
 
@@ -27,4 +28,6 @@ public interface OperationRecordMapper {
     int queryOperationRecordCount(JlOperationRecordQueryData jlOperationRecordQueryData);
 
     List<OperationRecordRespData> queryOperationRecordList(JlOperationRecordQueryData jlOperationRecordQueryData);
+
+    Boolean addOperationRecord(OperationRecordAddData operationRecordAddData);
 }

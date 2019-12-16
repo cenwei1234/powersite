@@ -18,6 +18,8 @@ public class JlAlarmLog {
 
     private Integer alarmDevice;
 
+    private Integer alarmParam;
+
     private String alarmTime;
 
     private  Integer auditor;
@@ -101,5 +103,13 @@ public class JlAlarmLog {
 
     public void setSiteType(Integer siteType) {
         this.siteType = siteType;
+    }
+
+    public Integer getAlarmParam() {
+        return alarmParam;
+    }
+
+    public void setAlarmParam(Integer alarmParam) {
+        this.alarmParam = alarmParam;
     }
 }

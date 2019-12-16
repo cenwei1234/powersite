@@ -21,6 +21,8 @@ public class AlarmLogListReq extends Page<JlAlarmLog> {
 
     private Integer alarmDevice;
 
+    private Integer alarmParam;
+
     private Integer siteType;
 
     private  Integer auditor;
@@ -105,4 +107,11 @@ public class AlarmLogListReq extends Page<JlAlarmLog> {
         this.siteType = siteType;
     }
 
+    public Integer getAlarmParam() {
+        return alarmParam;
+    }
+
+    public void setAlarmParam(Integer alarmParam) {
+        this.alarmParam = alarmParam;
+    }
 }

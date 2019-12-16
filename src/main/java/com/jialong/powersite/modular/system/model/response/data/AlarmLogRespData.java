@@ -16,6 +16,8 @@ public class AlarmLogRespData {
 
     private Integer alarmDevice;
 
+    private Integer alarmParam;
+
     private String alarmTime;
 
     private  String siteName;
@@ -100,5 +102,13 @@ public class AlarmLogRespData {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Integer getAlarmParam() {
+        return alarmParam;
+    }
+
+    public void setAlarmParam(Integer alarmParam) {
+        this.alarmParam = alarmParam;
     }
 }

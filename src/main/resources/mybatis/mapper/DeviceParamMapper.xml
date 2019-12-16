@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.DeviceParamMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlDeviceParameterConfig">
+        <result column="id" property="id" />
+        <result column="site_id" property="siteId" />
+        <result column="device_id" property="deviceId" />
+        <result column="param_id" property="paramId" />
+        <result column="is_del" property="isDel" />
+        <result column="auditor" property="auditor" />
+        <result column="add_time" property="addTime" />
+    </resultMap>
+
+    <select id="queryDeviceParamBySiteIdAndDeviceId" resultMap="map">
+        SELECT
+        *
+        FROM
+        jl_device_parameter_config
+        WHERE
+        site_id = #{siteId}
+        AND device_id IN
+        <foreach collection="deviceIdList" index="index" item="deviceId" open="(" separator="," close=")">
+            #{deviceId}
+        </foreach>
+    </select>
+
+</mapper>
