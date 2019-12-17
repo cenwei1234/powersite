@@ -56,11 +56,13 @@ public class UserServiceImpl implements IUserService {
         //生成token
         String randomSalt = ToolUtil.getRandomString(6);
         String token = DigestUtils.md5Hex( randomSalt + "" + user.getUsername());
+        //将新生成的token设置到user
+        user.setToken(token);
         //更新数据库的token以及salt
         userMapper.updateTokenByUserId(token, randomSalt, user.getId());
         //保存token到session并且设置有效期
         httpSession.setAttribute(userLoginRequest.getUsername(), token);
-        httpSession.setMaxInactiveInterval(Constant.SESSION_VALIDTIME);
+        httpSession.setMaxInactiveInterval(-1);
         //记住我
         if ("1".equals(remember))
         {

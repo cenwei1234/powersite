@@ -11,6 +11,8 @@
         <result column="is_top" property="isTop" />
         <result column="pid" property="pid" />
         <result column="param_value_unit" property="paramValueUnit" />
+        <result column="param_upper_value" property="paramUpperValue" />
+        <result column="param_lower_value" property="paramLowerValue" />
     </resultMap>
 
     <select id="queryParamConfigBatch" resultType="com.jialong.powersite.modular.system.model.JlParameterConfig">

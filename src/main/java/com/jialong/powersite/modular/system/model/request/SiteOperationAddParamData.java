@@ -17,6 +17,12 @@ public class SiteOperationAddParamData {
     //参数值类型
     private  String paramValueUnit;
 
+    //上临界值
+    private  String paramUpperValue;
+
+    //下临界值
+    private  String paramLowerValue;
+
     public Integer getParamId() {
         return paramId;
     }
@@ -55,5 +61,21 @@ public class SiteOperationAddParamData {
 
     public void setParamValueUnit(String paramValueUnit) {
         this.paramValueUnit = paramValueUnit;
+    }
+
+    public String getParamUpperValue() {
+        return paramUpperValue;
+    }
+
+    public void setParamUpperValue(String paramUpperValue) {
+        this.paramUpperValue = paramUpperValue;
+    }
+
+    public String getParamLowerValue() {
+        return paramLowerValue;
+    }
+
+    public void setParamLowerValue(String paramLowerValue) {
+        this.paramLowerValue = paramLowerValue;
     }
 }

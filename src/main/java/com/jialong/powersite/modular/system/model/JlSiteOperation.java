@@ -21,6 +21,12 @@ public class JlSiteOperation {
 	 //参数值单位
     private  String paramValueUnit;
 
+    //上临界值
+    private  String paramUpperValue;
+
+    //下临界值
+    private  String paramLowerValue;
+
     //参数值单位
     private  String addTime;
 
@@ -96,5 +102,21 @@ public class JlSiteOperation {
 
     public void setAddTime(String addTime) {
         this.addTime = addTime;
+    }
+
+    public String getParamUpperValue() {
+        return paramUpperValue;
+    }
+
+    public void setParamUpperValue(String paramUpperValue) {
+        this.paramUpperValue = paramUpperValue;
+    }
+
+    public String getParamLowerValue() {
+        return paramLowerValue;
+    }
+
+    public void setParamLowerValue(String paramLowerValue) {
+        this.paramLowerValue = paramLowerValue;
     }
 }

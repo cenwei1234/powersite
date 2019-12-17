@@ -108,6 +108,9 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
             Integer paramIdIndex = parameterConfigsMap.get(paramIdArr.get(i));
             jlSiteOperation.setParamValueType(jlParameterConfigs.get(paramIdIndex).getParamValueType());
             jlSiteOperation.setParamValueUnit(jlParameterConfigs.get(paramIdIndex).getParamValueUnit());
+            jlSiteOperation.setParamUpperValue(jlParameterConfigs.get(paramIdIndex).getParamUpperValue());
+            jlSiteOperation.setParamLowerValue(jlParameterConfigs.get(paramIdIndex).getParamLowerValue());
+
             jlSiteOperation.setAddTime(dateFormat.format(now));
             jlSiteOperation.setIsOverdue(0);
             jlSiteOperationList.add(jlSiteOperation);

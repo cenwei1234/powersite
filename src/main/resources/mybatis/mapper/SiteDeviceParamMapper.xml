@@ -14,6 +14,8 @@
             <result column="pid" property="pid" />
             <result column="is_top" property="isTop" />
             <result column="param_icon" property="paramIcon" />
+            <result column="param_upper_value" property="paramUpperValue" />
+            <result column="param_lower_value" property="paramLowerValue" />
         </collection>
     </resultMap>
 
@@ -29,7 +31,9 @@
             pc.param_value_unit,
             pc.pid,
             pc.is_top,
-            pc.param_icon
+            pc.param_icon,
+            pc.param_upper_value,
+            pc.param_lower_value
         FROM
             jl_site_device sd
         LEFT JOIN jl_device_parameter_config dp ON sd.device_id = dp.device_id

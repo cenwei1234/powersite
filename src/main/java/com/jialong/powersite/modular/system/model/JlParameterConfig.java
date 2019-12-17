@@ -27,6 +27,12 @@ public class JlParameterConfig {
     //参数图标icon
     private  String paramIcon;
 
+    //上临界值
+    private  String paramUpperValue;
+
+    //下临界值
+    private  String paramLowerValue;
+
     public Integer getId() {
         return id;
     }
@@ -97,6 +103,22 @@ public class JlParameterConfig {
 
     public void setNum(Integer num) {
         this.num = num;
+    }
+
+    public String getParamUpperValue() {
+        return paramUpperValue;
+    }
+
+    public void setParamUpperValue(String paramUpperValue) {
+        this.paramUpperValue = paramUpperValue;
+    }
+
+    public String getParamLowerValue() {
+        return paramLowerValue;
+    }
+
+    public void setParamLowerValue(String paramLowerValue) {
+        this.paramLowerValue = paramLowerValue;
     }
 
     @Override
