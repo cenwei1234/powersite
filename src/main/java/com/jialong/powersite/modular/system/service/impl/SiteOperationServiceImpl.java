@@ -5,6 +5,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jialong.powersite.core.exception.BizExceptionEnum;
+import com.jialong.powersite.core.utils.ZipUtils;
 import com.jialong.powersite.modular.system.mapper.*;
 import com.jialong.powersite.modular.system.model.*;
 import com.jialong.powersite.modular.system.model.request.SiteOperationAddParamData;
@@ -18,6 +19,7 @@ import com.jialong.powersite.modular.system.service.ISiteOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -45,7 +47,13 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
         if (null != jlSiteOperationRaw)
         {
             String operationDetail = jlSiteOperationRaw.getOperationDetail();
-            SiteOperationQueryRespData siteOperationQueryRespDataList = JSON.parseObject(operationDetail, new TypeReference<SiteOperationQueryRespData>() {});
+            String unzipedOperationDetail = null;
+            try {
+                unzipedOperationDetail = ZipUtils.unzipString(operationDetail);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            SiteOperationQueryRespData siteOperationQueryRespDataList = JSON.parseObject(unzipedOperationDetail, new TypeReference<SiteOperationQueryRespData>() {});
             baseBeanResp.setData(siteOperationQueryRespDataList);
         }
         return baseBeanResp;
@@ -67,6 +75,7 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
             //处理每个设备里面的参数数据
             processParamData(siteOperationAddReq, siteOperationAddDeviceData);
         }
+        addSiteOperationRawData(siteOperationAddReq);
         return baseResp;
     }
 
@@ -102,7 +111,11 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
             jlSiteOperationList.add(jlSiteOperation);
         }
         siteOperationMapper.addPowerSiteData(jlSiteOperationList);
+    }
 
+    private void addSiteOperationRawData(SiteOperationAddReq siteOperationAddReq) {
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//可以方便地修改日期格式
         //间原始记录表里面同样的站点id的记录设置为过期
         JlSiteOperationRaw jlSiteOperationRaw = new JlSiteOperationRaw();
         jlSiteOperationRaw.setSiteId(siteOperationAddReq.getSiteId());
@@ -121,7 +134,8 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        jlSiteOperationRaw.setOperationDetail(siteOperationAddReqStr);
+        String siteOperationAddReqZipStr = ZipUtils.zipString(siteOperationAddReqStr);
+        jlSiteOperationRaw.setOperationDetail(siteOperationAddReqZipStr);
         siteOperationRawMapper.addSiteOperationRaw(jlSiteOperationRaw);
     }
 

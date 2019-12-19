@@ -48,4 +48,8 @@
         </foreach>
         ;
     </insert>
+
+    <delete id="deleteOverdueSiteOperation" parameterType="string">
+        delete from jl_site_operation where add_time <![CDATA[<=]]> #{beforeDate} and is_overdue = 1;
+    </delete>
 </mapper>

@@ -1,10 +1,8 @@
 package com.jialong.powersite.modular.system.controller;
 
+import com.jialong.powersite.core.common.node.MenuNode;
 import com.jialong.powersite.modular.system.model.Menu;
-import com.jialong.powersite.modular.system.model.request.MenuAddReq;
-import com.jialong.powersite.modular.system.model.request.MenuDelReq;
-import com.jialong.powersite.modular.system.model.request.MenuListReq;
-import com.jialong.powersite.modular.system.model.request.MenuUpdateReq;
+import com.jialong.powersite.modular.system.model.request.*;
 import com.jialong.powersite.modular.system.model.response.*;
 import com.jialong.powersite.modular.system.model.response.data.CheckTaskRespData;
 import com.jialong.powersite.modular.system.service.IMenuService;
@@ -50,5 +48,12 @@ public class MenuController  {
         BaseResp baseResp = new BaseResp();
         menuService.delMenus(menuDelReq, baseResp);
         return baseResp;
+    }
+
+    @RequestMapping("/menulist")
+    public BaseListResp delMenu(@RequestBody MenusListReq menusListReq)
+    {
+        BaseListResp<MenuNode> baseListResp = new BaseListResp<>();
+        return menuService.getMenusByRoleIds(menusListReq, baseListResp);
     }
 }

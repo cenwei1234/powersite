@@ -1,6 +1,7 @@
 package com.jialong.powersite.modular.system.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jialong.powersite.modular.system.model.request.SiteOperationAddDeviceOperationListData;
 import com.jialong.powersite.modular.system.model.request.SiteOperationAddParamData;
 
 import java.util.List;
@@ -14,7 +15,21 @@ public class SiteOperationAddDeviceData {
 
     private Integer deviceStatus;
 
+    private Boolean deviceOperatable;
+
+    private Integer deviceOperation;
+
     private List<SiteOperationAddParamData> paramDataList;
+
+    private List<SiteOperationAddDeviceOperationListData> operationList;
+
+    public List<SiteOperationAddDeviceOperationListData> getOperationList() {
+        return operationList;
+    }
+
+    public void setOperationList(List<SiteOperationAddDeviceOperationListData> operationList) {
+        this.operationList = operationList;
+    }
 
     public Integer getDeviceId() {
         return deviceId;
@@ -48,4 +63,19 @@ public class SiteOperationAddDeviceData {
         this.paramDataList = paramDataList;
     }
 
+    public Boolean getDeviceOperatable() {
+        return deviceOperatable;
+    }
+
+    public void setDeviceOperatable(Boolean deviceOperatable) {
+        this.deviceOperatable = deviceOperatable;
+    }
+
+    public Integer getDeviceOperation() {
+        return deviceOperation;
+    }
+
+    public void setDeviceOperation(Integer deviceOperation) {
+        this.deviceOperation = deviceOperation;
+    }
 }

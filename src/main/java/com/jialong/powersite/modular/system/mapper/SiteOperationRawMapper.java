@@ -15,4 +15,6 @@ public interface SiteOperationRawMapper {
     Boolean updateSiteOperationRawBySiteId(JlSiteOperationRaw jlSiteOperationRaw);
 
     JlSiteOperationRaw querySiteOperationRawBySiteId(@Param("siteId") Integer siteId);
+
+    Integer deleteOverdueRawSiteOperation(@Param("beforeDate") String beforeDate);
 }

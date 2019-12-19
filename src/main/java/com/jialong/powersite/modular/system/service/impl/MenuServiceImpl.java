@@ -2,11 +2,15 @@ package com.jialong.powersite.modular.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.jialong.powersite.core.common.constant.state.MenuStatus;
+import com.jialong.powersite.core.common.node.MenuNode;
 import com.jialong.powersite.core.common.node.ZTreeNode;
 import com.jialong.powersite.core.exception.ServiceException;
 import com.jialong.powersite.core.exception.BizExceptionEnum;
 import com.jialong.powersite.modular.system.mapper.MenuMapper;
+import com.jialong.powersite.modular.system.mapper.RoleMapper;
+import com.jialong.powersite.modular.system.mapper.UserMapper;
 import com.jialong.powersite.modular.system.model.Menu;
+import com.jialong.powersite.modular.system.model.User;
 import com.jialong.powersite.modular.system.model.request.*;
 import com.jialong.powersite.modular.system.model.response.*;
 import com.jialong.powersite.modular.system.service.IMenuService;
@@ -15,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -22,6 +27,9 @@ public class MenuServiceImpl implements IMenuService {
 
     @Autowired
     private MenuMapper menuMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public BaseListResp selectMenus(MenuListReq menuListReq, BaseListResp<Menu> baseListResp) {
@@ -156,6 +164,20 @@ public class MenuServiceImpl implements IMenuService {
             zTreeNodeList = this.menuMapper.menuTreeListByMenuIds(menuIds);
         }
         baseListResp.setData(zTreeNodeList);
+        return baseListResp;
+    }
+
+    @Override
+    public BaseListResp getMenusByRoleIds(MenusListReq menusListReq, BaseListResp<MenuNode> baseListResp) {
+        User user = this.userMapper.queryUserById(menusListReq.getUserId());
+        String roleId = user.getRoleid();
+        if (!StringUtils.isEmpty(roleId))
+        {
+            String[] split = roleId.split(",");
+            List<String> roleIds = Arrays.asList(split);
+            List<MenuNode> menuNodeList = this.menuMapper.queryMenusByRoleIds(roleIds);
+            baseListResp.setData(MenuNode.buildTitle(menuNodeList));
+        }
         return baseListResp;
     }
 }

@@ -1,5 +1,6 @@
 package com.jialong.powersite.modular.system.mapper;
 
+import com.jialong.powersite.core.common.node.MenuNode;
 import com.jialong.powersite.core.common.node.ZTreeNode;
 import com.jialong.powersite.modular.system.model.Menu;
 import org.apache.ibatis.annotations.Param;
@@ -29,4 +30,6 @@ public interface MenuMapper {
     void deleteRelationByMenu(@Param("menuId") Long id);
 
     List<ZTreeNode> menuTreeListByMenuIds(List<Long> menuIds);
+
+    List<MenuNode> queryMenusByRoleIds(List<String> roleIds);
 }

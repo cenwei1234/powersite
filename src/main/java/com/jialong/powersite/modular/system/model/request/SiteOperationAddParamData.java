@@ -2,6 +2,9 @@ package com.jialong.powersite.modular.system.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SiteOperationAddParamData {
 
     //参数id(关联jl_parameter_config表id)
@@ -16,6 +19,8 @@ public class SiteOperationAddParamData {
 
     //参数值类型(0 数值 1 状态值 top=0的时候才有值)
     private  Integer paramValueType;
+
+    private  Map paramValueNameMap;
 
     //参数值类型
     private  String paramValueUnit;
@@ -110,5 +115,13 @@ public class SiteOperationAddParamData {
 
     public void setAlertTypeName(String alertTypeName) {
         this.alertTypeName = alertTypeName;
+    }
+
+    public Map getParamValueNameMap() {
+        return paramValueNameMap;
+    }
+
+    public void setParamValueNameMap(Map paramValueNameMap) {
+        this.paramValueNameMap = paramValueNameMap;
     }
 }

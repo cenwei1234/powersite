@@ -48,4 +48,8 @@
             site_id = #{siteId};
     </update>
 
+    <delete id="deleteOverdueRawSiteOperation" parameterType="string">
+        delete from jl_site_operation_raw where add_time <![CDATA[<=]]> #{beforeDate} and is_overdue = 1;
+    </delete>
+
 </mapper>

@@ -12,4 +12,6 @@ public interface SiteOperationMapper {
     Boolean addPowerSiteData(List<JlSiteOperation> jlSiteOperationList);
 
     Boolean updateSiteOperationState(@Param("siteId") Integer siteId, @Param("isOverdue") Integer isOverdue, @Param("paramIdList") List<Integer> paramIdList);
+
+    Integer deleteOverdueSiteOperation(@Param("beforeDate") String beforeDate);
 }
