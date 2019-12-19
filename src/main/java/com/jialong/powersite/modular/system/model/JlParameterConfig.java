@@ -28,10 +28,10 @@ public class JlParameterConfig {
     private  String paramIcon;
 
     //上临界值
-    private  String paramUpperValue;
+    private  String alertUpperValue;
 
     //下临界值
-    private  String paramLowerValue;
+    private  String alertLowerValue;
 
     public Integer getId() {
         return id;
@@ -105,20 +105,20 @@ public class JlParameterConfig {
         this.num = num;
     }
 
-    public String getParamUpperValue() {
-        return paramUpperValue;
+    public String getAlertUpperValue() {
+        return alertUpperValue;
     }
 
-    public void setParamUpperValue(String paramUpperValue) {
-        this.paramUpperValue = paramUpperValue;
+    public void setAlertUpperValue(String alertUpperValue) {
+        this.alertUpperValue = alertUpperValue;
     }
 
-    public String getParamLowerValue() {
-        return paramLowerValue;
+    public String getAlertLowerValue() {
+        return alertLowerValue;
     }
 
-    public void setParamLowerValue(String paramLowerValue) {
-        this.paramLowerValue = paramLowerValue;
+    public void setAlertLowerValue(String alertLowerValue) {
+        this.alertLowerValue = alertLowerValue;
     }
 
     @Override

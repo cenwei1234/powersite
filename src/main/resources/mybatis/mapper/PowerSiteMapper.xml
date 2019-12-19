@@ -22,8 +22,8 @@
                 #{siteHost},
                 #{sitePorts}
             )
-        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
-            select LAST_INSERT_ID() as id;
-        </selectKey>
     </insert>
+    <select id="queryMaxSiteId" resultType="integer">
+        select MAX(id) from jl_power_site;
+    </select>
 </mapper>

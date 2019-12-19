@@ -1,16 +1,17 @@
-package com.jialong.powersite.modular.system.service;
+package com.jialong.powersite.modular.system.service.impl;
 
 import com.jialong.powersite.modular.system.mapper.SiteDeviceParamMapper;
 import com.jialong.powersite.modular.system.model.SiteDeviceParam;
 import com.jialong.powersite.modular.system.model.request.SiteParamQueryReq;
 import com.jialong.powersite.modular.system.model.response.BaseListResp;
+import com.jialong.powersite.modular.system.service.ISiteParamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SiteParamServiceImpl implements ISiteParamService{
+public class SiteParamServiceImpl implements ISiteParamService {
 
     @Autowired
     private SiteDeviceParamMapper siteDeviceParamMapper;

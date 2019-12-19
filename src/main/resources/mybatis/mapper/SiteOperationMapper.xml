@@ -19,23 +19,32 @@
         UPDATE jl_site_operation
             SET is_overdue = 1
         WHERE
-            site_id = #{siteId} and param_id = #{paramId} and is_overdue = #{isOverdue}
+            site_id = #{siteId} and is_overdue = #{isOverdue} and param_id IN
+        <foreach collection="paramIdList" index="index" item="paramId" separator="," open="(" close=")">
+            #{paramId}
+        </foreach>
     </update>
 
     <insert id="addPowerSiteData" parameterType="com.jialong.powersite.modular.system.model.JlSiteOperation">
         INSERT INTO jl_site_operation (
         site_id,
         uuid,
+        device_id,
         param_id,
         param_value,
         param_value_type,
         param_value_unit,
+        alert_upper_value,
+        alert_lower_value,
+        alert,
+        alert_type,
+        alert_type_name,
         add_time,
         is_overdue
         )
         VALUES
         <foreach collection="list" index="index" item="i" separator=",">
-            (#{i.siteId}, #{i.uuid}, #{i.paramId}, #{i.paramValue}, #{i.paramValueType}, #{i.paramValueUnit}, #{i.addTime}, #{i.isOverdue})
+            (#{i.siteId}, #{i.uuid}, #{i.deviceId}, #{i.paramId}, #{i.paramValue}, #{i.paramValueType}, #{i.paramValueUnit}, #{i.alertUpperValue}, #{i.alertLowerValue}, #{i.alert}, #{i.alertType}, #{i.alertTypeName}, #{i.addTime}, #{i.isOverdue})
         </foreach>
         ;
     </insert>

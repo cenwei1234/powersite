@@ -11,7 +11,7 @@
         <result column="add_time" property="addTime" />
     </resultMap>
 
-    <select id="querySiteDeviceBySiteId" resultMap="map">
+    <select id="querySiteDeviceBySiteIdAndDeviceId" resultMap="map">
         SELECT
             *
         FROM

@@ -1,14 +1,16 @@
 package com.jialong.powersite.modular.system.service.impl;
 
+import com.jialong.powersite.core.common.node.ZTreeNode;
+import com.jialong.powersite.modular.system.mapper.DeviceMapper;
 import com.jialong.powersite.modular.system.mapper.PowerSiteMapper;
 import com.jialong.powersite.modular.system.mapper.SiteDeviceMapper;
 import com.jialong.powersite.modular.system.mapper.SiteIpPortMapper;
-import com.jialong.powersite.modular.system.model.JlSiteDevice;
-import com.jialong.powersite.modular.system.model.JlSiteIpport;
-import com.jialong.powersite.modular.system.model.PowerSite;
+import com.jialong.powersite.modular.system.model.*;
 import com.jialong.powersite.modular.system.model.request.PowerSiteAddReq;
 import com.jialong.powersite.modular.system.model.request.SiteDeviceAddReq;
 import com.jialong.powersite.modular.system.model.request.SiteIpPortUpdateReq;
+import com.jialong.powersite.modular.system.model.response.BaseBeanResp;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.service.IPowerSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PowerSiteServiceImpl implements IPowerSiteService {
@@ -29,6 +32,9 @@ public class PowerSiteServiceImpl implements IPowerSiteService {
     @Autowired
     private SiteDeviceMapper siteDeviceMapper;
 
+    @Autowired
+    private DeviceMapper deviceMapper;
+
     @Override
     public BaseResp addPowerSite(PowerSiteAddReq powerSiteAddReq, BaseResp baseResp) {
 
@@ -40,7 +46,8 @@ public class PowerSiteServiceImpl implements IPowerSiteService {
         powerSite.setSiteShortname(powerSiteAddReq.getSiteShortname());
         powerSite.setSitePorts(powerSiteAddReq.getSitePorts());
         powerSite.setSiteStatus(1);
-        Integer siteId = powerSiteMapper.addPowerSite(powerSite);
+        powerSiteMapper.addPowerSite(powerSite);
+        Integer siteId = powerSiteMapper.queryMaxSiteId();
         JlSiteIpport jlSiteIpport = new JlSiteIpport();
         jlSiteIpport.setSiteId(siteId);
         jlSiteIpport.setPublicIp(powerSiteAddReq.getPublicIp());
@@ -87,6 +94,13 @@ public class PowerSiteServiceImpl implements IPowerSiteService {
         jlSiteDevice.setIsDel(0);
         this.siteDeviceMapper.addSiteDevice(jlSiteDevice);
         return baseResp;
+    }
+
+    public BaseListResp querySiteDevice(SiteDeviceListReq siteDeviceListReq, BaseListResp<ZTreeNode> baseListResp){
+        Integer siteId = siteDeviceListReq.getSiteId();
+        List<ZTreeNode> zTreeNodeList = this.deviceMapper.queryDeviceChecked(siteId);
+        baseListResp.setData(zTreeNodeList);
+        return baseListResp;
     }
 
 }

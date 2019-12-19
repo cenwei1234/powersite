@@ -26,8 +26,34 @@
             );
     </select>
 
-    <select id="queryDeviceList" resultMap="map">
-        select * from jl_device where site_id = #{siteId};
+    <select id="queryDeviceChecked" parameterType="integer" resultType="com.jialong.powersite.core.common.node.ZTreeNode">
+        SELECT
+            d.id,
+            d.device_name as name,
+            (
+				CASE WHEN (1)
+					THEN 'true'
+				ELSE
+					'false'
+			END
+			) "open",
+            (
+                CASE
+                WHEN (sd.device_id IS NULL) THEN
+                    'false'
+                ELSE
+                    'true'
+                END
+            ) AS "checked"
+        FROM
+            jl_device d
+        LEFT JOIN (
+            SELECT
+                device_id
+            FROM
+                jl_site_device
+            WHERE
+                site_id = #{siteId}
+        ) sd ON d.id = sd.device_id
     </select>
-
 </mapper>

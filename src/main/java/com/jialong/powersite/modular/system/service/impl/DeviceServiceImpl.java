@@ -1,12 +1,15 @@
 package com.jialong.powersite.modular.system.service.impl;
 
+import com.jialong.powersite.core.common.node.ZTreeNode;
 import com.jialong.powersite.modular.system.mapper.DeviceMapper;
 import com.jialong.powersite.modular.system.mapper.DeviceParamMapper;
+import com.jialong.powersite.modular.system.mapper.ParameterConfigMapper;
 import com.jialong.powersite.modular.system.model.JlDevice;
 import com.jialong.powersite.modular.system.model.JlDeviceParameterConfig;
 import com.jialong.powersite.modular.system.model.request.DeviceAddReq;
 import com.jialong.powersite.modular.system.model.request.DeviceListQueryReq;
 import com.jialong.powersite.modular.system.model.request.DeviceParamAddReq;
+import com.jialong.powersite.modular.system.model.request.DeviceParameterCheckedReq;
 import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.service.IDeviceService;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DeviceServiceImpl implements IDeviceService {
@@ -24,6 +28,9 @@ public class DeviceServiceImpl implements IDeviceService {
 
     @Autowired
     private DeviceParamMapper deviceParamMapper;
+
+    @Autowired
+    private ParameterConfigMapper parameterConfigMapper;
 
     @Override
     public BaseResp addDevice(DeviceAddReq deviceAddReq, BaseResp baseResp) {
@@ -50,7 +57,6 @@ public class DeviceServiceImpl implements IDeviceService {
     public BaseResp addDeviceParam(DeviceParamAddReq deviceParamAddReq, BaseResp baseResp)
     {
         JlDeviceParameterConfig jlDeviceParameterConfig = new JlDeviceParameterConfig();
-        jlDeviceParameterConfig.setSiteId(deviceParamAddReq.getSiteId());
         jlDeviceParameterConfig.setDeviceId(deviceParamAddReq.getDeviceId());
         jlDeviceParameterConfig.setParamId(deviceParamAddReq.getParamId());
         jlDeviceParameterConfig.setParamId(deviceParamAddReq.getParamId());
@@ -58,5 +64,14 @@ public class DeviceServiceImpl implements IDeviceService {
         jlDeviceParameterConfig.setIsDel(0);
         this.deviceParamMapper.addDeviceParam(jlDeviceParameterConfig);
         return baseResp;
+    }
+
+
+    @Override
+    public BaseListResp queryDeviceParameterChecked(DeviceParameterCheckedReq deviceParameterCheckedReq, BaseListResp<ZTreeNode> baseListResp)
+    {
+        List<ZTreeNode> zTreeNodeList = this.parameterConfigMapper.queryDeviceParameterChecked(deviceParameterCheckedReq.getSiteId(), deviceParameterCheckedReq.getDeviceId());
+        baseListResp.setData(zTreeNodeList);
+        return baseListResp;
     }
 }

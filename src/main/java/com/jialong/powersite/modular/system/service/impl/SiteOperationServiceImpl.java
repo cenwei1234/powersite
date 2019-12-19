@@ -65,52 +65,38 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
         List<SiteOperationAddDeviceData> deviceDataList = siteOperationAddReq.getDeviceDataList();
         for (SiteOperationAddDeviceData siteOperationAddDeviceData : deviceDataList) {
             //处理每个设备里面的参数数据
-            processParamData(siteOperationAddReq, baseResp, siteOperationAddDeviceData);
+            processParamData(siteOperationAddReq, siteOperationAddDeviceData);
         }
         return baseResp;
     }
 
-    private void processParamData(SiteOperationAddReq siteOperationAddReq, BaseResp baseResp, SiteOperationAddDeviceData siteOperationAddDeviceData) {
+    private void processParamData(SiteOperationAddReq siteOperationAddReq, SiteOperationAddDeviceData siteOperationAddDeviceData) {
         List<JlSiteOperation> jlSiteOperationList = new ArrayList<>();
         List<Integer> paramIdArr = new ArrayList<>();
-        List<String> paramValueArr = new ArrayList<>();
         List<SiteOperationAddParamData> paramDataList = siteOperationAddDeviceData.getParamDataList();
         for (SiteOperationAddParamData siteOperationAddParamData : paramDataList) {
             paramIdArr.add(siteOperationAddParamData.getParamId());
-            paramValueArr.add(siteOperationAddParamData.getParamValue());
         }
-        List<JlParameterConfig> jlParameterConfigs = parameterConfigMapper.queryParamConfigBatch(paramIdArr);
         //以site_id和param_id联合条件作为标准 将已有的记录标识为过期 在查询的时候过滤过期的记录 同时新增的记录标识为未过期
-        for (int i = 0; i < jlParameterConfigs.size(); i++) {
-            JlSiteOperation jlSiteOperation = new JlSiteOperation();
-            jlSiteOperation.setSiteId(siteOperationAddReq.getSiteId());
-            jlSiteOperation.setParamId(jlParameterConfigs.get(i).getId());
-            jlSiteOperation.setIsOverdue(0);
-            siteOperationMapper.updateSiteOperationState(jlSiteOperation);
-        }
-        //这里构造一个Map 存储参数字典表中参数的id和在jlParameterConfigs中的索引
-        Map<Integer, Integer> parameterConfigsMap = new HashMap<>();
-        for (int index = 0; index < jlParameterConfigs.size(); index++) {
-            //存储查询出集合中参数id和
-            parameterConfigsMap.put(jlParameterConfigs.get(index).getId(), index);
-        }
+        siteOperationMapper.updateSiteOperationState(siteOperationAddReq.getSiteId(), 0, paramIdArr);
 
         Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//可以方便地修改日期格式
 
-        for (int i = 0; i < paramIdArr.size(); i++) {
+        for (SiteOperationAddParamData siteOperationAddParamData : paramDataList) {
             JlSiteOperation jlSiteOperation = new JlSiteOperation();
             jlSiteOperation.setSiteId(siteOperationAddReq.getSiteId());
             jlSiteOperation.setUuid(siteOperationAddReq.getUuid());
-            jlSiteOperation.setParamId(paramIdArr.get(i));
-            jlSiteOperation.setParamValue(paramValueArr.get(i));
-            //获取对应的参数所在的List中的位置 这里需要补充参数字典表里面的相关字段的值
-            Integer paramIdIndex = parameterConfigsMap.get(paramIdArr.get(i));
-            jlSiteOperation.setParamValueType(jlParameterConfigs.get(paramIdIndex).getParamValueType());
-            jlSiteOperation.setParamValueUnit(jlParameterConfigs.get(paramIdIndex).getParamValueUnit());
-            jlSiteOperation.setParamUpperValue(jlParameterConfigs.get(paramIdIndex).getParamUpperValue());
-            jlSiteOperation.setParamLowerValue(jlParameterConfigs.get(paramIdIndex).getParamLowerValue());
-
+            jlSiteOperation.setDeviceId(siteOperationAddDeviceData.getDeviceId());
+            jlSiteOperation.setParamId(siteOperationAddParamData.getParamId());
+            jlSiteOperation.setParamValue(siteOperationAddParamData.getParamValue());
+            jlSiteOperation.setParamValueType(siteOperationAddParamData.getParamValueType());
+            jlSiteOperation.setParamValueUnit(siteOperationAddParamData.getParamValueUnit());
+            jlSiteOperation.setAlertUpperValue(siteOperationAddParamData.getAlertUpperValue());
+            jlSiteOperation.setAlertLowerValue(siteOperationAddParamData.getAlertLowerValue());
+            jlSiteOperation.setAlert(siteOperationAddParamData.getAlert());
+            jlSiteOperation.setAlertType(siteOperationAddParamData.getAlertType());
+            jlSiteOperation.setAlertTypeName(siteOperationAddParamData.getAlertTypeName());
             jlSiteOperation.setAddTime(dateFormat.format(now));
             jlSiteOperation.setIsOverdue(0);
             jlSiteOperationList.add(jlSiteOperation);
@@ -147,7 +133,7 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
         for (SiteOperationAddDeviceData siteOperationAddDeviceData : deviceDataList) {
             deviceIdList.add(siteOperationAddDeviceData.getDeviceId());
         }
-        List<JlSiteDevice> jlSiteDevices = siteDeviceMapper.querySiteDeviceBySiteId(siteId, deviceIdList);
+        List<JlSiteDevice> jlSiteDevices = siteDeviceMapper.querySiteDeviceBySiteIdAndDeviceId(siteId, deviceIdList);
         if (deviceIdList.size() != jlSiteDevices.size())
         {
             baseResp.setErrorCode(String.valueOf(BizExceptionEnum.PARAM_DEVICE_NOTMATCH.getCode()));

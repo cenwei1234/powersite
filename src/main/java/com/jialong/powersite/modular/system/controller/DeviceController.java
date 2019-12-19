@@ -1,7 +1,10 @@
 package com.jialong.powersite.modular.system.controller;
 
+import com.jialong.powersite.core.common.node.ZTreeNode;
 import com.jialong.powersite.modular.system.model.request.DeviceAddReq;
 import com.jialong.powersite.modular.system.model.request.DeviceParamAddReq;
+import com.jialong.powersite.modular.system.model.request.DeviceParameterCheckedReq;
+import com.jialong.powersite.modular.system.model.response.BaseListResp;
 import com.jialong.powersite.modular.system.model.response.BaseResp;
 import com.jialong.powersite.modular.system.service.IDeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +36,12 @@ public class DeviceController {
         return baseResp;
     }
 
+    @RequestMapping("/querydeviceparam")
+    public BaseResp queryDeviceParam(@RequestBody DeviceParameterCheckedReq deviceParameterCheckedReq)
+    {
+        BaseListResp<ZTreeNode> baseListResp = new BaseListResp<>();
+        deviceService.queryDeviceParameterChecked(deviceParameterCheckedReq, baseListResp);
+        return baseListResp;
+    }
 
 }

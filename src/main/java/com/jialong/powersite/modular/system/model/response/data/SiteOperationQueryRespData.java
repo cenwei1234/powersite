@@ -1,6 +1,7 @@
 package com.jialong.powersite.modular.system.model.response.data;
 
 import com.jialong.powersite.modular.system.model.SiteOperationAddDeviceData;
+import com.jialong.powersite.modular.system.model.SiteOperationListDeviceData;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class SiteOperationQueryRespData {
 
     private String uuid;
 
-    private List<SiteOperationAddDeviceData> deviceDataList;
+    private List<SiteOperationListDeviceData> deviceDataList;
 
     public Integer getSiteId() {
         return siteId;
@@ -20,16 +21,16 @@ public class SiteOperationQueryRespData {
         this.siteId = siteId;
     }
 
-    public List<SiteOperationAddDeviceData> getDeviceDataList() {
+    public String getUuid() {
+        return uuid;
+    }
+
+    public List<SiteOperationListDeviceData> getDeviceDataList() {
         return deviceDataList;
     }
 
-    public void setDeviceDataList(List<SiteOperationAddDeviceData> deviceDataList) {
+    public void setDeviceDataList(List<SiteOperationListDeviceData> deviceDataList) {
         this.deviceDataList = deviceDataList;
-    }
-
-    public String getUuid() {
-        return uuid;
     }
 
     public void setUuid(String uuid) {

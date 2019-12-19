@@ -2,8 +2,6 @@ package com.jialong.powersite.modular.system.model.request;
 
 public class DeviceParamAddReq {
 
-    private  Integer siteId;
-
     //参数名称
     private  Integer deviceId;
 
@@ -15,14 +13,6 @@ public class DeviceParamAddReq {
     private  Integer isDel;
 
     private  Integer auditor;
-
-    public Integer getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(Integer siteId) {
-        this.siteId = siteId;
-    }
 
     public Integer getDeviceId() {
         return deviceId;

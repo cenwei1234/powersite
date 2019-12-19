@@ -22,7 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         List<String> pathPatternList = new ArrayList<>();
         pathPatternList.add("/admin/**");
         pathPatternList.add("/api/**");
-        registry.addInterceptor(userLoginInterceptor).addPathPatterns(pathPatternList).excludePathPatterns("/admin/user/login");
+        //registry.addInterceptor(userLoginInterceptor).addPathPatterns(pathPatternList).excludePathPatterns("/admin/user/login");
     }
 
     @Override

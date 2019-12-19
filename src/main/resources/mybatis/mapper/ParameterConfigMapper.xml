@@ -11,8 +11,8 @@
         <result column="is_top" property="isTop" />
         <result column="pid" property="pid" />
         <result column="param_value_unit" property="paramValueUnit" />
-        <result column="param_upper_value" property="paramUpperValue" />
-        <result column="param_lower_value" property="paramLowerValue" />
+        <result column="alert_upper_value" property="alertUpperValue" />
+        <result column="alert_lower_value" property="alertLowerValue" />
     </resultMap>
 
     <select id="queryParamConfigBatch" resultType="com.jialong.powersite.modular.system.model.JlParameterConfig">
@@ -53,4 +53,38 @@
             );
     </insert>
 
+
+    <select id="queryDeviceParameterChecked" resultType="com.jialong.powersite.core.common.node.ZTreeNode">
+        SELECT
+            pc.id,
+            (
+                CASE
+                WHEN (1) THEN
+                    'true'
+                ELSE
+                    'false'
+                END
+            ) "open",
+            pc.param_name as name,
+            (
+                CASE
+                WHEN (dp.device_id IS NULL) THEN
+                    'false'
+                ELSE
+                    'true'
+                END
+            ) AS "checked"
+        FROM
+            jl_parameter_config pc
+        LEFT JOIN (
+            SELECT
+                param_id,
+                device_id
+            FROM
+                jl_device_parameter_config
+            WHERE
+                site_id = #{siteId}
+            AND device_id = #{deviceId}
+        ) dp ON pc.id = dp.param_id
+    </select>
 </mapper>

@@ -1,8 +1,11 @@
 package com.jialong.powersite.modular.system.model.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SiteOperationAddParamData {
 
     //参数id(关联jl_parameter_config表id)
+    @JsonProperty(value = "paramType")
     private  Integer paramId;
 
     //参数名称对应的值
@@ -17,11 +20,17 @@ public class SiteOperationAddParamData {
     //参数值类型
     private  String paramValueUnit;
 
+    private  Boolean alert;
+
+    private  Integer alertType;
+
+    private  String alertTypeName;
+
     //上临界值
-    private  String paramUpperValue;
+    private  String alertUpperValue;
 
     //下临界值
-    private  String paramLowerValue;
+    private  String alertLowerValue;
 
     public Integer getParamId() {
         return paramId;
@@ -63,19 +72,43 @@ public class SiteOperationAddParamData {
         this.paramValueUnit = paramValueUnit;
     }
 
-    public String getParamUpperValue() {
-        return paramUpperValue;
+    public String getAlertUpperValue() {
+        return alertUpperValue;
     }
 
-    public void setParamUpperValue(String paramUpperValue) {
-        this.paramUpperValue = paramUpperValue;
+    public void setAlertUpperValue(String alertUpperValue) {
+        this.alertUpperValue = alertUpperValue;
     }
 
-    public String getParamLowerValue() {
-        return paramLowerValue;
+    public String getAlertLowerValue() {
+        return alertLowerValue;
     }
 
-    public void setParamLowerValue(String paramLowerValue) {
-        this.paramLowerValue = paramLowerValue;
+    public void setAlertLowerValue(String alertLowerValue) {
+        this.alertLowerValue = alertLowerValue;
+    }
+
+    public Boolean getAlert() {
+        return alert;
+    }
+
+    public void setAlert(Boolean alert) {
+        this.alert = alert;
+    }
+
+    public Integer getAlertType() {
+        return alertType;
+    }
+
+    public void setAlertType(Integer alertType) {
+        this.alertType = alertType;
+    }
+
+    public String getAlertTypeName() {
+        return alertTypeName;
+    }
+
+    public void setAlertTypeName(String alertTypeName) {
+        this.alertTypeName = alertTypeName;
     }
 }

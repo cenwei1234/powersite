@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface SiteDeviceMapper {
 
-    List<JlSiteDevice> querySiteDeviceBySiteId(@Param(("siteId")) Integer siteId, @Param("deviceIdList") List<Integer> deviceIdList);
+    List<JlSiteDevice> querySiteDeviceBySiteIdAndDeviceId(@Param(("siteId")) Integer siteId, @Param("deviceIdList") List<Integer> deviceIdList);
 
     Integer addSiteDevice(JlSiteDevice jlSiteDevice);
 }

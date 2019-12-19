@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jialong.powersite.modular.system.mapper.DeviceOperationMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="map" type="com.jialong.powersite.modular.system.model.JlDeviceOperation">
+        <result column="id" property="id" />
+        <result column="device_id" property="deviceId" />
+        <result column="operation_key" property="operationKey" />
+        <result column="operation_value" property="operationValue" />
+        <result column="operation_value_type" property="operationValueType" />
+        <result column="operation_value_show" property="operationValueShow" />
+    </resultMap>
+
+    <insert id="addDeviceOperation" parameterType="com.jialong.powersite.modular.system.model.JlDeviceOperation">
+        INSERT INTO jl_device_operation (
+            device_id,
+            operation_key,
+            operation_value,
+            operation_value_type,
+            operation_value_show
+        )
+        VALUES
+            (
+                #{deviceId},
+                #{operationKey},
+                #{operationValue},
+                #{operationValueType},
+                #{operationValueShow}
+            );
+    </insert>
+</mapper>

@@ -2,26 +2,26 @@ package com.jialong.powersite.modular.system.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jialong.powersite.modular.system.model.request.SiteOperationAddParamData;
+import com.jialong.powersite.modular.system.model.response.data.SiteOperationListParamData;
 
 import java.util.List;
 
-public class SiteOperationAddDeviceData {
+public class SiteOperationListDeviceData {
 
-    @JsonProperty(value = "deviceType")
-    private Integer deviceId;
+    private Integer deviceType;
 
     private String deviceName;
 
     private Integer deviceStatus;
 
-    private List<SiteOperationAddParamData> paramDataList;
+    private List<SiteOperationListParamData> paramDataList;
 
-    public Integer getDeviceId() {
-        return deviceId;
+    public Integer getDeviceType() {
+        return deviceType;
     }
 
-    public void setDeviceId(Integer deviceId) {
-        this.deviceId = deviceId;
+    public void setDeviceType(Integer deviceType) {
+        this.deviceType = deviceType;
     }
 
     public String getDeviceName() {
@@ -40,12 +40,11 @@ public class SiteOperationAddDeviceData {
         this.deviceStatus = deviceStatus;
     }
 
-    public List<SiteOperationAddParamData> getParamDataList() {
+    public List<SiteOperationListParamData> getParamDataList() {
         return paramDataList;
     }
 
-    public void setParamDataList(List<SiteOperationAddParamData> paramDataList) {
+    public void setParamDataList(List<SiteOperationListParamData> paramDataList) {
         this.paramDataList = paramDataList;
     }
-
 }
