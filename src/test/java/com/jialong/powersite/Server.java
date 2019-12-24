@@ -11,53 +11,35 @@ public class Server {
             //1.创建一个服务器端Socket，即ServerSocket，指定绑定的端口，并监听此端口
             ServerSocket serverSocket=new ServerSocket(8899);
             Socket socket=null;
-            //记录客户端的数量
-            int count=0;
             System.out.println("***服务器即将启动，等待客户端的连接***");
             //循环监听等待客户端的连接
             while(true){
                 //调用accept()方法开始监听，等待客户端的连接
                 socket=serverSocket.accept();
-
-
                 //创建一个新的线程
                 InputStream is=null;
-                InputStreamReader isr=null;
-                BufferedReader br=null;
                 OutputStream os=null;
-                PrintWriter pw=null;
                 try {
                     //获取输入流，并读取客户端信息
                     is = socket.getInputStream();
-                    isr = new InputStreamReader(is);
-                    br = new BufferedReader(isr);
-                    String info=null;
-                    while((info=br.readLine())!=null){//循环读取客户端的信息
-                        for (byte aByte : info.getBytes()) {
-                            System.out.println(aByte);
-                        }
-                        System.out.println("我是服务器，客户端说："+info);
-                    }
+                    int read = is.read();
+                    System.out.println("我是服务器，客户端说："+read);
                     socket.shutdownInput();//关闭输入流
                     //获取输出流，响应客户端的请求
                     os = socket.getOutputStream();
-                    pw = new PrintWriter(os);
-                    pw.write("欢迎您！");
-                    pw.flush();//调用flush()方法将缓冲输出
+
+                    byte[] b = {0x18,0x06,0x00,0x02,0x00,0x10,0x2B,(byte)0xCF};
+
+                    os.write(b);
+                    os.flush();
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }finally{
                     //关闭资源
                     try {
-                        if(pw!=null)
-                            pw.close();
                         if(os!=null)
                             os.close();
-                        if(br!=null)
-                            br.close();
-                        if(isr!=null)
-                            isr.close();
                         if(is!=null)
                             is.close();
                         if(socket!=null)
@@ -66,11 +48,6 @@ public class Server {
                         e.printStackTrace();
                     }
                 }
-
-
-
-                count++;//统计客户端的数量
-                System.out.println("客户端的数量："+count);
                 InetAddress address=socket.getInetAddress();
                 System.out.println("当前客户端的IP："+address.getHostAddress());
             }
