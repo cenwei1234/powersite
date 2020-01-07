@@ -66,7 +66,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
         }
         //取得出token需要把token的有效期刷新为新的时间周期
         session.setAttribute(user.getUsername(), token);
-        session.setMaxInactiveInterval(Constant.SESSION_VALIDTIME);
+        session.setMaxInactiveInterval(-1);
 
         //通过拦截器==到达Controller==到达service 一个线程
         UserThreadLocal.set(user);

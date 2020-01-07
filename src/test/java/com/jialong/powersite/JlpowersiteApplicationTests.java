@@ -53,7 +53,7 @@ class JlpowersiteApplicationTests {
         SiteOperationAddDeviceData siteOperationAddDeviceData = new SiteOperationAddDeviceData();
         siteOperationAddDeviceData.setDeviceId(1);
         siteOperationAddDeviceData.setDeviceName("温湿度传感器");
-        siteOperationAddDeviceData.setDeviceStatus(1);
+        siteOperationAddDeviceData.setDeviceStatus(true);
         siteOperationAddDeviceData.setParamDataList(paramDataList);
         siteOperationAddDeviceDataList.add(siteOperationAddDeviceData);
 

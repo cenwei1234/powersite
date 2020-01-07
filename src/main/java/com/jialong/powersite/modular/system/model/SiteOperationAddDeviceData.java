@@ -13,11 +13,11 @@ public class SiteOperationAddDeviceData {
 
     private String deviceName;
 
-    private Integer deviceStatus;
+    private Boolean deviceStatus;
 
     private Boolean deviceOperatable;
 
-    private Integer deviceOperation;
+    private List<Integer> deviceOperation;
 
     private List<SiteOperationAddParamData> paramDataList;
 
@@ -47,11 +47,11 @@ public class SiteOperationAddDeviceData {
         this.deviceName = deviceName;
     }
 
-    public Integer getDeviceStatus() {
+    public Boolean getDeviceStatus() {
         return deviceStatus;
     }
 
-    public void setDeviceStatus(Integer deviceStatus) {
+    public void setDeviceStatus(Boolean deviceStatus) {
         this.deviceStatus = deviceStatus;
     }
 
@@ -71,11 +71,11 @@ public class SiteOperationAddDeviceData {
         this.deviceOperatable = deviceOperatable;
     }
 
-    public Integer getDeviceOperation() {
+    public List<Integer> getDeviceOperation() {
         return deviceOperation;
     }
 
-    public void setDeviceOperation(Integer deviceOperation) {
+    public void setDeviceOperation(List<Integer> deviceOperation) {
         this.deviceOperation = deviceOperation;
     }
 }

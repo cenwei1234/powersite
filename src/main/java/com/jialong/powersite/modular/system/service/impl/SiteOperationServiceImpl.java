@@ -62,9 +62,9 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
     @Override
     public BaseResp addSiteOperation(SiteOperationAddReq siteOperationAddReq, BaseResp baseResp) {
         //对站点设备的校验
-        verifyPowerDeviceData(siteOperationAddReq, baseResp);
+        //verifyPowerDeviceData(siteOperationAddReq, baseResp);
         //对设备内参数的校验
-        verifyDeviceParamData(siteOperationAddReq, baseResp);
+        //verifyDeviceParamData(siteOperationAddReq, baseResp);
 
         return processDeviceParamData(siteOperationAddReq, baseResp);
     }
