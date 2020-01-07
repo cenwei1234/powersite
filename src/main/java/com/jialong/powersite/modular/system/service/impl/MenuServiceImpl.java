@@ -134,9 +134,7 @@ public class MenuServiceImpl implements IMenuService {
         //删除所有子菜单
         String pcodes = "%[" + menu.getCode() + "]%";
         List<Menu> menus = menuMapper.selectSubMenusLike(pcodes);
-        for (Menu temp : menus) {
-            delMenu(temp.getId());
-        }
+        menus.forEach(i -> delMenu(i.getId()));
         return baseResp;
     }
 

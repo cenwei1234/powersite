@@ -83,16 +83,16 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
         List<JlSiteOperation> jlSiteOperationList = new ArrayList<>();
         List<Integer> paramIdArr = new ArrayList<>();
         List<SiteOperationAddParamData> paramDataList = siteOperationAddDeviceData.getParamDataList();
-        for (SiteOperationAddParamData siteOperationAddParamData : paramDataList) {
-            paramIdArr.add(siteOperationAddParamData.getParamId());
-        }
+
+        paramDataList.forEach( i -> paramIdArr.add(i.getParamId()));
+
         //以site_id和param_id联合条件作为标准 将已有的记录标识为过期 在查询的时候过滤过期的记录 同时新增的记录标识为未过期
         siteOperationMapper.updateSiteOperationState(siteOperationAddReq.getSiteId(), 0, paramIdArr);
 
         Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//可以方便地修改日期格式
 
-        for (SiteOperationAddParamData siteOperationAddParamData : paramDataList) {
+        paramDataList.forEach( siteOperationAddParamData ->{
             JlSiteOperation jlSiteOperation = new JlSiteOperation();
             jlSiteOperation.setSiteId(siteOperationAddReq.getSiteId());
             jlSiteOperation.setUuid(siteOperationAddReq.getUuid());
@@ -109,7 +109,7 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
             jlSiteOperation.setAddTime(dateFormat.format(now));
             jlSiteOperation.setIsOverdue(0);
             jlSiteOperationList.add(jlSiteOperation);
-        }
+        });
         siteOperationMapper.addPowerSiteData(jlSiteOperationList);
     }
 
@@ -144,9 +144,9 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
         Integer siteId = siteOperationAddReq.getSiteId();
         List<SiteOperationAddDeviceData> deviceDataList = siteOperationAddReq.getDeviceDataList();
         List<Integer> deviceIdList = new ArrayList<>();
-        for (SiteOperationAddDeviceData siteOperationAddDeviceData : deviceDataList) {
-            deviceIdList.add(siteOperationAddDeviceData.getDeviceId());
-        }
+
+        deviceDataList.forEach(i -> { deviceIdList.add(i.getDeviceId());});
+
         List<JlSiteDevice> jlSiteDevices = siteDeviceMapper.querySiteDeviceBySiteIdAndDeviceId(siteId, deviceIdList);
         if (deviceIdList.size() != jlSiteDevices.size())
         {
@@ -161,6 +161,7 @@ public class SiteOperationServiceImpl implements ISiteOperationService {
         List<SiteOperationAddDeviceData> deviceDataList = siteOperationAddReq.getDeviceDataList();
         List<Integer> deviceIdList = new ArrayList<>();
         int paramDataCount = 0;
+
         for (SiteOperationAddDeviceData siteOperationAddDeviceData : deviceDataList) {
             deviceIdList.add(siteOperationAddDeviceData.getDeviceId());
             List<SiteOperationAddParamData> paramDataList = siteOperationAddDeviceData.getParamDataList();

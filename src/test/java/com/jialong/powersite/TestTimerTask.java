@@ -9,7 +9,7 @@ public class TestTimerTask {
      
     public TestTimerTask(int a) {
         timer = new Timer();
-        timer.schedule(new GoodTimerTask(),0, 1000*a);
+        timer.schedule(new GoodTimerTask(),0, 10000*a);
     }
 
     public static void main(String[] args) {

@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,19 +43,20 @@ public class RoleServiceImpl implements IRoleService {
     {
         List<RoleListRespData> roles = roleMapper.selectRoles();
         Map<Integer,String> roleMap = new HashMap<>();
-        for (RoleListRespData role : roles) {
-             roleMap.put(role.getId(), role.getName());
-        }
-        for (RoleListRespData role : roles) {
-            if (role.getPid() == 0)
-            {
-                role.setPname("--");
+
+        roles.forEach( i -> {
+            roleMap.put(i.getId(), i.getName());
+        } );
+
+        roles.forEach(i -> {
+            if (i.getPid() == 0){
+                i.setPname("--");
             }
             else
             {
-                role.setPname(roleMap.get(role.getPid()));
+                i.setPname(roleMap.get(i.getPid()));
             }
-        }
+        });
         baseListResp.setData(roles);
         return baseListResp;
     }
@@ -137,12 +139,15 @@ public class RoleServiceImpl implements IRoleService {
         // 删除该角色所有的权限
         this.roleMapper.deleteRelationByRoleId(roleMenuSetReq.getRoleId());
         // 添加新的权限 也就是新增sys_relation里面的关联关系
-        for (Long id : Convert.toLongArray(roleMenuSetReq.getMenuIds().split(","))) {
-            Relation relation = new Relation();
-            relation.setRoleid(roleMenuSetReq.getRoleId());
-            relation.setMenuid(id);
-            this.relationMapper.insertRelation(relation);
-        }
+        Long[] menuIds = Convert.toLongArray(roleMenuSetReq.getMenuIds().split(","));
+        Arrays.stream(menuIds).forEach(
+            i ->{
+                Relation relation = new Relation();
+                relation.setRoleid(roleMenuSetReq.getRoleId());
+                relation.setMenuid(i);
+                this.relationMapper.insertRelation(relation);
+            }
+        );
         return baseResp;
     }
 }

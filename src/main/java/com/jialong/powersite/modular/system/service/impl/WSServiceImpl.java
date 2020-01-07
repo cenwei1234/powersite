@@ -29,7 +29,7 @@ public class WSServiceImpl implements IWSService {
     public static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    @Scheduled(fixedRate = 50000)
+    @Scheduled(fixedRate = 10000)
     public void pushAlarmLog() throws IOException {
 
         AlarmLogListReq alarmLogListReq = new AlarmLogListReq();
@@ -42,7 +42,7 @@ public class WSServiceImpl implements IWSService {
     }
 
     @Override
-    @Scheduled(fixedRate = 50000)
+    @Scheduled(fixedRate = 10000)
     public void pushOperationRecord() throws IOException{
         OperationRecordListReq operationRecordListReq = new OperationRecordListReq();
         BaseListResp<OperationRecordRespData> baseListResp = new BaseListResp<>();
