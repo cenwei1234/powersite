@@ -13,6 +13,6 @@ public class MyTimer {
     public void testQuartzTrigger1() {
         Timer timer = new Timer();
         SiteOperationDealTimerTask myTimeTask = new SiteOperationDealTimerTask("No.1");
-        timer.schedule(myTimeTask,2000L,1000L);
+        timer.schedule(myTimeTask,2000L,7*86400*1000L);
     }
 }

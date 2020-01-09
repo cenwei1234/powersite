@@ -24,7 +24,7 @@ public class ScheduleTask implements IScheduleTask {
     private SiteOperationRawMapper siteOperationRawMapper;
 
     @Override
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 86400*7)
     public void dealSiteOperation() {
         DateTime dateTime = new DateTime();
         //查找最新一周以前的站点运行数据，并且清理
