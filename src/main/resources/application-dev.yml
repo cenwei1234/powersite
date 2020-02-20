@@ -3,7 +3,7 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jialong?serverTimezone=UTC
+    url: jdbc:mysql://39.99.192.10:3306/jialong?serverTimezone=UTC
     type: com.alibaba.druid.pool.DruidDataSource
 guns:
   file-upload-path: D:\work\jialong\PowerSite\upload
