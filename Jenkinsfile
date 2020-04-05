@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'mvn -B -DskipTests clean package' 
+                sh 'mvn -B -DskipTests clean package --settings /usr/local/maven3.6/conf/settings.xml' 
             }
         }
         stage('Deliver') {
